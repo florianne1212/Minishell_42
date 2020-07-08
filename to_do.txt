@@ -1,0 +1,30 @@
+- definir la structure avec laquelle on va travailler
+-liste chainees pour les commandes ?
+-makefile
+-la libft de qui ?
+-prompt
+
+-lexer
+	-check special character
+		;autre element liste chainee
+		| pipe a faire, avec autre elt liste chainee
+		< ou > io information
+	-check spaces et tabs
+	-faire un split adapte avec les guillemets  et simples quotes
+
+-parser
+
+-expander
+
+-executor
+
+-builtin fuctions
+	echo (attention "" et '')
+	pwd
+	env
+	cd
+	export
+	unset
+	exit
+
+
