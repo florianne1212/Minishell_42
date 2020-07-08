@@ -1,0 +1,39 @@
+Version 3.0.0
+
+Fonctions ajoutees a la lib
+
+Fonctions listes chaînées C12 :
+-ft_create_elem
+-ft_list_push_front
+-ft_list_size
+-ft_list_last
+-ft_list_push_back
+-ft_list_push_strs
+-ft_list_clear
+-ft_list_at
+-ft_list_reverse
+-ft_list_foreach
+-ft_list_foreach_if
+-ft_list_find
+-ft_list_remove_if
+-ft_list_merge
+-ft_list_sort
+-ft_list_reverse_fun
+-ft_sorted_list_insert
+-ft_sorted_list_merge
+
+
+
+version 2.0.1
+
+corrections
+-leaks dans ft_split corrigee
+-protection ft_strlen
+
+fonctions ajoutees a la lib
+- get next line (get_next_line.c et get_next_line_utils.c)
+- ft_putnbr_base
+- ft_itoa_base
+-ft_itoa_base_long
+-ft_isspace(en fait is whitespace)
+-ft_isinstring
