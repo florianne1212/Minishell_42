@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 10:01:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/06/04 23:24:46 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/08 23:02:49 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			*ft_memset(void *b, int c, size_t len);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putstr_fd(char *s, int fd);
+void			ft_putstr(char *s);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strdup(const char *s1);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);

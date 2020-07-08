@@ -1,3 +1,10 @@
+
+Version 3.0.1
+
+fonctions ajoutees a la lib
+
+-ft_putstr
+
 Version 3.0.0
 
 Fonctions ajoutees a la lib

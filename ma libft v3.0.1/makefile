@@ -66,7 +66,8 @@ SRCS		= 	ft_atoi.c \
 				ft_list_size.c \
 				ft_list_sort.c \
 				ft_sorted_list_insert.c \
-				ft_sorted_list_merge.c
+				ft_sorted_list_merge.c \
+				ft_putstr.c
 
 SRCS_B		=
 
