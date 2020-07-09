@@ -34,12 +34,26 @@ void		clean_exit(t_shell *glob)
 int			main(int argc, char **argv, char **envp)
 {
 	t_shell	*glob;
+	int		i;
+	char	buf[100];
 
+	i = 1;
+	signal(SIGINT, control_c); //permet d'intercepter le signal envoyer par ctrl-C
+	signal(SIGQUIT, control_back); //permet d'intercepter le signal envoyer par ctrl-backslash
 	if (!(glob = malloc(sizeof(t_shell))))
 		return (0);
 	printf("\nargc %i", argc);
-	printf("\nargv %s", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
+	printf("\nargv %s\n", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
 	fflush(stdout);
 	sort_envp(envp, glob);
+	while (i == 1)
+	{
+		ft_putstr(">");
+		read(1, buf, 10);
+		if (strncmp(buf, "exit", 4) == 0)
+		{
+			i = 0;
+		}
+	}
 	clean_exit(glob);
 }

@@ -76,8 +76,8 @@ t_list_env		*add_link(t_list_env *list, char *str)
 {
 	t_list_env	*tmp;
 
-	if(!(tmp = malloc(sizeof(t_list_env))))
-		return(NULL);
+	if (!(tmp = malloc(sizeof(t_list_env))))
+		return (NULL);
 	if (tmp)
 	{
 		tmp->name = find_name(str);
@@ -119,5 +119,5 @@ void			sort_envp(char **envp, t_shell *glob)
 		glob->list_env = add_link(glob->list_env, envp[i]);
 		i++;
 	}
-	print_list(glob->list_env);
+	//print_list(glob->list_env);
 }

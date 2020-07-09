@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcoudert <fcoudert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,33 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include <stdio.h>
-# include <signal.h>
-# include "libft.h"
+/*
+** fonction qui gere quand control c est envoye
+** la fonction dvra stocker 130 pour echo $?
+*/
 
-typedef struct s_list_env	t_list_env;
-
-struct			s_list_env
+void	control_c(int i)
 {
-	char		*name;
-	char		*value;
-	t_list_env	*next;
-};
+	ft_putstr("\n control_c");
+	printf("\n%i\n", i);
+}
 
-typedef struct	s_shell
+/*
+** fonction qui gere quand control backslah est envoye
+** la fonction dvra stocker 131 pour echo $?
+*/
+
+void	control_back(int i)
 {
-	t_list_env	*list_env;
-}				t_shell;
-
-void			sort_envp(char **envp, t_shell *glob);
-void			control_c(int i);
-void			control_back(int i);
-
-//fonction que tu as peut etre deja :
-t_list_env		*add_link(t_list_env *list, char *str);
-void			print_list(t_list_env *list);
-
-#endif
+	ft_putstr("\n control_backslash");
+	printf("\n%i\n", i);
+}
