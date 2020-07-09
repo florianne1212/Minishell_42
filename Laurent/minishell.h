@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/08 23:48:05 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/09 13:33:25 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,14 @@ typedef struct	s_shell
 	t_list_env	*list_env;
 }				t_shell;
 
-void			sort_envp(char **envp, t_shell *glob);
 
 //fonction que tu as peut etre deja :
+/*
+** var_env.c
+*/
+char			*find_name(char *str);
+char			*find_value(char *str);
+void			sort_envp(char **envp, t_shell *glob);
 t_list_env		*add_link(t_list_env *list, char *str);
 void			print_list(t_list_env *list);
 
@@ -47,6 +52,7 @@ void			print_list(t_list_env *list);
 // ft_environ.c
 */
 char 	*ft_getenv(t_list_env *env, const char *name);
+int		ft_putenv(t_list_env **env, char *string);
 
 
 
