@@ -14,14 +14,21 @@
 
 void		clean_exit(t_shell *glob)
 {
+	t_list_env *ptr;
+
 	while (glob->list_env != NULL)
 	{
+		ptr = glob->list_env->next;
 		free(glob->list_env->name);
+		glob->list_env->name = NULL;
 		free(glob->list_env->value);
+		glob->list_env->value = NULL;
 		free(glob->list_env);
-		glob->list_env = glob->list_env->next;
+		glob->list_env = ptr;
 	}
+	glob->list_env = NULL;
 	free(glob);
+	glob = NULL;
 }
 
 int			main(int argc, char **argv, char **envp)

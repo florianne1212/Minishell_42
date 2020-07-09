@@ -76,7 +76,8 @@ t_list_env		*add_link(t_list_env *list, char *str)
 {
 	t_list_env	*tmp;
 
-	tmp = malloc(sizeof(t_list_env));
+	if(!(tmp = malloc(sizeof(t_list_env))))
+		return(NULL);
 	if (tmp)
 	{
 		tmp->name = find_name(str);

@@ -1,4 +1,4 @@
-NAME		= minishell.a
+NAME		= minishell
 
 CC =		clang
 
