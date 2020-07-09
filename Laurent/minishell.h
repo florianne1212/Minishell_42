@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/09 13:33:25 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/10 00:35:14 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void			print_list(t_list_env *list);
 */
 char 	*ft_getenv(t_list_env *env, const char *name);
 int		ft_putenv(t_list_env **env, char *string);
+int		ft_unsetenv(t_list_env **env, const char *name);
 
 
 
