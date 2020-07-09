@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/10 00:42:16 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/10 00:51:07 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			main(int argc, char **argv, char **envp)
 	ft_unsetenv(&glob->list_env, "MOI");
 	ft_unsetenv(&glob->list_env, "AENLEVER");
 	print_list(glob->list_env);
+	printf("\n\n");
 	system("leaks a.out | grep 'leaked'");
 	clean_exit(glob);
 }
