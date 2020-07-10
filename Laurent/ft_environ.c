@@ -6,109 +6,28 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:30 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/10 01:48:10 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/10 12:29:49 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		*errno_return_str(int errnocode, char *return_value)
+/*
+** fonction setenv comme la native
+** il faut aussi donner notre environnement en argument
+** retourne 0 si succes, -1 si erreur
+** si erreur, documentee dans errno
+*/
+
+static int	ft_setenv2(t_list_env *new, const char *value, int overwrite)
 {
-	errno = errnocode;
-	return (return_value);
-}
-
-int			errno_return_int(int errnocode, int return_value)
-{
-	errno = errnocode;
-	return (return_value);
-}
-
-void		env_variable_destructor(t_list_env *env)
-{
-	if (env->name)
+	if (overwrite == 1)
 	{
-		free(env->name);
-		env->name = NULL;
+		free(new->value);
+		if (!(new->value = ft_strdup(value)))
+			return (errno_return_int(ENOMEM, -1));
 	}
-	if (env->value)
-	{
-		free(env->value);
-		env->value = NULL;
-	}
-	free(env);
-	env = NULL;
-}
-
-t_list_env	*new_env_variable(char *str)
-{
-	t_list_env	*new;
-
-	if (!(new = (t_list_env *)malloc(sizeof(t_list_env))))
-		return (NULL);
-	new->name = NULL;
-	new->value = NULL;
-	if (!(new->name = find_name(str)))
-	{
-		env_variable_destructor(new);
-		return (NULL);
-	}
-	if (!(new->value = find_value(str)))
-	{
-		env_variable_destructor(new);
-		return (NULL);
-	}
-	return (new);
-}
-
-void		ft_lstadd_front_env(t_list_env **alst, t_list_env *new)
-{
-	if (alst || new)
-	{
-		new->next = *alst;
-		*alst = new;
-	}
-}
-
-void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
-				int (*cmp)(), void (*free_fct)(t_list_env *))
-{
-	t_list_env	*temp;
-	t_list_env	*new;
-
-	while ((*begin_list) && !((*cmp)((*begin_list)->name, content_ref)))
-	{
-		temp = *begin_list;
-		*begin_list = temp->next;
-		free_fct(temp);
-	}
-	new = *begin_list;
-	while (new)
-	{
-		temp = new->next;
-		while (temp && !((*cmp)(temp->name, content_ref)))
-		{
-			new->next = temp->next;
-			free_fct(temp);
-			temp = new->next;
-		}
-		new = new->next;
-	}
-}
-
-t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
-				int (*cmp)())
-{
-	t_list_env	*new;
-
-	new = begin_list;
-	while (new)
-	{
-		if (!((*cmp)(new->name, content_ref)))
-			return (new);
-		new = new->next;
-	}
-	return (NULL);
+	return (0);
 }
 
 int			ft_setenv(t_list_env **env, const char *name, const char *value,
@@ -119,13 +38,11 @@ int			ft_setenv(t_list_env **env, const char *name, const char *value,
 	if (!name || !ft_strcmp(name, "") || ft_isinstring('=', (char*)name))
 		return (errno_return_int(EINVAL, -1));
 	new = ft_list_find_env(*env, (char *)name, ft_strcmp);
-	if (new && overwrite == 1)
-		if (!(new->value = ft_strdup(value)))
-			return (errno_return_int(ENOMEM, -1));
 	if (new)
-		return (0);
+		return (ft_setenv2(new, value, overwrite));
 	if (!(new = (t_list_env *)malloc(sizeof(t_list_env))))
 		return (errno_return_int(ENOMEM, -1));
+	new->name = NULL;
 	new->value = NULL;
 	if (!(new->name = ft_strdup(name)))
 	{
@@ -176,7 +93,7 @@ char		*ft_getenv(t_list_env *env, const char *name)
 			return (env->value);
 		env = env->next;
 	}
-	return (NULL);
+	return (errno_return_str(0, NULL));
 }
 
 /*
@@ -188,12 +105,18 @@ char		*ft_getenv(t_list_env *env, const char *name)
 
 int			ft_putenv(t_list_env **env, char *string)
 {
-	t_list_env	*new;
+	char	*name;
+	char	*value;
+	int		ret;
 
 	if (!string || !ft_isinstring('=', string))
 		return (errno_return_int(EINVAL, -1));
-	if (!(new = new_env_variable(string)))
+	if (!(name = find_name(string)))
 		return (errno_return_int(ENOMEM, -1));
-	ft_lstadd_front_env(env, new);
-	return (0);
+	if (!(value = find_value(string)))
+		return (errno_return_int(ENOMEM, -1));
+	ret = ft_setenv(env, name, value, 1);
+	free(name);
+	free(value);
+	return (ret);
 }

@@ -1,4 +1,6 @@
 dans ft_environ.c j'ai mis plusieurs fonctions
+
+
 - errno_return_str : implemente l'erreur et revoie un str(le plus souvent NULL)
 - errno_return_int : implemente l'erreur et revoie un int
 ces 2 fonctions servent juste a gagner des lignes dans les autres programmes
@@ -11,8 +13,8 @@ en argument (adresse du debut de la liste chainee)
 - ft_putenv : idem que fonction native , sauf debut liste chainee list_env a rentrer
 
 le main sert a tester et reprend ton main
-Pour compiler
-gcc -Wall -Wextra -Werror  libft.a main.c var_env.c ft_environ.c
+Pour compiler (sur mac)
+gcc -Wall -Wextra -Werror  libft.a main.c var_env.c ft_environ.c env_list_gestion.c errno_gestion.c
 
 pour lancer
 ./a.out ;-)

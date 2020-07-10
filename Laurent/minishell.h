@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/10 00:35:14 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/10 12:34:01 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,25 @@ void			print_list(t_list_env *list);
 char 	*ft_getenv(t_list_env *env, const char *name);
 int		ft_putenv(t_list_env **env, char *string);
 int		ft_unsetenv(t_list_env **env, const char *name);
+int		ft_setenv(t_list_env **env, const char *name, const char *value,
+				int overwrite);
 
+/*
+// errno_gestion.c
+*/
+char		*errno_return_str(int errnocode, char *return_value);
+int			errno_return_int(int errnocode, int return_value);
 
+/*
+// env_list_gestion.c
+*/
+void		env_variable_destructor(t_list_env *env);
+t_list_env	*new_env_variable(char *str);
+void		ft_lstadd_front_env(t_list_env **alst, t_list_env *new);
+void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
+				int (*cmp)(), void (*free_fct)(t_list_env *));
+t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
+				int (*cmp)());
 
 // A VOIR ENSEMBLE
 
