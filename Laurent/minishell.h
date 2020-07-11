@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/10 12:34:01 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:20:44 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
 				int (*cmp)(), void (*free_fct)(t_list_env *));
 t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
 				int (*cmp)());
+/*
+// builtin_env.c
+*/
+int			builtin_env(t_shell *glob, int fd);
+
+/*
+// builtin_pwd.c
+*/
+int			builtin_pwd(t_shell *glob, int fd);
 
 // A VOIR ENSEMBLE
 

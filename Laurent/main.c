@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/10 11:12:33 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:25:36 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ int			main(int argc, char **argv, char **envp)
 	if((rit = ft_putenv(&glob->list_env, "HOME=cou==cou")) == -1)
 		perror("\nputenv");
 
-	print_list(glob->list_env);
+	//print_list(glob->list_env);
+	builtin_env(glob, 1);
 	printf("\n\n");
 	if (!(ret = ft_getenv(glob->list_env, s)) && errno)
 		perror("\ngetenv");
 	printf("\nla valeur de %s est %s\n", s, ret);
+
+	builtin_pwd(glob, 1);
+
+	ft_setenv(&glob->list_env, "PWD", "c'est n'importe quoi ce pwd", 1);
+	builtin_pwd(glob, 1);
 	// //essai unset
 	// ft_unsetenv(&glob->list_env, "COUCOU");
 	// ft_unsetenv(&glob->list_env, "MOI");
@@ -73,6 +79,7 @@ int			main(int argc, char **argv, char **envp)
 
 
 	printf("\n\n");
+
 	clean_exit(glob);
 	system("leaks a.out | grep 'leaked'");
 	//system("leaks a.out");
