@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/11 16:25:36 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:08:25 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			main(int argc, char **argv, char **envp)
 	char* s = "HOME";
 	char *ret;
 	int	rit;
+	char *arg[] = {"echo", "-n", "coucou", "trouduc", NULL};
 
 	if (!(glob = malloc(sizeof(t_shell))))
 		return (0);
@@ -51,16 +52,19 @@ int			main(int argc, char **argv, char **envp)
 		perror("\nputenv");
 
 	//print_list(glob->list_env);
-	builtin_env(glob, 1);
+	builtin_env(glob, 1, arg);
 	printf("\n\n");
 	if (!(ret = ft_getenv(glob->list_env, s)) && errno)
 		perror("\ngetenv");
 	printf("\nla valeur de %s est %s\n", s, ret);
 
-	builtin_pwd(glob, 1);
+	builtin_pwd(glob, 1, arg);
+	ft_putendl_fd("echo va commencer", 1);
+	builtin_echo(glob, 1, arg);
+	ft_putendl_fd("echo est termine", 1);
 
-	ft_setenv(&glob->list_env, "PWD", "c'est n'importe quoi ce pwd", 1);
-	builtin_pwd(glob, 1);
+
+
 	// //essai unset
 	// ft_unsetenv(&glob->list_env, "COUCOU");
 	// ft_unsetenv(&glob->list_env, "MOI");

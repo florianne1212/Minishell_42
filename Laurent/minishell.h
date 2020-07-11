@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/11 16:20:44 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/11 17:53:50 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,18 @@ t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
 /*
 // builtin_env.c
 */
-int			builtin_env(t_shell *glob, int fd);
+int			builtin_env(t_shell *glob, int fd, char **arg);
 
 /*
 // builtin_pwd.c
 */
-int			builtin_pwd(t_shell *glob, int fd);
+int			builtin_pwd(t_shell *glob, int fd, char **arg);
+
+/*
+// builtin_pwd.c
+*/
+int			builtin_echo(t_shell *glob, int fd, char **arg);
+
 
 // A VOIR ENSEMBLE
 

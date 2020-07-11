@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/10 23:45:02 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/11 17:15:00 by lcoiffie         ###   ########.fr       */
+/*   Created: 2020/07/11 17:28:13 by lcoiffie          #+#    #+#             */
+/*   Updated: 2020/07/11 18:09:42 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_env(t_shell *glob, int fd, char **arg)
+int	builtin_echo(t_shell *glob, int fd, char **arg)
 {
-	t_list_env *list;
+	int		i;
+	int		n_opt;
+	t_shell	*for_nothing;
 
-	if (arg[1])
+	i = 1;
+	n_opt = 0;
+	if (!(ft_strcmp(arg[1], "-n")))
 	{
-		ft_putendl_fd("env: no arguments or option in minishell", 1);
-		return (1);
+		n_opt = 1;
+		i++;
 	}
-	list = glob->list_env;
-	while (list != NULL)
+	while (arg[i])
 	{
-		ft_putstr_fd(list->name, fd);
-		ft_putstr_fd("=", fd);
-		ft_putstr_fd(list->value, fd);
-		ft_putstr_fd("\n", fd);
-		list = list->next;
+		ft_putstr_fd(arg[i], fd);
+		if (arg[i + 1])
+			ft_putstr_fd(" ", fd);
+		i++;
 	}
+	if (!n_opt)
+		ft_putchar_fd('\n', fd);
+	for_nothing = glob;
 	return (0);
 }
