@@ -1,0 +1,49 @@
+- definir la structure avec laquelle on va travailler++++
+-liste chainees pour les commandes ?
+-makefile
+	DONE
+-la libft
+	rajouter mes commandes a celle de florianne (peut etre le get_next_line aussi)
+-prompt
+	define dans le .h(comme ca on peut changer facilement)
+-liste variables env d'emblee (car a gerer avec doubles quote)
+	DONE
+-lexer
+	-strtrim espaces et tabs
+	-refaire un split --> tableau de strings avec les arguments les uns apres les autres
+	- gerer les simple cote ( pas de split espaces et tab)
+	-gerer les doubles quotes(idem que simple quote qvec gestion variables env)
+
+-parser
+creer tableau ? liste chainee ?
+transformer notre tableau de strings en :
+		fonctions simples
+		fonctions avec pipe
+		redirections
+
+-expander
+a priori pas necessaire (* pas gere, variables gerees des le debut du lexer)
+
+-executor
+	builtin a checker avant
+	commande simple, grace a PATH
+	commande avec pipe
+
+-builtin fuctions
+	echo
+		DONE
+	pwd
+		DONE
+	env
+		DONE
+	cd
+		WIP
+	export
+		DONE
+	unset
+		DONE
+	exit
+		principe OK, faire sortie propre (constructeurs destructeurs)
+
+-captage des signaux
+	WIP

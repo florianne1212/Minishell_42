@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/12 16:57:15 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/13 00:19:39 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int			builtin_export(t_shell *glob, int fd, char **arg);
 int			builtin_unset(t_shell *glob, int fd, char **arg);
 
 /*
-// builtin_unset.c
+// builtin_cd.c
 */
-int			builtin_cd(t_shell *glob, int fd, char **arg)
+int			builtin_cd(t_shell *glob, int fd, char **arg);
 
 
 

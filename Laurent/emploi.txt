@@ -1,5 +1,9 @@
 dans ft_environ.c j'ai mis plusieurs fonctions
 
+12/07/2020
+-builtin_export : reste probleme avec env triee ou non
+-builtin_unset : comme son non l'indique
+
 11/07/2020
 -builtin_env : comme son nom l'indique
 -builtin_pwd : comme son nom l'indique

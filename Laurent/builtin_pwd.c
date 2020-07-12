@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:12:11 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/11 19:47:39 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/13 00:20:25 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 int	builtin_pwd(t_shell *glob, int fd, char **arg)
 {
-	t_shell	*variableinutile;
 	char	*pwd;
 
+	(void)glob;
 	if (arg[1])
 	{
 		ft_putendl_fd("pwd: too many arguments", 1);
@@ -28,7 +28,6 @@ int	builtin_pwd(t_shell *glob, int fd, char **arg)
 	}
 	pwd = getcwd(NULL, 1);
 	ft_putendl_fd(pwd, fd);
-	variableinutile = glob;
 	free(pwd);
 	return (0);
 }
