@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/12 02:08:38 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:44:30 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int			main(int argc, char **argv, char **envp)
 
 
 
-	// printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
-	// rit = chdir("/Users/laurencoiffier/Desktop/minishell");
-	// if (rit)
-	// 	ft_putendl_fd(strerror(errno), 1);
-	// printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
+	printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
+	rit = chdir("//////Users/laurentcoiffier/Desktop/");
+	if (rit)
+		ft_putendl_fd(strerror(errno), 1);
+	printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
 
 	// //essai unset
 	// ft_unsetenv(&glob->list_env, "COUCOU");
@@ -105,6 +105,6 @@ int			main(int argc, char **argv, char **envp)
 	printf("\n\n");
 
 	clean_exit(glob);
-	//system("leaks a.out | grep 'leaked'");
+	system("leaks a.out | grep 'leaked'");
 	//system("leaks a.out");
 }
