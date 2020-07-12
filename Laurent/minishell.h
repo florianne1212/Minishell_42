@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/11 17:53:50 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/12 01:36:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <signal.h>
 # include <dirent.h>
 # include <sys/errno.h>
+# include <string.h>
 # include "libft.h"
 
 typedef struct s_list_env	t_list_env;
@@ -84,9 +85,20 @@ int			builtin_env(t_shell *glob, int fd, char **arg);
 int			builtin_pwd(t_shell *glob, int fd, char **arg);
 
 /*
-// builtin_pwd.c
+// builtin_echo.c
 */
 int			builtin_echo(t_shell *glob, int fd, char **arg);
+
+/*
+// builtin_export.c
+*/
+int			builtin_export(t_shell *glob, int fd, char **arg);
+
+/*
+// builtin_unset.c
+*/
+int			builtin_unset(t_shell *glob, int fd, char **arg);
+
 
 
 // A VOIR ENSEMBLE

@@ -3,6 +3,8 @@ dans ft_environ.c j'ai mis plusieurs fonctions
 11/07/2020
 -builtin_env : comme son nom l'indique
 -builtin_pwd : comme son nom l'indique
+-builtin_echo : avec option -n
+
 
 10/07/2020
 -ft_list_remove_if_env : enleve un elt liste chainee env_list_gestion

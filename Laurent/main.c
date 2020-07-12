@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/11 18:08:25 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/12 02:08:38 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int			main(int argc, char **argv, char **envp)
 	char* s = "HOME";
 	char *ret;
 	int	rit;
-	char *arg[] = {"echo", "-n", "coucou", "trouduc", NULL};
+	char *arg[] = {"echo", "nu=", "chouchou", "chou=bidou", "classe", NULL};
+	char *arg2[] = {"echo", NULL};
+	//char *arg3[] = {"echo", "nu", "chou", "", "AENLEVER", NULL};
+
 
 	if (!(glob = malloc(sizeof(t_shell))))
 		return (0);
@@ -62,8 +65,25 @@ int			main(int argc, char **argv, char **envp)
 	ft_putendl_fd("echo va commencer", 1);
 	builtin_echo(glob, 1, arg);
 	ft_putendl_fd("echo est termine", 1);
+	printf("\n\nexport\n");
+	builtin_export(glob, 1, arg);
+	printf("\n\nenv\n\n");
+
+	builtin_env(glob, 1, arg2);
+	builtin_unset(glob, 1, arg2);
+	printf("\n\nenv\n\n");
+
+	builtin_env(glob, 1, arg2);
 
 
+
+
+
+	// printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
+	// rit = chdir("/Users/laurencoiffier/Desktop/minishell");
+	// if (rit)
+	// 	ft_putendl_fd(strerror(errno), 1);
+	// printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
 
 	// //essai unset
 	// ft_unsetenv(&glob->list_env, "COUCOU");
@@ -85,6 +105,6 @@ int			main(int argc, char **argv, char **envp)
 	printf("\n\n");
 
 	clean_exit(glob);
-	system("leaks a.out | grep 'leaked'");
+	//system("leaks a.out | grep 'leaked'");
 	//system("leaks a.out");
 }
