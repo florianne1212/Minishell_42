@@ -39,7 +39,8 @@ a priori pas necessaire (* pas gere, variables gerees des le debut du lexer)
 	cd
 		WIP
 	export
-		DONE
+		WIP gestion erreurs de donnees a faire
+		cas += a faire
 	unset
 		DONE
 	exit
