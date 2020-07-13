@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:09:34 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/12 02:01:23 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/13 14:06:56 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ static void	env_sorted(t_shell *glob, int fd)
 	ft_list_sort_env(&list, ft_strcmp);
 	while (list != NULL)
 	{
+		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(list->name, fd);
-		ft_putstr_fd("=", fd);
+		ft_putstr_fd("=\"", fd);
 		ft_putstr_fd(list->value, fd);
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd("\"\n", fd);
 		list = list->next;
 	}
 }
@@ -72,12 +73,12 @@ int			builtin_export(t_shell *glob, int fd, char **arg)
 	i = 1;
 	while (arg[i])
 	{
-		if ((ft_putenv(&glob->list_env, arg[i]) == -1) && ret == 0)
+		if ((ft_putenv(&glob->list_env, arg[i]) == -1))
 		{
-			ft_putstr_fd("export : ", 1);
-			ft_putstr_fd(arg[i], 1);
-			ft_putstr_fd(" : ", 1);
-			ft_putendl_fd(strerror(errno), 1);
+			ft_putstr_fd("bash: export : `", 2);
+			ft_putstr_fd(arg[i], 2);
+			ft_putstr_fd("': ", 2);
+			ft_putendl_fd(strerror(errno), 2);
 			ret = 1;
 		}
 		i++;

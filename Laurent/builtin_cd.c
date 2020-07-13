@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 01:24:42 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/13 08:41:48 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,33 @@ int			home(t_list_env *env, int fd)
 {
 	char	*oldpath;
 	char	*newpath;
+	int		ret;
 
+	(void)fd;
+	ret = 0;
+	oldpath = getcwd(NULL, 1);
+	newpath = ft_getenv(env, "HOME");
+	if (!oldpath || !newpath)
+	{
+		ft_putstr_fd("cd: ", 2);
+		ft_putendl_fd((strerror(errno)), 2);
+;		return (1);
+	}
+	chdir(newpath);
+	if ((ft_setenv(&env, "OLDPWD", oldpath, 1)) == -1)
+		ret = 1;
+	free(oldpath);
+	if ((ft_setenv(&env, "PWD", newpath, 1)) == -1)
+		ret = 1;
+	free(newpath);
+	return (ret);
+}
+int			back(t_list_env *env, int fd)
+{
+	char	*oldpath;
+	char	*newpath;
+
+	(void)fd;
 	oldpath = getcwd(NULL, 1);
 	newpath = ft_getenv(env, "HOME");
 	chdir(newpath);
@@ -38,17 +64,17 @@ int			home(t_list_env *env, int fd)
 
 int			builtin_cd(t_shell *glob, int fd, char **arg)
 {
-	char	*oldpath;
-	char	*newpath;
+	//char	*oldpath;
+	//char	*newpath;
 
 	if (arg[2])
-		return(errorcd(fd,arg[1],1));
-	if (!arg[1])
-		return(home(glob->list_env, fd));
-	oldpath = getcwd(NULL, 1);
+		return (errorcd(fd,arg[1],1));
+	if (!arg[1] || !(ft_strcmp(arg[1], "~")))
+		return (home(glob->list_env, fd));
+	if (!(ft_strcmp(arg[1], "-")))
+		return (back(glob->list_env, fd));
 
-
-
+	//oldpath = getcwd(NULL, 1);
 
 
 	return(0);

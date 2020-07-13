@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/12 16:44:30 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/13 08:18:59 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void		clean_exit(t_shell *glob)
 int			main(int argc, char **argv, char **envp)
 {
 	t_shell	*glob;
-	char* s = "HOME";
-	char *ret;
-	int	rit;
-	char *arg[] = {"echo", "nu=", "chouchou", "chou=bidou", "classe", NULL};
-	char *arg2[] = {"echo", NULL};
-	//char *arg3[] = {"echo", "nu", "chou", "", "AENLEVER", NULL};
+	// char* s = "HOME";
+	// char *ret;
+	 int	rit;
+	// char *arg[] = {"echo", "nu=", "chouchou", "chou=bidou", "classe", NULL};
+	// char *arg2[] = {"echo", NULL};
+	char *arg3[] = {"cd",NULL, NULL};
 
 
 	if (!(glob = malloc(sizeof(t_shell))))
@@ -42,47 +42,48 @@ int			main(int argc, char **argv, char **envp)
 	printf("\nargv %s", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
 	fflush(stdout);
 	sort_envp(envp, glob);
-	if (!(ret = ft_getenv(glob->list_env, s)) && errno)
-		perror("\ngetenv");
-	printf("\nla valeur de %s est %s\n", s, ret);
-	if((rit = ft_putenv(&glob->list_env, "MOI=toi")) == -1)
-		perror("\nputenv");
-	if((rit = ft_putenv(&glob->list_env, "MOItoi")) == -1)
-		perror("\nputenv");
-	if((rit = ft_putenv(&glob->list_env, "AENLEVER=cou==cou")) == -1)
-		perror("\nputenv");
-	if((rit = ft_putenv(&glob->list_env, "HOME=cou==cou")) == -1)
-		perror("\nputenv");
+	// if (!(ret = ft_getenv(glob->list_env, s)) && errno)
+	// 	perror("\ngetenv");
+	// printf("\nla valeur de %s est %s\n", s, ret);
+	// if((rit = ft_putenv(&glob->list_env, "MOI=toi")) == -1)
+	// 	perror("\nputenv");
+	// if((rit = ft_putenv(&glob->list_env, "MOItoi")) == -1)
+	// 	perror("\nputenv");
+	// if((rit = ft_putenv(&glob->list_env, "AENLEVER=cou==cou")) == -1)
+	// 	perror("\nputenv");
+	// if((rit = ft_putenv(&glob->list_env, "HOME=cou==cou")) == -1)
+	// 	perror("\nputenv");
 
 	//print_list(glob->list_env);
-	builtin_env(glob, 1, arg);
-	printf("\n\n");
-	if (!(ret = ft_getenv(glob->list_env, s)) && errno)
-		perror("\ngetenv");
-	printf("\nla valeur de %s est %s\n", s, ret);
+	// builtin_env(glob, 1, arg);
+	// printf("\n\n");
+	// if (!(ret = ft_getenv(glob->list_env, s)) && errno)
+	// 	perror("\ngetenv");
+	// printf("\nla valeur de %s est %s\n", s, ret);
 
-	builtin_pwd(glob, 1, arg);
-	ft_putendl_fd("echo va commencer", 1);
-	builtin_echo(glob, 1, arg);
-	ft_putendl_fd("echo est termine", 1);
-	printf("\n\nexport\n");
-	builtin_export(glob, 1, arg);
-	printf("\n\nenv\n\n");
+	// builtin_pwd(glob, 1, arg);
+	// ft_putendl_fd("echo va commencer", 1);
+	// builtin_echo(glob, 1, arg);
+	// ft_putendl_fd("echo est termine", 1);
+	// printf("\n\nexport\n");
+	// builtin_export(glob, 1, arg);
+	// printf("\n\nenv\n\n");
 
-	builtin_env(glob, 1, arg2);
-	builtin_unset(glob, 1, arg2);
-	printf("\n\nenv\n\n");
+	// builtin_env(glob, 1, arg2);
+	// builtin_unset(glob, 1, arg2);
+	// printf("\n\nenv\n\n");
 
-	builtin_env(glob, 1, arg2);
+	// builtin_env(glob, 1, arg2);
 
 
 
 
 
 	printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
-	rit = chdir("//////Users/laurentcoiffier/Desktop/");
-	if (rit)
-		ft_putendl_fd(strerror(errno), 1);
+	builtin_cd(glob, 1, arg3);
+	// rit = chdir("//////Users/laurentcoiffier/Desktop/");
+	// if (rit)
+	// 	ft_putendl_fd(strerror(errno), 1);
 	printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
 
 	// //essai unset
