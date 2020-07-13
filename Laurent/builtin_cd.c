@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 08:41:48 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/13 19:13:05 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int			home(t_list_env *env, int fd)
 	free(newpath);
 	return (ret);
 }
+
 int			back(t_list_env *env, int fd)
 {
 	char	*oldpath;
@@ -64,11 +65,6 @@ int			back(t_list_env *env, int fd)
 
 int			builtin_cd(t_shell *glob, int fd, char **arg)
 {
-	//char	*oldpath;
-	//char	*newpath;
-
-	if (arg[2])
-		return (errorcd(fd,arg[1],1));
 	if (!arg[1] || !(ft_strcmp(arg[1], "~")))
 		return (home(glob->list_env, fd));
 	if (!(ft_strcmp(arg[1], "-")))
