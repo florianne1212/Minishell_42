@@ -17,6 +17,8 @@ int	builtin_unset(t_shell *glob, int fd, char **arg)
 	int	i;
 	int ret;
 
+	//compil
+	fd = 1;
 	ret = 0;
 	i = 1;
 	while (arg[i])
