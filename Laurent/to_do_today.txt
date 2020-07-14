@@ -1,11 +1,24 @@
+14 juillet
+
 - tableau environ
 DONE
 -> minishell.h a changer DONE
 -> transferer le dossier DONE
--> changer le dossier cleanexit avec les destructors
+-> changer le dossier cleanexit avec les destructors DONE
+
 - transformer chemin relatif en absolu
+WIP++++++++
 
+15 juillet
+-chemin relatif en absolu
+attention multiples points DONE
+reste a transformer liste chainee en string
+mettre tout au propre et norme
 
-
-	protoliste chainee str dans minishell.h?
 -fonction stat
+= man 3 stat
+
+-finir builtin cd
+
+-gerer execution des fonctions avec stat, fork et execve
+

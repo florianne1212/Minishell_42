@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:12:11 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 13:57:04 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/14 23:39:12 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	builtin_pwd(t_shell *glob, int fd, char **arg)
 
 	(void)arg;
 	(void)glob;
-	pwd = getcwd(NULL, 1);
+	if (!(pwd = getcwd(NULL, 1)))
+		return (1);
 	ft_putendl_fd(pwd, fd);
 	free(pwd);
 	return (0);

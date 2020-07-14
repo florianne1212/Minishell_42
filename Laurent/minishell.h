@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/14 17:47:50 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/14 21:45:36 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,11 @@ char	*create_str_env(char *name, char *value);
 char	**destroy_and_errno_ret(char **ret, char **envirron, int errnb);
 void	env_destroy_array(char **envirron);
 int		ft_list_env_size(t_list_env *begin_list);
+
+/*
+// change_rel_to_abs.c
+*/
+char	*change_rel_to_abs(char	*rel);
+
 
 #endif
