@@ -20,6 +20,7 @@ int	builtin_pwd(t_shell *glob, int fd, char **arg)
 {
 	char	*pwd;
 
+	(void)arg;
 	(void)glob;
 	pwd = getcwd(NULL, 1);
 	ft_putendl_fd(pwd, fd);

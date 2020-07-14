@@ -6,11 +6,12 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/08 22:46:20 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/14 13:09:40 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
 **fonction qui permet de trouver le nom de la variable
 */
@@ -75,7 +76,8 @@ t_list_env		*add_link(t_list_env *list, char *str)
 {
 	t_list_env	*tmp;
 
-	tmp = malloc(sizeof(t_list_env));
+	if (!(tmp = malloc(sizeof(t_list_env))))
+		return (NULL);
 	if (tmp)
 	{
 		tmp->name = find_name(str);
@@ -117,5 +119,5 @@ void			sort_envp(char **envp, t_shell *glob)
 		glob->list_env = add_link(glob->list_env, envp[i]);
 		i++;
 	}
-	print_list(glob->list_env);
+	//print_list(glob->list_env);
 }

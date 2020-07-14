@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 23:31:42 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/14 13:08:35 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 //attention a free oldpwd a chaque fois y compris en cas d'erreur
 //et changer pwd et oldpwd, en faisant free des anciens(normalement gere par setenv)
 
-static int	errorcd(int fd, char *str, int ret)
-{
-	ft_putstr_fd("cd: no such file or directory: ", fd);
-	ft_putendl_fd(str, fd);
-	return ret;
-}
+// static int	errorcd(int fd, char *str, int ret)
+// {
+// 	ft_putstr_fd("cd: no such file or directory: ", fd);
+// 	ft_putendl_fd(str, fd);
+// 	return ret;
+// }
 int			home(t_list_env *env, int fd)
 {
 	char	*oldpath;

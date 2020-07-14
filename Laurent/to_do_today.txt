@@ -1,0 +1,5 @@
+- tableau environ
+- transformer chemin relatif en absolu
+
+	protoliste chainee str dans minishell.h?
+-fonction stat

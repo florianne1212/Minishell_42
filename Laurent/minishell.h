@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/04 17:41:44 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 00:19:39 by lcoiffie         ###   ########.fr       */
+/*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
+/*   Updated: 2020/07/14 17:47:50 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,60 @@
 # include <string.h>
 # include "libft.h"
 
-typedef struct s_list_env	t_list_env;
 
-struct			s_list_env
+typedef struct	s_list_env
 {
 	char		*name;
 	char		*value;
-	t_list_env	*next;
-};
+	struct s_list_env	*next;
+}				t_list_env;
+
+typedef struct s_lex
+{
+	int			width;
+	int			height;
+	int			i;
+}				t_lex;
+
+
+typedef struct	s_simple_command
+{
+	int			command; //nom commande argument 0
+	int			num_arg;
+	char 		**arguments;
+	char		*outfile;
+	char		*infile;
+}				t_simple_command;
+
+typedef struct	s_command
+{
+	int			num_simple_command;
+	t_simple_command **simple_command;
+	char		*outfile;
+	char		*infile;
+//	char		*errfile;
+//	int			background;
+}				t_command;
 
 typedef struct	s_shell
 {
+	char		**env;
+	int			retour; //echo $?
+	char		**line;
+	int			error;
+	t_lex		*lex;
 	t_list_env	*list_env;
+	t_command	*command;
 }				t_shell;
 
+void			sort_envp(char **envp, t_shell *glob);
+void			control_c(int i);
+void			control_back(int i);
 
 //fonction que tu as peut etre deja :
-/*
-** var_env.c
-*/
-char			*find_name(char *str);
-char			*find_value(char *str);
-void			sort_envp(char **envp, t_shell *glob);
 t_list_env		*add_link(t_list_env *list, char *str);
 void			print_list(t_list_env *list);
 
-/*
-// ft_environ.c
-*/
 char 	*ft_getenv(t_list_env *env, const char *name);
 int		ft_putenv(t_list_env **env, char *string);
 int		ft_unsetenv(t_list_env **env, const char *name);
@@ -104,33 +130,17 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
 
+char			*find_value(char *str);
 
+char			*find_name(char *str);
 
-
-// A VOIR ENSEMBLE
-
-// enum {ECHO, ECHON, CD, PWD, EXPORT, UNSET, ENV, EXIT};
-
-// typedef struct	s_simple_command
-// {
-// 	int			command;
-// 	int			num_avail_arg;
-// 	int			num_arg;
-// 	char 		**arguments;
-// }				t_simple_command;
-
-// typedef struct	s_command
-// {
-// 	int			num_avail_command;
-// 	int			num_simple_command;
-// 	t_simple_command **simple_command;
-// 	char		*outfile;
-// 	char		*infile;
-// 	char		*errfile;
-// 	int			background;
-
-// }				t_command;
-
-
+/*
+// env_create_array.c
+*/
+char	**env_create_array(t_list_env *env, char **envirron);
+char	*create_str_env(char *name, char *value);
+char	**destroy_and_errno_ret(char **ret, char **envirron, int errnb);
+void	env_destroy_array(char **envirron);
+int		ft_list_env_size(t_list_env *begin_list);
 
 #endif

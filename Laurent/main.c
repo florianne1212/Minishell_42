@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/13 08:18:59 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/14 18:40:15 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ void		clean_exit(t_shell *glob)
 int			main(int argc, char **argv, char **envp)
 {
 	t_shell	*glob;
+
 	// char* s = "HOME";
 	// char *ret;
-	 int	rit;
+	 //int	rit;
 	// char *arg[] = {"echo", "nu=", "chouchou", "chou=bidou", "classe", NULL};
 	// char *arg2[] = {"echo", NULL};
-	char *arg3[] = {"cd",NULL, NULL};
+	char *arg3[] = {"export","LOLO=gouzi", "LALA=gouza", NULL};
 
 
 	if (!(glob = malloc(sizeof(t_shell))))
@@ -42,6 +43,7 @@ int			main(int argc, char **argv, char **envp)
 	printf("\nargv %s", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
 	fflush(stdout);
 	sort_envp(envp, glob);
+	glob->env = NULL;
 	// if (!(ret = ft_getenv(glob->list_env, s)) && errno)
 	// 	perror("\ngetenv");
 	// printf("\nla valeur de %s est %s\n", s, ret);
@@ -79,12 +81,12 @@ int			main(int argc, char **argv, char **envp)
 
 
 
-	printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
-	builtin_cd(glob, 1, arg3);
+	//printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
+	//builtin_cd(glob, 1, arg3);
 	// rit = chdir("//////Users/laurentcoiffier/Desktop/");
 	// if (rit)
 	// 	ft_putendl_fd(strerror(errno), 1);
-	printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
+	//printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
 
 	// //essai unset
 	// ft_unsetenv(&glob->list_env, "COUCOU");
@@ -99,10 +101,23 @@ int			main(int argc, char **argv, char **envp)
 	// ft_setenv(&glob->list_env, "HOME","ben...home",1);
 	// ft_setenv(&glob->list_env, "CHOUCHOU","encore plus fort",0);
 	// printf("\n\n");
-	// print_list(glob->list_env);
-
-
-
+	glob->env = env_create_array(glob->list_env, glob->env);
+	int k = 0;
+	while (glob->env[k])
+	{
+		printf("%d : %s\n", k, glob->env[k]);
+		k++;
+	}
+	builtin_export(glob, 1, arg3);
+	glob->env = env_create_array(glob->list_env, glob->env);
+	//print_list(glob->list_env);
+	k = 0;
+	while (glob->env[k])
+	{
+		printf("%d : %s\n", k, glob->env[k]);
+		k++;
+	}
+	env_destroy_array(glob->env);
 	printf("\n\n");
 
 	clean_exit(glob);
