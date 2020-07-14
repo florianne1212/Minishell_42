@@ -24,6 +24,17 @@
 # include <string.h>
 # include "libft.h"
 
+typedef enum
+{
+	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM
+} t_token_type;
+
+typedef struct
+{
+	t_token_type type;
+	char *str;
+	char *next;
+} t_token;
 
 typedef struct	s_list_env
 {
@@ -34,9 +45,10 @@ typedef struct	s_list_env
 
 typedef struct s_lex
 {
-	int			width;
-	int			height;
+	int			nb_words;
 	int			i;
+	int			count;
+	t_token		**tokens;
 }				t_lex;
 
 
@@ -133,5 +145,7 @@ int			builtin_cd(t_shell *glob, int fd, char **arg);
 char			*find_value(char *str);
 
 char			*find_name(char *str);
+
+int     lexe_line(char *line, t_shell *glob);
 
 #endif
