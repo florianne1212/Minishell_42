@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <fcoudert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/06/25 22:05:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/14 19:24:24 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_lex
 typedef struct	s_simple_command
 {
 	int			command; //nom commande argument 0
-	int			num_arg; 
+	int			num_arg;
 	char 		**arguments;
 	char		*outfile;
 	char		*infile;
@@ -73,7 +73,8 @@ typedef struct	s_command
 
 typedef struct	s_shell
 {
-	char		**env;
+	char		**envirron; //tableau similaire a "environ", a mettre a null++
+	//en fin de programme , appeler env_destroy_array, sinon leaks
 	int			retour; //echo $?
 	char		**line;
 	int			error;
@@ -141,6 +142,16 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 // builtin_cd.c
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
+
+/*
+// env_create_array.c
+*/
+char	**env_create_array(t_list_env *env, char **envirron);
+char	*create_str_env(char *name, char *value);
+char	**destroy_and_errno_ret(char **ret, char **envirron, int errnb);
+void	env_destroy_array(char **envirron);
+int		ft_list_env_size(t_list_env *begin_list);
+
 
 char			*find_value(char *str);
 

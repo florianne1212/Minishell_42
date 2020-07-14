@@ -1,5 +1,11 @@
 - tableau environ
+DONE
+-> minishell.h a changer DONE
+-> transferer le dossier DONE
+-> changer le dossier cleanexit avec les destructors
 - transformer chemin relatif en absolu
+
+
 
 	protoliste chainee str dans minishell.h?
 -fonction stat
