@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 21:28:51 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/15 16:45:24 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/15 17:02:02 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char		*path_free_data(t_list *list, char **str_array, char *ret)
 	return (ret);
 }
 
-static char	*path_create_data(char *rel, char ***relative, t_list **absolute)
+char		*path_create_data(char *rel, char ***relative, t_list **absolute)
 {
 	char	*temp_abs;
 	char	**temp_absolute_array;
