@@ -33,7 +33,6 @@ typedef struct
 {
 	t_token_type type;
 	char *str;
-	char *next;
 } t_token;
 
 typedef struct	s_list_env
@@ -158,5 +157,11 @@ char			*find_value(char *str);
 char			*find_name(char *str);
 
 int     lexe_line(char *line, t_shell *glob);
+void	put_pipe(int *index, char *s, t_shell *glob);
+void	put_input(int *index, char *s, t_shell *glob);
+void	put_output(int *index, char *s, t_shell *glob);
+void	put_semicolon(int *index, char *s, t_shell *glob);
+int		put_string(int index, char *s, t_shell *glob);
+void	put_append(int *index, char *s, t_shell *glob);
 
 #endif

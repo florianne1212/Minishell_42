@@ -15,7 +15,9 @@
 void		clean_exit(t_shell *glob)
 {
 	t_list_env *ptr;
+	int i;
 
+	i = 0;
 	while (glob->list_env != NULL)
 	{
 		ptr = glob->list_env->next;
@@ -27,16 +29,28 @@ void		clean_exit(t_shell *glob)
 		glob->list_env = ptr;
 	}
 	glob->list_env = NULL;
+	/*while (i < glob->lex->nb_words)
+	{
+		if (glob->lex->tokens[i] != NULL)
+		{
+			free(glob->lex->tokens[i]);
+			glob->lex->tokens[i] = NULL;
+		}
+		i++;
+	}
+	free(glob->lex);
+	glob->lex = NULL;*/
 	free(glob);
 	glob = NULL;
-	env_destroy_array(glob->envirron);
+	//env_destroy_array(glob->envirron);
 }
+
 
 int			main(int argc, char **argv, char **envp)
 {
 	t_shell	*glob;
+	char	*line;
 	int		i;
-	char	buf[100];
 
 	i = 1;
 	signal(SIGINT, control_c); //permet d'intercepter le signal envoyer par ctrl-C
@@ -49,12 +63,14 @@ int			main(int argc, char **argv, char **envp)
 	sort_envp(envp, glob);
 	while (i == 1)
 	{
-		ft_putstr(">");
-		read(1, buf, 10);
-		if (strncmp(buf, "exit", 4) == 0)
+		ft_putstr("$>");
+		get_next_line(1, &line);
+		lexe_line(line, glob);
+		if (strncmp(line, "exit", 4) == 0)
 		{
 			i = 0;
 		}
+		free(line);
 	}
 	clean_exit(glob);
 }
