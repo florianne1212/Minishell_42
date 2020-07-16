@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/14 21:45:36 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:01:26 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 # include <string.h>
 # include "libft.h"
 
+typedef enum
+{
+	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM
+} t_token_type;
+
+typedef struct
+{
+	t_token_type type;
+	char *str;
+} t_token;
 
 typedef struct	s_list_env
 {
@@ -34,9 +44,10 @@ typedef struct	s_list_env
 
 typedef struct s_lex
 {
-	int			width;
-	int			height;
+	int			nb_words;
 	int			i;
+	int			count;
+	t_token		**tokens;
 }				t_lex;
 
 
@@ -61,7 +72,8 @@ typedef struct	s_command
 
 typedef struct	s_shell
 {
-	char		**env;
+	char		**envirron; //tableau similaire a "environ", a mettre a null++
+	//en fin de programme , appeler env_destroy_array, sinon leaks
 	int			retour; //echo $?
 	char		**line;
 	int			error;
@@ -95,7 +107,7 @@ int			errno_return_int(int errnocode, int return_value);
 */
 void		env_variable_destructor(t_list_env *env);
 t_list_env	*new_env_variable(char *str);
-void		ft_lstadd_front_env(t_list_env **alst, t_list_env *new);
+void		ft_lstadd_front_env(t_list_env **alst, t_list_env *env);
 void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
 				int (*cmp)(), void (*free_fct)(t_list_env *));
 t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
@@ -130,10 +142,6 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
 
-char			*find_value(char *str);
-
-char			*find_name(char *str);
-
 /*
 // env_create_array.c
 */
@@ -144,9 +152,33 @@ void	env_destroy_array(char **envirron);
 int		ft_list_env_size(t_list_env *begin_list);
 
 /*
-// change_rel_to_abs.c
+**change_rel_to_abs.c
 */
-char	*change_rel_to_abs(char	*rel);
+char		*change_rel_to_abs(char *rel);
 
+/*
+**change_rel_to_abs_utils.c
+*/
+char		*path_free_data(t_list *list, char **str_array, char *ret);
+char		*path_create_data(char *rel, char ***relative, t_list **absolute);
+void		delete_list_first_elem(t_list **beginlist);
+int			create_path_list(t_list **abs, char **rel);
+char		*create_abs_str(t_list *absolute);
+
+
+
+char			*find_value(char *str);
+
+char			*find_name(char *str);
+
+int		lexe_line(char *line, t_shell *glob);
+void	put_pipe(int *index, char *s, t_shell *glob);
+void	put_input(int *index, char *s, t_shell *glob);
+void	put_output(int *index, char *s, t_shell *glob);
+void	put_semicolon(int *index, char *s, t_shell *glob);
+int		put_string(int i, char *s, t_shell *glob);
+int		put_append(int *index, char *s, t_shell *glob);
+int		ft_strch(const char *s, int c);
+void	destruct_lex(t_shell *glob);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:30 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/10 12:29:49 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:59:21 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,14 @@ int			ft_unsetenv(t_list_env **env, const char *name)
 ** fonction getenv comme la native, protegee
 ** il faut aussi donner notre environnement
 ** retourne la valeur de la variable d'environnement recherchee ou null
+** attention la valeur retournee est malloquee
 ** si erreur, documentee dans errno
 */
 
 char		*ft_getenv(t_list_env *env, const char *name)
 {
+	char	*value;
+
 	if (!env)
 		return (NULL);
 	if (!name || !ft_strcmp(name, "") || ft_isinstring('=', (char*)name))
@@ -90,7 +93,10 @@ char		*ft_getenv(t_list_env *env, const char *name)
 	while (env)
 	{
 		if (!(ft_strcmp(env->name, name)))
-			return (env->value);
+		{
+			value = ft_strdup(env->value);
+			return (value);
+		}
 		env = env->next;
 	}
 	return (errno_return_str(0, NULL));

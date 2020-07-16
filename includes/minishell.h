@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/15 17:01:10 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/16 23:04:11 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int			errno_return_int(int errnocode, int return_value);
 */
 void		env_variable_destructor(t_list_env *env);
 t_list_env	*new_env_variable(char *str);
-void		ft_lstadd_front_env(t_list_env **alst, t_list_env *new);
+void		ft_lstadd_front_env(t_list_env **alst, t_list_env *env);
 void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
 				int (*cmp)(), void (*free_fct)(t_list_env *));
 t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
@@ -141,6 +141,10 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 // builtin_cd.c
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
+int			cd_error(char *str, int ret, char *old, char *new);
+int			cd_home(t_list_env *env);
+int			cd_back(t_list_env *env, int fd);
+int			cd_abs_path(t_list_env *env, char *newpath);
 
 /*
 // env_create_array.c

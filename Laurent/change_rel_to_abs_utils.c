@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 21:28:51 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/15 16:57:31 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/16 22:42:05 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ char		*create_abs_str(t_list *absolute)
 	char	*abs;
 	char	*temp;
 
+	if (!absolute)
+		return (abs = ft_strdup("/"));
 	if (!(abs = ft_strdup("")))
 		return (NULL);
 	while (absolute)
