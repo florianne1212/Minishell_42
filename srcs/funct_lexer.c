@@ -87,9 +87,11 @@ int		put_string(int index, char *s, t_shell *glob)
 	t_token	*ttok;
 
 	j = 0;
-	while (ft_isspace(s[index]) == 1 && s[index] != '\0')
-		index++;
-	if (ft_isalpha(s[index]) == 1  && s[index] != '\0')
+	while (ft_isspace(s[index + j]) == 1 && s[index + j] != '\0')
+	{
+		j++;
+	}
+	if (ft_isalpha(s[index + j]) == 1  && s[index + j] != '\0')
 	{
 		if (!(ttok = malloc(sizeof(t_token))))
 			return 0;

@@ -27,7 +27,7 @@ int ft_strch(const char *s, int c)
 	}
 	return (0);
 }
-
+/*
 int	nbr_words(char const *s, t_shell *glob)
 {
 	int		a;
@@ -61,6 +61,37 @@ int	nbr_words(char const *s, t_shell *glob)
 		(void)glob;
 	}
 	return (a);
+}*/
+
+int	nbr_words(char const *s, t_shell *glob)
+{
+	int i;
+	int a;
+
+	i = 0;
+	a = 0;
+	while (s[i] != '\0')
+	{
+		while (ft_isspace(s[i]) == 1 && s[i]!= '\0')
+			i++;
+		while (ft_strch("<>|;",s[i]) == 1 && s[i]!= '\0')
+		{
+			printf("pipe");
+			a++;
+			i++;
+		}
+		if(ft_strch("<>|;",s[i]) == 0 && ft_isspace(s[i]) == 0)
+		{
+			printf("mot");
+			a++;
+			while (ft_strch("<>|;",s[i]) == 0 && ft_isspace(s[i]) == 0 && s[i]!= '\0')
+				i++;
+		}
+		//i++;
+	}
+	fflush(stdout);
+	(void)glob;
+	return(a);
 }
 
 void	init_lex(t_shell *glob, char  *line)
@@ -75,7 +106,7 @@ void	init_lex(t_shell *glob, char  *line)
 	glob->lex->count = 0;
 	glob->lex->i = 0;
 	glob->lex->nb_words = nbr_words(line, glob);
-	//printf("\n_____%i_______", glob->lex->nb_words);
+	printf("\n_____%i_______", glob->lex->nb_words);
 	fflush(stdout);
 	if(!(glob->lex->tokens = (t_token **)malloc(sizeof(t_token *) * (glob->lex->nb_words + 1))))
 		return ;
@@ -128,10 +159,10 @@ int     lexe_line(char *line, t_shell *glob)
 			else
 				put_output(&index, line, glob);
 		}
+		//else if (ft_isspace(line[index]) == 1)
+		//	index++;
 		else
 			index += put_string(index, line, glob);
-		
-		//printf("_%c_", line[index]);
 		index++;
 	}
 	return(1);
