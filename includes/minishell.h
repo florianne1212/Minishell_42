@@ -178,5 +178,6 @@ void	put_output(int *index, char *s, t_shell *glob);
 void	put_semicolon(int *index, char *s, t_shell *glob);
 int		put_string(int index, char *s, t_shell *glob);
 void	put_append(int *index, char *s, t_shell *glob);
+int ft_strch(const char *s, int c);
 
 #endif
