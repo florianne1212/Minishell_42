@@ -171,13 +171,14 @@ char			*find_value(char *str);
 
 char			*find_name(char *str);
 
-int     lexe_line(char *line, t_shell *glob);
+int		lexe_line(char *line, t_shell *glob);
 void	put_pipe(int *index, char *s, t_shell *glob);
 void	put_input(int *index, char *s, t_shell *glob);
 void	put_output(int *index, char *s, t_shell *glob);
 void	put_semicolon(int *index, char *s, t_shell *glob);
-int		put_string(int index, char *s, t_shell *glob);
-void	put_append(int *index, char *s, t_shell *glob);
-int ft_strch(const char *s, int c);
+int		put_string(int i, char *s, t_shell *glob);
+int		put_append(int *index, char *s, t_shell *glob);
+int		ft_strch(const char *s, int c);
+void	destruct_lex(t_shell *glob);
 
 #endif

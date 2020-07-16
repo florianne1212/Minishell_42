@@ -29,17 +29,6 @@ void		clean_exit(t_shell *glob)
 		glob->list_env = ptr;
 	}
 	glob->list_env = NULL;
-	/*while (i < glob->lex->nb_words)
-	{
-		if (glob->lex->tokens[i] != NULL)
-		{
-			free(glob->lex->tokens[i]);
-			glob->lex->tokens[i] = NULL;
-		}
-		i++;
-	}
-	free(glob->lex);
-	glob->lex = NULL;*/
 	free(glob);
 	glob = NULL;
 	//env_destroy_array(glob->envirron);

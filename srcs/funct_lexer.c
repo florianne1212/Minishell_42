@@ -81,53 +81,21 @@ void		put_semicolon(int *index, char *s, t_shell *glob)
 	}
 }
 
-char		*manage_string(char *s, int i)
+int			put_append(int *index, char *s, t_shell *glob)
 {
-	int		j;
-	char	*str;
-
-	j = 0;
-	while (s[i + j] != '\0' && ft_strch("<>|;", s[i + j]) == 0 &&
-	ft_isspace(s[i + j]) == 0)
-		j++;
-	if (!(str = malloc(sizeof(char) * (j + 1))))
-		return (NULL);
-	j = 0;
-	while (s[i + j] != '\0' && ft_strch("<>|;", s[i + j]) == 0 &&
-	ft_isspace(s[i + j]) == 0)
-	{
-		str[j] = s[i + j];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
-}
-
-int			put_string(int index, char *s, t_shell *glob)
-{
-	int		j;
 	t_token	*ttok;
 
-	j = 0;
-	while (ft_isspace(s[index + j]) == 1 && s[index + j] != '\0')
-	{
-		j++;
-	}
-	if (ft_isalpha(s[index + j]) == 1 && s[index + j] != '\0')
+	if (s[*index] == '>' && s[*index + 1] == '>' && s[*index] != '\0')
 	{
 		if (!(ttok = malloc(sizeof(t_token))))
 			return (0);
-		ttok->type = TT_STRING;
-		ttok->str = manage_string(s, index + j);
-		while (ft_isalpha(s[index + j]) == 1 && s[index + j] != '\0')
-			j++;
+		ttok->type = TT_APPEND;
+		ttok->str = "append";
 		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
 		fflush(stdout);
-		while (ft_isspace(s[index + j]) == 1 && s[index + j] != '\0')
-			j++;
-		return (j - 1);
+		return (1);
 	}
 	return (0);
 }
