@@ -7,18 +7,25 @@ DONE
 -> changer le dossier cleanexit avec les destructors DONE
 
 - transformer chemin relatif en absolu
-WIP++++++++
+DONE
 
 15 juillet
--chemin relatif en absolu
+-chemin relatif en absolu DONE
 attention multiples points DONE
-reste a transformer liste chainee en string
-mettre tout au propre et norme
+reste a transformer liste chainee en string DONE
+mettre tout au propre et norme DONE
 
 -fonction stat
-= man 3 stat
+= man 3 stat DONE
 
--finir builtin cd
+-finir builtin cd DONE !
 
 -gerer execution des fonctions avec stat, fork et execve
 
+	passer l'instruction en minuscule DONE
+	chercher si builtin et run builtin DONE
+	chercher si path absolu (commence par /)DONE
+	chercher si path relatif (commence par .) DONE
+	chercher dans PATH si commande existe
+	retourner une erreur si aucun processus ok DONE
+	lancer la commande avec fork et xecve

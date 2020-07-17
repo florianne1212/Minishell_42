@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 01:34:28 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 13:53:12 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/17 10:32:21 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ int	builtin_unset(t_shell *glob, int fd, char **arg)
 	int	i;
 	int ret;
 
-	//compil
-	fd = 1;
 	ret = 0;
 	i = 1;
+	(void)fd;
 	while (arg[i])
 	{
 		if ((ft_unsetenv(&glob->list_env, arg[i]) == -1))

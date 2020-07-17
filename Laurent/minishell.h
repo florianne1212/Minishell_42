@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/16 22:01:26 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/17 09:37:20 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct	s_shell
 	t_lex		*lex;
 	t_list_env	*list_env;
 	t_command	*command;
+	int			fd;
 }				t_shell;
 
 void			sort_envp(char **envp, t_shell *glob);
@@ -141,6 +142,10 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 // builtin_cd.c
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
+int			cd_error(char *str, int ret, char *old, char *new);
+int			cd_home(t_list_env *env);
+int			cd_back(t_list_env *env, int fd);
+int			cd_abs_path(t_list_env *env, char *newpath);
 
 /*
 // env_create_array.c

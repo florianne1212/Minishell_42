@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/16 22:25:03 by lcoiffie         ###   ########.fr       */
+/*   Created: 2020/07/17 11:37:56 by lcoiffie          #+#    #+#             */
+/*   Updated: 2020/07/17 12:50:20 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			main(int argc, char **argv, char **envp)
 
 	// char* s = "HOME";
 	// char *ret;
-	 int	rit;
+	// int	rit;
 	// char *arg[] = {"echo", "nu=", "chouchou", "chou=bidou", "classe", NULL};
 	// char *arg2[] = {"env", NULL};
 	//char *arg3[] = {"export","LOLO=gouzi", "LALA=gouza", NULL};
@@ -40,6 +40,7 @@ int			main(int argc, char **argv, char **envp)
 	if (!(glob = malloc(sizeof(t_shell))))
 		return (0);
 	(void)argc;
+	(void)argv;
 	//printf("\nargc %i", argc);
 	//printf("\nargv %s", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
 	//printf("\nargv %s", argv[1]); //en attendant juste pour ne pas avoir d'erreurs de compilation
@@ -47,102 +48,7 @@ int			main(int argc, char **argv, char **envp)
 	fflush(stdout);
 	sort_envp(envp, glob);
 	glob->envirron = NULL;
-	// if (!(ret = ft_getenv(glob->list_env, s)) && errno)
-	// 	perror("\ngetenv");
-	// printf("\nla valeur de %s est %s\n", s, ret);
-	// if((rit = ft_putenv(&glob->list_env, "MOI=toi")) == -1)
-	// 	perror("\nputenv");
-	// if((rit = ft_putenv(&glob->list_env, "MOItoi")) == -1)
-	// 	perror("\nputenv");
-	// if((rit = ft_putenv(&glob->list_env, "AENLEVER=cou==cou")) == -1)
-	// 	perror("\nputenv");
-	// if((rit = ft_putenv(&glob->list_env, "HOME=cou==cou")) == -1)
-	// 	perror("\nputenv");
 
-	//print_list(glob->list_env);
-	// builtin_env(glob, 1, arg);
-	// printf("\n\n");
-	// if (!(ret = ft_getenv(glob->list_env, s)) && errno)
-	// 	perror("\ngetenv");
-	// printf("\nla valeur de %s est %s\n", s, ret);
-
-	// builtin_pwd(glob, 1, arg);
-	// ft_putendl_fd("echo va commencer", 1);
-	// builtin_echo(glob, 1, arg);
-	// ft_putendl_fd("echo est termine", 1);
-	// printf("\n\nexport\n");
-	// builtin_export(glob, 1, arg);
-	// printf("\n\nenv\n\n");
-
-	// builtin_env(glob, 1, arg2);
-	// builtin_unset(glob, 1, arg2);
-	// printf("\n\nenv\n\n");
-
-	// builtin_env(glob, 1, arg2);
-	//printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
-	//builtin_cd(glob, 1, arg3);
-	// rit = chdir("//////Users/laurentcoiffier/Desktop/");
-	// if (rit)
-	// 	ft_putendl_fd(strerror(errno), 1);
-	//printf("le chemin actuel est : %s\n", getcwd(NULL, 1));
-
-	// //essai unset
-	// ft_unsetenv(&glob->list_env, "COUCOU");
-	// ft_unsetenv(&glob->list_env, "MOI");
-	// ft_unsetenv(&glob->list_env, "AENLEVER");
-	// print_list(glob->list_env);
-	// //essai setenv
-	// //modifie coucou, caca, coco et pas home
-	// ft_setenv(&glob->list_env, "COUCOU","hello",1);
-	//  ft_setenv(&glob->list_env, "CHOUCHOU","tresfort",1);
-	// ft_setenv(&glob->list_env, "COCO","noix",0);
-	// ft_setenv(&glob->list_env, "HOME","ben...home",1);
-	// ft_setenv(&glob->list_env, "CHOUCHOU","encore plus fort",0);
-	// printf("\n\n");
-	// glob->env = env_create_array(glob->list_env, glob->env);
-	// int k = 0;
-	// while (glob->env[k])
-	// {
-	// 	printf("%d : %s\n", k, glob->env[k]);
-	// 	k++;
-	// }
-	// builtin_export(glob, 1, arg3);
-	// glob->env = env_create_array(glob->list_env, glob->env);
-	// //print_list(glob->list_env);
-	// k = 0;
-	// while (glob->env[k])
-	// {
-	// 	printf("%d : %s\n", k, glob->env[k]);
-	// 	k++;
-	// }
-	// env_destroy_array(glob->env);
-	// printf("\n\n");
-
-	//printf("\nargv[1] = %s\n", argv[1]);
-	// printf("\nla comparaison donne : %d\n", ft_strcmp(argv[1], "~"));
-	// ft_putstr("\nOLDPWD=");
-	// ft_putendl_fd(ft_getenv(glob->list_env, "OLDPWD"),1);
-	// ft_putstr("PWD=");
-	// ft_putendl_fd(ft_getenv(glob->list_env, "PWD"), 1);
-
-	char  *c;
-	c = getcwd(NULL, 1);
-	printf("\nle repertoire actuel est : %s\n", c);
-	free(c);
-	//ft_setenv(&glob->list_env, "OLDPWD", "etbenvoila",1);
-	rit = builtin_cd(glob, 1, argv);
-	// if (rit == 1)
-	// 	perror("ca chie");
-	c = getcwd(NULL, 1);
-	printf("\nle repertoire nouveau est : %s\n\n", c);
-	free(c);
-	ft_putstr("Oldpwd=");
-	ft_putendl_fd((c = ft_getenv(glob->list_env, "OLDPWD")),1);
-	free (c);
-	ft_putstr("Pwd=");
-	ft_putendl_fd((c = ft_getenv(glob->list_env, "PWD")), 1);
-	free (c);
-	// builtin_env(glob, 1, arg2);
 	//clean_exit(glob);
 	system("leaks a.out | grep 'leaked'");
 	// system("leaks a.out");

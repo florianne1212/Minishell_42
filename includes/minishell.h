@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/16 23:04:11 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/18 00:48:32 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct	s_shell
 	t_lex		*lex;
 	t_list_env	*list_env;
 	t_command	*command;
+	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
 void			sort_envp(char **envp, t_shell *glob);

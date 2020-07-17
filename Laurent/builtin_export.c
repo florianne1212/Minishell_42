@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:09:34 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 14:06:56 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/17 10:22:07 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ int			builtin_export(t_shell *glob, int fd, char **arg)
 		}
 		i++;
 	}
-	return (0);
+	return (ret);
 }

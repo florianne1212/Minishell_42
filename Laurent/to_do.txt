@@ -48,3 +48,8 @@ a priori pas necessaire (* pas gere, variables gerees des le debut du lexer)
 
 -captage des signaux
 	WIP
+
+-mettre commentaires en anglais
+-norme ++
+-tenter de casser le proramme ;-)
+-se faire corriger
