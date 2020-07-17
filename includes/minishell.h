@@ -47,6 +47,8 @@ typedef struct s_lex
 	int			nb_words;
 	int			i;
 	int			count;
+	int			j;
+	int			e;
 	t_token		**tokens;
 }				t_lex;
 
@@ -184,5 +186,7 @@ int		put_string(int i, char *s, t_shell *glob);
 int		put_append(int *index, char *s, t_shell *glob);
 int		ft_strch(const char *s, int c);
 void	destruct_lex(t_shell *glob);
+int		put_quotation(int i, char *s, t_shell *glob, char c);
+int			put_normal(int i, char *s, t_shell *glob);
 
 #endif
