@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 11:37:56 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/17 12:50:20 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/18 11:30:35 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			main(int argc, char **argv, char **envp)
 	if (!(glob = malloc(sizeof(t_shell))))
 		return (0);
 	(void)argc;
-	(void)argv;
+
 	//printf("\nargc %i", argc);
 	//printf("\nargv %s", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
 	//printf("\nargv %s", argv[1]); //en attendant juste pour ne pas avoir d'erreurs de compilation
@@ -49,6 +49,7 @@ int			main(int argc, char **argv, char **envp)
 	sort_envp(envp, glob);
 	glob->envirron = NULL;
 
+	ft_run_simple_command(glob, &argv[1]);
 	//clean_exit(glob);
 	system("leaks a.out | grep 'leaked'");
 	// system("leaks a.out");

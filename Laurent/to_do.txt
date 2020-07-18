@@ -25,8 +25,8 @@ transformer notre tableau de strings en :
 a priori pas necessaire (* pas gere, variables gerees des le debut du lexer)
 
 -executor
-	builtin a checker avant
-	commande simple, grace a PATH
+	builtin a checker avant DONE
+	commande simple, grace a PATH WIP
 	commande avec pipe
 
 -builtin fuctions
@@ -37,7 +37,7 @@ a priori pas necessaire (* pas gere, variables gerees des le debut du lexer)
 	env
 		DONE
 	cd
-		WIP
+		DONE
 	export
 		WIP gestion erreurs de donnees a faire
 		cas += a faire

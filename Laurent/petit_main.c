@@ -1,24 +1,20 @@
 #include "minishell.h"
 
-int	main()
+void autre(char **arg)
 {
-	struct stat bufferstat;
+	int i = 0;
 
-	int ret;
+	while (arg[i])
+	{
+		printf("%s\n", arg[i]);
+		i++;
+	}
+}
 
-	ret = 0;
-	ret = stat("/Users/laurentcoiffier/Desktop/minishell/florianne/Laurent/a.out", &bufferstat);
-	printf("le fichier existe, le retour est %d\n", ret);
-	if (S_ISREG(bufferstat.st_mode))
-			printf("c'est bien un fichier regulier\n");
 
-	ret = stat("/Users/laurentcoiffier/Desktop/minishell/florianne/Laurent", &bufferstat);
-	printf("le fichier n'existe pas, le retour est %d\n", ret);
-	if (S_ISREG(bufferstat.st_mode))
-			printf("c'est bien un fichier regulier\n");
-	ret = stat("/bin/LS", &bufferstat);
-	printf("le fichier ls existe, le retour est %d\n", ret);
-	if (S_ISREG(bufferstat.st_mode))
-			printf("c'est bien un fichier regulier\n");
-	return(0);
+int	main(int argc, char *argv[])
+{
+	autre(&argv[1]);
+	(void)argc;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 01:03:47 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/19 01:01:14 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int		ft_setenv(t_list_env **env, const char *name, const char *value,
 */
 char		*errno_return_str(int errnocode, char *return_value);
 int			errno_return_int(int errnocode, int return_value);
+void		split_destructor(char **split);
+char		*destroy_split_errno_ret_str(char **split, int errnocode, char *ret);
 
 /*
 // env_list_gestion.c
@@ -170,6 +172,15 @@ char		*path_create_data(char *rel, char ***relative, t_list **absolute);
 void		delete_list_first_elem(t_list **beginlist);
 int			create_path_list(t_list **abs, char **rel);
 char		*create_abs_str(t_list *absolute);
+
+/*
+**ft_run_simple_command.c
+*/
+int		ft_run_simple_command(t_shell *glob, char **command_arg);
+void	ft_change_case_instruction(char *instruction);
+int		no_command_found(char *command);
+char 	*ft_search_env_path(char *env_path, char *command);
+int		check_and_run_builtin(t_shell *glob, char **arg);
 
 
 

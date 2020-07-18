@@ -22,10 +22,14 @@ mettre tout au propre et norme DONE
 
 -gerer execution des fonctions avec stat, fork et execve
 
+18 juillet
 	passer l'instruction en minuscule DONE
 	chercher si builtin et run builtin DONE
 	chercher si path absolu (commence par /)DONE
 	chercher si path relatif (commence par .) DONE
 	chercher dans PATH si commande existe
 	retourner une erreur si aucun processus ok DONE
-	lancer la commande avec fork et xecve
+	lancer la commande avec fork et execve
+		fait avec execve, DONE
+		mettre le fork
+		gestion signal
