@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_normal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <fcoudert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/06/25 22:05:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/18 13:41:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			size_to_mal(char *s, int i)
 	e = 0;
 	j = 0;
 	int p = 0;
-	while (s[i + j + p] != '\0' && e == 0)
+	while (s[i + j + p] != '\0' && e == 0 && s[i + j + p] != '$')
 	{
 		if (ft_strchr_int("\"\'$", s[i + j + p]) == 0 && s[i + j + p] == '\\')
 			p++;
@@ -39,22 +39,20 @@ char	*env_finder(char *s, int i, t_shell *glob)
 
 	h = 0;
 	h++;
-	while (s[i + h] != '\0' && ft_isspace(s[i + h]) == 0)
+	while (s[i + h] != '\0' && ft_isspace(s[i + h]) == 0 && s[i + h] != '\"')
 		h++;
 	if(!(str = malloc(sizeof(char) * (h + 1))))
 		return (NULL);
+	glob->lex->e = h;
 	h = 0;
-	while (s[i + h] != '\0' && ft_isspace(s[i + h]) == 0)
+	i++;
+	while (s[i + h] != '\0' && ft_isspace(s[i + h]) == 0 && s[i + h] != '\"')
 	{
 		str[h] = s[i + h];
 		h++;
 	}
 	str[h] = '\0';
-	printf("-%s-",str);
 	s1 = ft_getenv(glob->list_env, str);
-	//print_list(glob->list_env);
-	printf("_%s_", s1);
-	glob->lex->e = h;
 	return(s1);
 
 }
@@ -72,23 +70,23 @@ char		*manage_normal(char *s, int i, t_shell *glob)
 	j = size_to_mal(s, i);
 	if(!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
+	str = ft_memset(str, '\0', i);
 	j = 0;
 	while (s[i + j + p] != '\0' && e == 0)
 	{
-		//if (s[i + j + p + 1] =='$' && s[i + j + p] == '\\')
-		//	printf("env");
 		if (s[i + j + p] == '$')
-		{
+		{	
 			s2 = env_finder(s,(i + j + p),glob);
-			//str = ft_strjoin(str, s2);
-			//j = glob->lex->e;
+			if (s2 != NULL)
+			{	str[j] = '\0';
+				str = ft_strjoin(str, s2);
+			}
+			j += glob->lex->e;
+			glob->lex->j = j+p;
+			return(str);
 		}
-		if (s[i + j + p] == '\\' /*&& s[i + j + p + 1] == '\\'*/)
+		if (s[i + j + p] == '\\')
 			p++;
-		//if (ft_strchr_int("\"\'$", s[i + j + p + 1]) == 1 && s[i + j + p] == '\\')
-		//	p++;
-		//if (ft_strchr_int("\"\'$", s[i + j + p + 1]) == 0 && s[i + j + p] != '\\')
-		//	e = 1;
 		str[j] = s[i + j + p];
 		j++;
 	}
@@ -113,7 +111,7 @@ int			put_normal(int i, char *s, t_shell *glob)
 		j = glob->lex->j;
 		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
-		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		fflush(stdout);
 		return (j);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 01:03:18 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/18 12:36:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int		put_append(int *index, char *s, t_shell *glob);
 int		ft_strch(const char *s, int c);
 void	destruct_lex(t_shell *glob);
 int		put_quotation(int i, char *s, t_shell *glob, char c);
-int			put_normal(int i, char *s, t_shell *glob);
+int		put_normal(int i, char *s, t_shell *glob);
+char	*env_finder(char *s, int i, t_shell *glob);
 
 #endif
