@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 00:48:32 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/18 01:03:18 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/wait.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -144,7 +145,7 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 // builtin_cd.c
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
-int			cd_error(char *str, int ret, char *old, char *new);
+int			cd_error(char *str, int ret, char *oldpath, char *newpath);
 int			cd_home(t_list_env *env);
 int			cd_back(t_list_env *env, int fd);
 int			cd_abs_path(t_list_env *env, char *newpath);

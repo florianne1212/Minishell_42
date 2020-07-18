@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/18 00:42:39 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/18 01:53:59 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,38 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 	return (ret);
 }
 
-char 	*ft_search_env_path(t_shell glob, char *command)
+char 	*ft_search_env_path(t_shell *glob, char *command)
 {
-	(void)glob;
-	return (command);
+	char	*temp;
+	char	*path;
+	char	**paths;
+	int		i;
+	int		ret;
+	struct stat s_bufstat;
+
+
+//il faut liberer le tableau en cas d'erreur
+	i = 0;
+	if (!(paths = ft_split(ft_getenv(glob->list_env, "PATH"), ':')))
+		return (errno_return_str(ENOMEM, NULL));
+	while (paths[i])
+	{
+		if (!(temp = ft_strjoin(paths[i],"/")))
+			return (errno_return_str(ENOMEM, NULL));//free tableau
+		if (!(path = ft_strjoin(temp, command)))
+			return (errno_return_str(ENOMEM, NULL));//free tableau
+		printf("%s", path);
+		free (temp);
+		i++;
+		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
+			return (path); //apres avoir eteint le tableau
+	}
+
+
+
+
+
+	return (path);
 }
 
 int		no_command_found(char *command)
@@ -104,7 +132,7 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg)
 	//chercher si builtin et run builtin DONE
 	// chercher si path absolu (commence par /) DONE
 	//chercher si path relatif (commence par .) DONE
-	//chercher dans PATH si commande existe
+	//chercher dans PATH si commande existe WIP et prometteur
 	//retourner une erreur si aucun processus ok DONE
 	//creer le tableau env
 	//lancer la commande avec fork et xecve
