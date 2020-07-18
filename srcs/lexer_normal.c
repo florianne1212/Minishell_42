@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 13:41:06 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/18 23:20:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,18 @@ char		*manage_normal(char *s, int i, t_shell *glob)
 			glob->lex->j = j+p;
 			return(str);
 		}
+		if ((s[i + j + p] != '\\' && s[i + j + p + 1] == '\"'))
+			e = 0;
+		if  (ft_strchr_int("|;><", s[i + j + p + 1]) == 1)
+			e = 3;
 		if (s[i + j + p] == '\\')
 			p++;
 		str[j] = s[i + j + p];
 		j++;
 	}
 	glob->lex->j = j+p;
+	if (e == 3)
+		glob->lex->j--;
 	str[j] = '\0';
 	return(str);
 	

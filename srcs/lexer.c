@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <fcoudert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/06/25 22:05:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/18 22:58:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,31 @@ void		init_lex(t_shell *glob, char *line)
 		return ;
 	while (i <= glob->lex->nb_words)
 	{
-		glob->lex->tokens[i] = (t_token *)malloc((sizeof(t_token)));
+		glob->lex->tokens[i] = NULL;
 		i++;
 	}
+}
+
+void		clean_lexer	(t_shell *glob)
+{
+	int e;
+	int index = 1;
+	e = glob->lex->count;
+	while (index <= e)
+	{
+		if (glob->lex->tokens[index]->type == TT_STRING)
+			free(glob->lex->tokens[index]->str);
+		index++;
+	}
+	index = 0;
+	while (index <= glob->lex->nb_words)
+	{
+		free (glob->lex->tokens[index] );
+		glob->lex->tokens[index] = NULL;
+		index++;
+	}
+	free(glob->lex->tokens);
+	free(glob->lex);
 }
 
 int			lexe_line(char *line, t_shell *glob)
@@ -85,7 +107,7 @@ int			lexe_line(char *line, t_shell *glob)
 
 	index = 0;
 	init_lex(glob, line);
-	while (line[index] != '\0')
+	while (index < (int)ft_strlen(line))
 	{
 		//if (line[index] == (char)134)
 		//	index += put_string(index, line, glob);
@@ -106,5 +128,7 @@ int			lexe_line(char *line, t_shell *glob)
 			index += put_string(index, line, glob);
 		index++;
 	}
+	parser(glob);
+	clean_lexer(glob);
 	return (1);
 }

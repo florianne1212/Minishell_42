@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 12:36:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/18 23:39:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 typedef enum
 {
-	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM
+	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM, END
 } t_token_type;
 
 typedef struct
@@ -63,12 +63,24 @@ typedef struct	s_simple_command
 	char		*infile;
 }				t_simple_command;
 
+typedef enum
+{
+	TRUE, FALSE
+} t_bool;
+
 typedef struct	s_command
 {
-	int			num_simple_command;
-	t_simple_command **simple_command;
-	char		*outfile;
-	char		*infile;
+	char	*exec;
+	char	**argv;
+	t_bool	pipe;
+	char	**in;
+	char	**out;
+	char	**append;
+	
+//	int			num_simple_command;
+//	t_simple_command **simple_command;
+//	char		*outfile;
+//	char		*infile;
 //	char		*errfile;
 //	int			background;
 }				t_command;
@@ -82,7 +94,7 @@ typedef struct	s_shell
 	int			error;
 	t_lex		*lex;
 	t_list_env	*list_env;
-	t_command	*command;
+	t_command	*com;
 	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
@@ -191,5 +203,6 @@ void	destruct_lex(t_shell *glob);
 int		put_quotation(int i, char *s, t_shell *glob, char c);
 int		put_normal(int i, char *s, t_shell *glob);
 char	*env_finder(char *s, int i, t_shell *glob);
+void	parser(t_shell *glob);
 
 #endif
