@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 22:58:22 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/19 21:50:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int			lexe_line(char *line, t_shell *glob)
 			index += put_string(index, line, glob);
 		index++;
 	}
-	parser(glob);
+	parser(glob, 1);
 	clean_lexer(glob);
 	return (1);
 }

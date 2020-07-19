@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 23:39:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/19 21:50:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,6 @@ void	destruct_lex(t_shell *glob);
 int		put_quotation(int i, char *s, t_shell *glob, char c);
 int		put_normal(int i, char *s, t_shell *glob);
 char	*env_finder(char *s, int i, t_shell *glob);
-void	parser(t_shell *glob);
+void	parser(t_shell *glob, int index);
 
 #endif
