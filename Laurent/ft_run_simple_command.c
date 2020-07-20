@@ -6,23 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/20 12:24:04 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:59:17 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-// pid_t create_process(void)
-// {
-// 	pid_t pid;
-
-// 	errno = 0;
-// 	pid = fork();
-// 	while (pid == -1 && errno == EAGAIN)
-// 		pid = fork();
-// 	return (pid);
-// }
 
 /*
 ** cherche si la fonction est l'un de nos homemade builtin et l'execute le cas
@@ -89,43 +77,20 @@ char	*ft_search_env_path(char *env_paths, char *command)
 		if (!(path = create_command_path(paths[i], command)))
 			return (destroy_split_errno_ret_str(paths, ENOMEM, NULL));
 		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
-			i = max;//revient a faire break
+			i = max - 1;//revient a faire break
 		i++;
 	}
 	split_destructor(paths);
 	return (path);
 }
 
-int		no_command_found(char *command)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putendl_fd(": command not found", 2);
-	errno = ENOENT;
-	return (1);
-}
-
-void	ft_change_case_instruction(char *instruction)
-{
-	int	i;
-
-	i = 0;
-	if (instruction[0] == '.')
-		return ;
-	if (instruction[0] == '/')
-		return ;
-	while (instruction[i])
-	{
-		if (instruction[i] > 64 && instruction[i] < 91)
-			instruction[i] += 32;
-		i++;
-	}
-}
 
 //renvoie 1 si erreur
 
 int		path_for_execve(char *file, char **path, char *env_path)
 {
+	struct stat	s_bufstat;
+
 	if (file[0] == '/')
 	{
 		if (!(*path = ft_strdup(file)))
@@ -139,28 +104,16 @@ int		path_for_execve(char *file, char **path, char *env_path)
 	else
 	{
 		if (!(*path = ft_search_env_path(env_path, file)))
-			return (no_command_found(file));
+			return (not_a_command(file, ": command not found"));
 	}
-	return (0);
+	if (!(stat(*path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
+		return (0);
+	if (S_ISDIR(s_bufstat.st_mode))
+		return (not_a_command(*path, ": is a directory"));
+	return (not_a_command(*path, ": No such file or directory"));
 }
 
-// int		fork_and_run_command(t_shell *glob, char *path, char **arg, char **env)
-// {
-// 	pid_t pid;
 
-// 	if((pid = create_process()) == -1)
-// 		return (1);
-// 	if (pid == 0) /*child process*/
-// 		execution
-// 	else /*father process*/
-// 	{
-// 		attente retour fils avec prompt
-// 	}
-
-
-
-// 	return (0);
-// }
 /*
 ** recherche si builtin, recherche si chemin absolu ou relatif,
 ** puis recherche dans PATH
@@ -188,17 +141,7 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg)
 	glob->envirron = env_create_array(glob->list_env, glob->envirron);
 	//ret = fork_and_run_command(glob, path, command_arg, glob->envirron);
 	ret = execve(path, command_arg, glob->envirron);
-	printf("tout s'est arrete");
+	//printf("tout s'est arrete");
 	free(path);
 	return (ret);
 }
-
-//passer arg[0] en minuscules DONE
-//chercher si builtin et run builtin DONE
-// chercher si path absolu (commence par /) DONE
-//chercher si path relatif (commence par .) DONE
-//chercher dans PATH si commande existe WIP et prometteur
-//retourner une erreur si aucun processus ok DONE
-//creer le tableau envDONE
-//lancer la commande avec  execve DONE
-//checker si  chemin relatif et absolus sont valides

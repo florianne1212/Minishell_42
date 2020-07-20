@@ -20,7 +20,7 @@ mettre tout au propre et norme DONE
 
 -finir builtin cd DONE !
 
--gerer execution des fonctions avec stat, fork et execve
+-gerer execution des fonctions avec stat, fork et execve WIP
 
 18 juillet
 	passer l'instruction en minuscule DONE
@@ -29,7 +29,18 @@ mettre tout au propre et norme DONE
 	chercher si path relatif (commence par .) DONE
 	chercher dans PATH si commande existe
 	retourner une erreur si aucun processus ok DONE
+	checker si  chemin relatif et absolus sont valides DONE
+	creer le tableau env DONE
 	lancer la commande avec fork et execve
 		fait avec execve, DONE
 		mettre le fork
 		gestion signal
+
+20 juillet
+	-traquer la segfault : DONE
+	-mettre run_simple...au propre,
+	-changer .h de l'include
+	-mettre dans srcs run_simple et errno_gestion
+	-faire le fork
+	-gestion du signal
+	-ameliorer export builtin
