@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int			size_to_mal(char *s, int i)
+int			size_to_mal(char *s, int *idx)
 {
 	int j;
 	int e;
@@ -20,18 +20,19 @@ int			size_to_mal(char *s, int i)
 	e = 0;
 	j = 0;
 	int p = 0;
-	while (s[i + j + p] != '\0' && e == 0 && s[i + j + p] != '$')
+	while (s[*idx + j + p] != '\0' && e == 0 && s[*idx + j + p] != '$' &&
+	ft_isspace(s[*idx + j + p]) == 0)
 	{
-		if (ft_strchr_int("\"\'$", s[i + j + p]) == 0 && s[i + j + p] == '\\')
+		if (ft_strchr_int("\"\'$", s[*idx + j + p]) == 0 && s[*idx + j + p] == '\\')
 			p++;
-		if (ft_strchr_int("\"\'$", s[i + j + p]) == 1 && s[i + j + p] != '\\')
+		if (ft_strchr_int("\"\'$", s[*idx + j + p]) == 1 && s[*idx + j + p] != '\\')
 			e = 1;
 		j++;
 	}
 	return(j);
 }
 
-char	*env_finder(char *s, int i, t_shell *glob)
+/*char	*env_finder(char *s, int i, t_shell *glob)
 {
 	int h;
 	char *str;
@@ -55,71 +56,102 @@ char	*env_finder(char *s, int i, t_shell *glob)
 	s1 = ft_getenv(glob->list_env, str);
 	return(s1);
 
-}
+}*/
 
-char		*manage_normal(char *s, int i, t_shell *glob)
+char		*map(char *s, int *idx, t_shell *glob)
 {
+	char c;
 	char *str;
-	char *s2;
 	int j;
-	int e;
-	int p;
 
-	e = 0;
-	p = 0;
-	j = size_to_mal(s, i);
+	c = '\0';
+	j = size_to_mal(s, idx);
 	if(!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	str = ft_memset(str, '\0', i);
+	str = ft_memset(str, '\0', *idx);
 	j = 0;
-	while (s[i + j + p] != '\0' && e == 0)
+	while((c = s[*idx]) && ft_isspace(s[*idx]) == 0)
 	{
-		if (s[i + j + p] == '$')
-		{	
-			s2 = env_finder(s,(i + j + p),glob);
-			if (s2 != NULL)
-			{	str[j] = '\0';
-				str = ft_strjoin(str, s2);
-			}
-			j += glob->lex->e;
-			glob->lex->j = j+p;
+		if (c == '\\' && ft_strchr("\\\"$\'", s[*idx + 1]))
+			*idx += 1;
+		else if (c == '$')
+		{
+			str = join_env(idx,s,glob,str,j);
 			return(str);
 		}
-		if ((s[i + j + p] != '\\' && s[i + j + p + 1] == '\"'))
-			e = 0;
-		if  (ft_strchr_int("|;><", s[i + j + p + 1]) == 1)
-			e = 3;
-		if (s[i + j + p] == '\\')
-			p++;
-		str[j] = s[i + j + p];
-		j++;
+		else if (ft_strchr_int("|;><", s[*idx]) == 1)
+			return (str);
+		else
+		{
+			str[j] = s[*idx];
+			j++;
+			*idx += 1;
+		}
 	}
-	glob->lex->j = j+p;
-	if (e == 3)
-		glob->lex->j--;
 	str[j] = '\0';
-	return(str);
-	
+	return (str);
 }
 
-int			put_normal(int i, char *s, t_shell *glob)
+// char		*manage_normal(char *s, int *idx, t_shell *glob)
+// {
+// 	char *str;
+// 	char *s2;
+// 	int j;
+// 	int e;
+// 	int p;
+
+// 	e = 0;
+// 	p = 0;
+// 	j = size_to_mal(s, idx);
+// 	if(!(str = malloc(sizeof(char) * (j + 1))))
+// 		return (NULL);
+// 	str = ft_memset(str, '\0', *idx);
+// 	j = 0;
+// 	while (s[*idx + j + p] != '\0' && e == 0 && ft_isspace(s[i + j + p]) == 0)
+// 	{
+// 		if (s[i + j + p] == '$')
+// 		{	
+// 			s2 = env_finder(s,(i + j + p),glob);
+// 			if (s2 != NULL)
+// 			{	str[j] = '\0';
+// 				str = ft_strjoin(str, s2);
+// 			}
+// 			j += glob->lex->e;
+// 			glob->lex->j = j+p;
+// 			return(str);
+// 		}
+// 		if ((s[i + j + p] != '\\' && s[i + j + p + 1] == '\"'))
+// 			e = 0;
+// 		if  (ft_strchr_int("|;><", s[i + j + p + 1]) == 1)
+// 			e = 3;
+// 		if (s[i + j + p] == '\\')
+// 			p++;
+// 		str[j] = s[i + j + p];
+// 		j++;
+// 	}
+// 	glob->lex->j = j+p;
+// 	if (e == 3)
+// 		glob->lex->j--;
+// 	str[j] = '\0';
+// 	return(str);
+	
+// }
+
+void			put_normal(int *idx, char *s, t_shell *glob)
 {
 	int		j;
 	t_token	*ttok;
 
 	j = 0;
-	if (s[i + j] != '\0')
+	if (s[*idx] != '\0')
 	{
 		if (!(ttok = malloc(sizeof(t_token))))
-			return (0);
+			return ;
 		ttok->type = TT_STRING;
-		ttok->str = manage_normal(s, i + j,glob);
-		j = glob->lex->j;
+		ttok->str = map(s,idx ,glob);
 		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		fflush(stdout);
-		return (j);
 	}
-	return (0);
 }

@@ -109,8 +109,6 @@ int			lexe_line(char *line, t_shell *glob)
 	init_lex(glob, line);
 	while (index < (int)ft_strlen(line))
 	{
-		//if (line[index] == (char)134)
-		//	index += put_string(index, line, glob);
 		if (line[index] == '|')
 			put_pipe(&index, line, glob);
 		else if (line[index] == ';')
@@ -120,12 +118,12 @@ int			lexe_line(char *line, t_shell *glob)
 		else if (line[index] == '>')
 		{
 			if (line[index + 1] == '>')
-				index += put_append(&index, line, glob);
+				put_append(&index, line, glob);
 			else
 				put_output(&index, line, glob);
 		}
 		else
-			index += put_string(index, line, glob);
+			put_string(&index, line, glob);
 		index++;
 	}
 	parser(glob, 1);

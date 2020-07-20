@@ -68,14 +68,21 @@ typedef enum
 	TRUE, FALSE
 } t_bool;
 
+typedef struct
+{
+	char *path;
+	int fd;
+	int error;
+} t_file;
+
 typedef struct	s_command
 {
 	char	*exec;
 	char	**argv;
 	t_bool	pipe;
-	char	**in;
-	char	**out;
-	char	**append;
+	t_file  *in;
+	t_file  *out;
+	t_bool  append;
 	
 //	int			num_simple_command;
 //	t_simple_command **simple_command;
@@ -84,6 +91,20 @@ typedef struct	s_command
 //	char		*errfile;
 //	int			background;
 }				t_command;
+
+/*
+if tok == TT_IN
+   cmd.in = malloc(t_file)
+   cmd.in.path = tok + 1;
+   cmd.in.fd = open(cmd.in.path, O_READ);
+
+   if (errno != 0)
+		cmd.in.error = errno;
+		errno = 0;
+
+
+
+*/
 
 typedef struct	s_shell
 {
@@ -94,7 +115,7 @@ typedef struct	s_shell
 	int			error;
 	t_lex		*lex;
 	t_list_env	*list_env;
-	t_command	*com;
+	t_command	**cmd;
 	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
@@ -196,13 +217,14 @@ void	put_pipe(int *index, char *s, t_shell *glob);
 void	put_input(int *index, char *s, t_shell *glob);
 void	put_output(int *index, char *s, t_shell *glob);
 void	put_semicolon(int *index, char *s, t_shell *glob);
-int		put_string(int i, char *s, t_shell *glob);
-int		put_append(int *index, char *s, t_shell *glob);
+void	put_string(int *idx, char *s, t_shell *glob);
+void	put_append(int *index, char *s, t_shell *glob);
 int		ft_strch(const char *s, int c);
 void	destruct_lex(t_shell *glob);
-int		put_quotation(int i, char *s, t_shell *glob, char c);
-int		put_normal(int i, char *s, t_shell *glob);
+void		put_quotation(int *idx, char *s, t_shell *glob, char c);
+void	put_normal(int *idx, char *s, t_shell *glob);
 char	*env_finder(char *s, int i, t_shell *glob);
 void	parser(t_shell *glob, int index);
+char	*join_env(int *idx, char *s, t_shell *glob, char *str, int j);
 
 #endif

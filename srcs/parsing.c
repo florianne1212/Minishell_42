@@ -14,14 +14,31 @@
 
 void            init_command(t_shell *glob)
 {
-    if(!(glob->com = malloc(sizeof(t_command))))
+    if(!(glob->cmd = malloc(sizeof(t_command))))
         return ;
-    glob->com->exec = NULL;
-    glob->com->argv = NULL;
-    glob->com->pipe = FALSE;
-    glob->com->in = NULL;
-    glob->com->out = NULL;
-    glob->com->append = NULL;
+    glob->cmd->exec = NULL;
+    glob->cmd->argv = NULL;
+    glob->cmd->pipe = FALSE;
+    glob->cmd->in = NULL;
+    glob->cmd->out = NULL;
+    //glob->cmd->append = NULL;
+}
+
+void    nb_command(t_shell *glob)
+{
+    int i;
+    int j;
+
+    i = 1;
+    while (i <= glob->lex->count &&
+    glob->lex->tokens[i]->type != TT_SEMICOLOM)
+    {
+        if (glob->lex->tokens[i]->type == TT_PIPE)
+            j++;
+        i++;
+    }
+    if(!(glob->cmd = malloc(sizeof(t_command *) * (j + 2))))
+        return;
 }
 
 
@@ -32,6 +49,7 @@ void			parser(t_shell *glob, int index)
 
     i = 1;
     init_command(glob);
+    nb_command(glob);
     (void)glob;
     if (glob->lex->tokens[index]->type != TT_STRING)
     {
@@ -40,12 +58,12 @@ void			parser(t_shell *glob, int index)
     while (i <= glob->lex->count)
     {
         if (i == index)
-            glob->com->exec = ft_strdup(glob->lex->tokens[i]->str);
+            glob->cmd->exec = ft_strdup(glob->lex->tokens[i]->str);
         //else if()
         //printf("\n ___%s___", glob->lex->tokens[i]->str);
         i++;
     }
-    //printf("\n,,,%s,,",glob->com->exec);
+    printf("\n,,,%s,,",glob->cmd->exec);
     fflush(stdout);
     //printf
     

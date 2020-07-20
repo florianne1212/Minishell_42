@@ -12,43 +12,40 @@
 
 #include "../includes/minishell.h"
 
-char		*manage_quote(char *s, int i, char c)
+char		*manage_quote(char *s, int *idx, char c)
 {
-	int		j;
 	char	*str;
+	int j;
 
 	j = 0;
-	while (s[i + j] != '\0' && s[i + j] != c)
+	while (s[*idx + j] != '\0' && s[*idx + j] != c)
 		j++;
-	if (s[i + j] == '\0')
-		ft_putstr("\nmissing end of quote");
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
 	j = 0;
-	while (s[i + j] != '\0' && s[i + j] != c)
+	while (s[*idx] != '\0' && s[*idx] != c)
 	{
-		str[j] = s[i + j];
+		str[j] = s[*idx];
+		*idx += 1;
 		j++;
 	}
 	str[j] = '\0';
 	return (str);
 }
 
-int			put_quote(int i, char *s, t_shell *glob, char c)
+int			put_quote(int *idx, char *s, t_shell *glob, char c)
 {
 	int		j;
 	t_token	*ttok;
 
 	j = 0;
-	if (s[i + j] != '\0' && s[i + j] == c)
+	if (s[*idx] != '\0' && s[*idx] == c)
 	{
-		j++;
+		*idx += 1;
 		if (!(ttok = malloc(sizeof(t_token))))
 			return (0);
 		ttok->type = TT_STRING;
-		ttok->str = manage_quote(s, i + j, c);
-		while (s[i + j] != '\0' && s[i + j] != c)
-			j++;
+		ttok->str = manage_quote(s, idx, c);
 		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
@@ -58,18 +55,18 @@ int			put_quote(int i, char *s, t_shell *glob, char c)
 	return (0);
 }
 
-int			put_string(int i, char *s, t_shell *glob)
+void			put_string(int *idx, char *s, t_shell *glob)
 {
 	int		j;
 
 	j = 0;
-	while (ft_isspace(s[i + j]) == 1 && s[i + j] != '\0')
-		j++;
-	if (s[i + j] == '\'')
-		j += put_quote((i + j), s, glob, '\'');
-	else if (s[i + j] == '\"')
-		j += put_quotation((i + j), s, glob, '\"');
+	while (ft_isspace(s[*idx]) == 1 && s[*idx] != '\0')
+		*idx+=1;
+	if (s[*idx] == '\'')
+		put_quote(idx, s, glob, '\'');
+	else if (s[*idx] == '\"')
+		put_quotation(idx, s, glob, '\"');
 	else 
-		j += put_normal((i + j), s, glob);
-	return (j);
+		put_normal((idx + j), s, glob);
+	return ;
 }
