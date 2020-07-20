@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/19 21:50:21 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/20 17:24:26 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct	s_command
 	t_file  *in;
 	t_file  *out;
 	t_bool  append;
-	
+
 //	int			num_simple_command;
 //	t_simple_command **simple_command;
 //	char		*outfile;
@@ -138,6 +138,8 @@ int		ft_setenv(t_list_env **env, const char *name, const char *value,
 */
 char		*errno_return_str(int errnocode, char *return_value);
 int			errno_return_int(int errnocode, int return_value);
+void		split_destructor(char **split);
+char		*destroy_split_errno_ret_str(char **split, int errnocode, char *ret);
 
 /*
 // env_list_gestion.c
@@ -205,6 +207,21 @@ char		*path_create_data(char *rel, char ***relative, t_list **absolute);
 void		delete_list_first_elem(t_list **beginlist);
 int			create_path_list(t_list **abs, char **rel);
 char		*create_abs_str(t_list *absolute);
+
+/*
+** ft_run_simple_command.c
+*/
+int		check_and_run_builtin(t_shell *glob, char **arg);
+char	*create_command_path(char *env_path, char *command);
+char	*ft_search_env_path(char *env_paths, char *command);
+int		path_for_execve(char *file, char **path, char *env_path);
+int		ft_run_simple_command(t_shell *glob, char **command_arg);
+
+/*
+** ft_run_simple_command2.c
+*/
+int		not_a_command(char *command, char *str);
+void	ft_change_case_instruction(char *instruction);
 
 
 

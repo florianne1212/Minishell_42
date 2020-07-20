@@ -38,9 +38,9 @@ mettre tout au propre et norme DONE
 
 20 juillet
 	-traquer la segfault : DONE
-	-mettre run_simple...au propre,
+	-mettre run_simple...au propre DONE, qq remarques a enlever
 	-changer .h de l'include
-	-mettre dans srcs run_simple et errno_gestion
+	-mettre dans srcs run_simple et errno_gestion DONE
 	-faire le fork
 	-gestion du signal
 	-ameliorer export builtin
