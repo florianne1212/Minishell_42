@@ -40,21 +40,6 @@ int			nbr_words(char const *s, t_shell *glob)
 	return (a);
 }
 
-// void	destruct_lex(t_shell *glob)
-// {
-// 	/*while (i < glob->lex->nb_words)
-// 	{
-// 		if (glob->lex->tokens[i] != NULL)
-// 		{
-// 			free(glob->lex->tokens[i]);
-// 			glob->lex->tokens[i] = NULL;
-// 		}
-// 		i++;
-// 	}
-// 	free(glob->lex);
-// 	glob->lex = NULL;*/
-// }
-
 void		init_lex(t_shell *glob, char *line)
 {
 	int		i;
@@ -79,10 +64,12 @@ void		init_lex(t_shell *glob, char *line)
 	}
 }
 
-void		clean_lexer	(t_shell *glob)
+void		clean_lexer(t_shell *glob)
 {
 	int e;
-	int index = 1;
+	int index;
+
+	index = 1;
 	e = glob->lex->count;
 	while (index <= e)
 	{
@@ -93,7 +80,7 @@ void		clean_lexer	(t_shell *glob)
 	index = 0;
 	while (index <= glob->lex->nb_words)
 	{
-		free (glob->lex->tokens[index] );
+		free(glob->lex->tokens[index]);
 		glob->lex->tokens[index] = NULL;
 		index++;
 	}

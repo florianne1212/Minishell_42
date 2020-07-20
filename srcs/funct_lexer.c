@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-void		put_pipe(int *index, char *s, t_shell *glob)
+void			put_pipe(int *index, char *s, t_shell *glob)
 {
-	t_token	*ttok;
+	t_token		*ttok;
 
 	if (s[*index] == '|' && s[*index] != '\0')
 	{
@@ -29,9 +29,9 @@ void		put_pipe(int *index, char *s, t_shell *glob)
 	}
 }
 
-void		put_input(int *index, char *s, t_shell *glob)
+void			put_input(int *index, char *s, t_shell *glob)
 {
-	t_token	*ttok;
+	t_token		*ttok;
 
 	if (s[*index] == '<' && s[*index] != '\0')
 	{
@@ -46,9 +46,9 @@ void		put_input(int *index, char *s, t_shell *glob)
 	}
 }
 
-void		put_output(int *index, char *s, t_shell *glob)
+void			put_output(int *index, char *s, t_shell *glob)
 {
-	t_token	*ttok;
+	t_token		*ttok;
 
 	if (s[*index] == '>' && s[*index] != '\0')
 	{
@@ -64,9 +64,9 @@ void		put_output(int *index, char *s, t_shell *glob)
 	}
 }
 
-void		put_semicolon(int *index, char *s, t_shell *glob)
+void			put_semicolon(int *index, char *s, t_shell *glob)
 {
-	t_token	*ttok;
+	t_token		*ttok;
 
 	if (s[*index] == ';' && s[*index] != '\0')
 	{
@@ -81,21 +81,20 @@ void		put_semicolon(int *index, char *s, t_shell *glob)
 	}
 }
 
-int			put_append(int *index, char *s, t_shell *glob)
+void			put_append(int *index, char *s, t_shell *glob)
 {
-	t_token	*ttok;
+	t_token		*ttok;
 
 	if (s[*index] == '>' && s[*index + 1] == '>' && s[*index] != '\0')
 	{
 		if (!(ttok = malloc(sizeof(t_token))))
-			return (0);
+			return ;
 		ttok->type = TT_APPEND;
 		ttok->str = "append";
 		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
 		fflush(stdout);
-		return (1);
+		*index += 1;
 	}
-	return (0);
 }

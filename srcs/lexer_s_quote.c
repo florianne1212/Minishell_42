@@ -15,7 +15,7 @@
 char		*manage_quote(char *s, int *idx, char c)
 {
 	char	*str;
-	int j;
+	int		j;
 
 	j = 0;
 	while (s[*idx + j] != '\0' && s[*idx + j] != c)
@@ -55,18 +55,18 @@ int			put_quote(int *idx, char *s, t_shell *glob, char c)
 	return (0);
 }
 
-void			put_string(int *idx, char *s, t_shell *glob)
+void		put_string(int *idx, char *s, t_shell *glob)
 {
 	int		j;
 
 	j = 0;
 	while (ft_isspace(s[*idx]) == 1 && s[*idx] != '\0')
-		*idx+=1;
+		*idx += 1;
 	if (s[*idx] == '\'')
 		put_quote(idx, s, glob, '\'');
 	else if (s[*idx] == '\"')
 		put_quotation(idx, s, glob, '\"');
-	else 
+	else
 		put_normal((idx + j), s, glob);
 	return ;
 }
