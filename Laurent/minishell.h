@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/19 01:01:14 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:24:26 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 typedef enum
 {
-	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM
+	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM, END
 } t_token_type;
 
 typedef struct
@@ -48,6 +48,8 @@ typedef struct s_lex
 	int			nb_words;
 	int			i;
 	int			count;
+	int			j;
+	int			e;
 	t_token		**tokens;
 }				t_lex;
 
@@ -61,15 +63,48 @@ typedef struct	s_simple_command
 	char		*infile;
 }				t_simple_command;
 
+typedef enum
+{
+	TRUE, FALSE
+} t_bool;
+
+typedef struct
+{
+	char *path;
+	int fd;
+	int error;
+} t_file;
+
 typedef struct	s_command
 {
-	int			num_simple_command;
-	t_simple_command **simple_command;
-	char		*outfile;
-	char		*infile;
+	char	*exec;
+	char	**argv;
+	t_bool	pipe;
+	t_file  *in;
+	t_file  *out;
+	t_bool  append;
+
+//	int			num_simple_command;
+//	t_simple_command **simple_command;
+//	char		*outfile;
+//	char		*infile;
 //	char		*errfile;
 //	int			background;
 }				t_command;
+
+/*
+if tok == TT_IN
+   cmd.in = malloc(t_file)
+   cmd.in.path = tok + 1;
+   cmd.in.fd = open(cmd.in.path, O_READ);
+
+   if (errno != 0)
+		cmd.in.error = errno;
+		errno = 0;
+
+
+
+*/
 
 typedef struct	s_shell
 {
@@ -80,8 +115,8 @@ typedef struct	s_shell
 	int			error;
 	t_lex		*lex;
 	t_list_env	*list_env;
-	t_command	*command;
-	int			fd;
+	t_command	**cmd;
+	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
 void			sort_envp(char **envp, t_shell *glob);
@@ -145,7 +180,7 @@ int			builtin_unset(t_shell *glob, int fd, char **arg);
 // builtin_cd.c
 */
 int			builtin_cd(t_shell *glob, int fd, char **arg);
-int			cd_error(char *str, int ret, char *old, char *new);
+int			cd_error(char *str, int ret, char *oldpath, char *newpath);
 int			cd_home(t_list_env *env);
 int			cd_back(t_list_env *env, int fd);
 int			cd_abs_path(t_list_env *env, char *newpath);
@@ -174,13 +209,19 @@ int			create_path_list(t_list **abs, char **rel);
 char		*create_abs_str(t_list *absolute);
 
 /*
-**ft_run_simple_command.c
+** ft_run_simple_command.c
 */
-int		ft_run_simple_command(t_shell *glob, char **command_arg);
-void	ft_change_case_instruction(char *instruction);
-int		no_command_found(char *command);
-char 	*ft_search_env_path(char *env_path, char *command);
 int		check_and_run_builtin(t_shell *glob, char **arg);
+char	*create_command_path(char *env_path, char *command);
+char	*ft_search_env_path(char *env_paths, char *command);
+int		path_for_execve(char *file, char **path, char *env_path);
+int		ft_run_simple_command(t_shell *glob, char **command_arg);
+
+/*
+** ft_run_simple_command2.c
+*/
+int		not_a_command(char *command, char *str);
+void	ft_change_case_instruction(char *instruction);
 
 
 
@@ -193,9 +234,14 @@ void	put_pipe(int *index, char *s, t_shell *glob);
 void	put_input(int *index, char *s, t_shell *glob);
 void	put_output(int *index, char *s, t_shell *glob);
 void	put_semicolon(int *index, char *s, t_shell *glob);
-int		put_string(int i, char *s, t_shell *glob);
-int		put_append(int *index, char *s, t_shell *glob);
+void	put_string(int *idx, char *s, t_shell *glob);
+void	put_append(int *index, char *s, t_shell *glob);
 int		ft_strch(const char *s, int c);
 void	destruct_lex(t_shell *glob);
+void		put_quotation(int *idx, char *s, t_shell *glob, char c);
+void	put_normal(int *idx, char *s, t_shell *glob);
+char	*env_finder(char *s, int i, t_shell *glob);
+void	parser(t_shell *glob, int index);
+char	*join_env(int *idx, char *s, t_shell *glob, char *str, int j);
 
 #endif

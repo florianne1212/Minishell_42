@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/20 17:09:17 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/20 18:17:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int		path_for_execve(char *file, char **path, char *env_path)
 		return (0);
 	if (S_ISDIR(s_bufstat.st_mode))
 		return (not_a_command(*path, ": is a directory"));
-	return (not_a_command(*path, ": No such file or directory"));
+	return (not_a_command(file, ": No such file or directory"));
 }
 
 /*
