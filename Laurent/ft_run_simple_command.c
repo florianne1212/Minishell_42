@@ -6,11 +6,23 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/19 01:16:10 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/20 08:28:26 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+pid_t create_process(void)
+{
+	pid_t pid;
+
+	errno = 0;
+	pid = fork();
+	while (pid == -1 && errno == EAGAIN)
+		pid = fork();
+	return (pid);
+}
 
 /*
 ** cherche si la fonction est l'un de nos homemade builtin et l'execute le cas
@@ -132,6 +144,23 @@ int		path_for_execve(char *file, char **path, char *env_path)
 	return (0);
 }
 
+int		fork_and_run_command(t_shell *glob, char *path, char **arg, char **env)
+{
+	pid_t pid;
+
+	if((pid = create_process()) == -1)
+		return (1);
+	if (pid == 0) /*child process*/
+		execution
+	else /*father process*/
+	{
+		attente retour fils avec prompt
+	}
+
+
+
+	return (0);
+}
 /*
 ** recherche si builtin, recherche si chemin absolu ou relatif,
 ** puis recherche dans PATH
@@ -157,6 +186,7 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg)
 	path_for_execve(command_arg[0], &path, env_path);
 	free(env_path);
 	glob->envirron = env_create_array(glob->list_env, glob->envirron);
+	//ret = fork_and_run_command(glob, path, command_arg, glob->envirron);
 	ret = execve(path, command_arg, glob->envirron);
 	printf("tout s'est arrete");
 	free(path);
