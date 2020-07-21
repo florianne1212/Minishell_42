@@ -54,12 +54,15 @@ int			main(int argc, char **argv, char **envp)
 	{
 		ft_putstr("$>");
 		get_next_line(1, &line);
+//		line = ft_strdup("cat < Hello > world");
+//		line = ft_strdup("ls -la || cat -e ;   |    ");
 		lexe_line(line, glob);
 		if (strncmp(line, "exit", 4) == 0)
 		{
 			i = 0;
 		}
 		free(line);
+//		break; // TODO REMOVE
 	}
 	clean_exit(glob);
 }

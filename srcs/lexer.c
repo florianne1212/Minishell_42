@@ -66,12 +66,10 @@ void		init_lex(t_shell *glob, char *line)
 
 void		clean_lexer(t_shell *glob)
 {
-	int e;
 	int index;
 
-	index = 1;
-	e = glob->lex->count;
-	while (index <= e)
+	index = 0;
+	while (index < glob->lex->count)
 	{
 		if (glob->lex->tokens[index]->type == TT_STRING)
 			free(glob->lex->tokens[index]->str);

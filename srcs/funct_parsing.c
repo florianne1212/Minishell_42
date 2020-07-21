@@ -42,25 +42,25 @@ char			**find_argv(t_shell *glob, int i)
 
 int				manage_in(t_shell *glob, int i, int cmd_nb)
 {
-	if (glob->lex->tokens[i]->type == TT_IN)
-	{
-		if (!(glob->cmd[cmd_nb]->in =  malloc(sizeof(t_file))))
-			return (0);
-		if (glob->lex->tokens[i + 1]->type == TT_STRING)
-		{
-			glob->cmd[cmd_nb]->in->path = glob->lex->tokens[i + 1]->str;
-			glob->cmd[cmd_nb]->in->fd = open(glob->cmd[cmd_nb]->in->path, O_RDONLY);
-		}
-		else
-		{
-			ft_putstr("problem after sign : <");
-			return(0);
-		}
-		if (errno != 0)
-		{
-			glob->cmd[cmd_nb]->in->error = errno;
-			errno = 0;
-		}
-	}
+//	if (glob->lex->tokens[i]->type == TT_IN)
+//	{
+//		if (!(glob->cmd[cmd_nb]->in =  malloc(sizeof(t_file))))
+//			return (0);
+//		if (glob->lex->tokens[i + 1]->type == TT_STRING)
+//		{
+//			glob->cmd[cmd_nb]->in->path = glob->lex->tokens[i + 1]->str;
+//			glob->cmd[cmd_nb]->in->fd = open(glob->cmd[cmd_nb]->in->path, O_RDONLY);
+//		}
+//		else
+//		{
+//			ft_putstr("problem after sign : <");
+//			return(0);
+//		}
+//		if (errno != 0)
+//		{
+//			glob->cmd[cmd_nb]->in->error = errno;
+//			errno = 0;
+//		}
+//	}
 	return(1);
 }

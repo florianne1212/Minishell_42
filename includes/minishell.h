@@ -28,7 +28,13 @@
 
 typedef enum
 {
-	TT_STRING, TT_PIPE, TT_APPEND, TT_OUT, TT_IN, TT_SEMICOLOM, END
+	TT_STRING		= 0b0000001,
+	TT_PIPE			= 0b0000010,
+	TT_APPEND		= 0b0000100,
+	TT_OUT			= 0b0001000,
+	TT_IN			= 0b0010000,
+	TT_SEMICOLOM	= 0b0100000,
+	TT_END			= 0b1000000
 } t_token_type;
 
 typedef struct
@@ -81,8 +87,8 @@ typedef struct	s_command
 	char	*exec;
 	char	**argv;
 	t_bool	pipe;
-	t_file  *in;
-	t_file  *out;
+	t_file  in;
+	t_file  out;
 	t_bool  append;
 
 //	int			num_simple_command;
@@ -116,7 +122,7 @@ typedef struct	s_shell
 	int			error;
 	t_lex		*lex;
 	t_list_env	*list_env;
-	t_command	**cmd;
+	t_command	*cmd;
 	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
