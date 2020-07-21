@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <sys/errno.h>
 # include <string.h>
+#include <fcntl.h>
 # include "libft.h"
 
 typedef enum
@@ -225,9 +226,9 @@ void	ft_change_case_instruction(char *instruction);
 
 
 
-char			*find_value(char *str);
+char	*find_value(char *str);
 
-char			*find_name(char *str);
+char	*find_name(char *str);
 
 int		lexe_line(char *line, t_shell *glob);
 void	put_pipe(int *index, char *s, t_shell *glob);
@@ -238,10 +239,16 @@ void	put_string(int *idx, char *s, t_shell *glob);
 void	put_append(int *index, char *s, t_shell *glob);
 int		ft_strch(const char *s, int c);
 void	destruct_lex(t_shell *glob);
-void		put_quotation(int *idx, char *s, t_shell *glob, char c);
+void	put_quotation(int *idx, char *s, t_shell *glob, char c);
 void	put_normal(int *idx, char *s, t_shell *glob);
 char	*env_finder(char *s, int i, t_shell *glob);
 void	parser(t_shell *glob, int index);
 char	*join_env(int *idx, char *s, t_shell *glob, char *str, int j);
+
+int		ft_strlen_array(char **s);
+char	**add_to_array(char **s1, char *s2);
+
+char	**find_argv(t_shell *glob, int i);
+int		manage_in(t_shell *glob, int i, int cmd_nb);
 
 #endif
