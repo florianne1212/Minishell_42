@@ -22,9 +22,9 @@ void			put_pipe(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_PIPE;
 		ttok->str = "pipe";
-		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		glob->lex->count++;
 		fflush(stdout);
 	}
 }
@@ -39,9 +39,9 @@ void			put_input(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_IN;
 		ttok->str = "input";
-		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		glob->lex->count++;
 		fflush(stdout);
 	}
 }
@@ -56,9 +56,9 @@ void			put_output(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_OUT;
 		ttok->str = "output";
-		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		glob->lex->count++;
 		fflush(stdout);
 		index++;
 	}
@@ -74,9 +74,9 @@ void			put_semicolon(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_SEMICOLOM;
 		ttok->str = "semicolon";
-		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		glob->lex->count++;
 		fflush(stdout);
 	}
 }
@@ -91,9 +91,9 @@ void			put_append(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_APPEND;
 		ttok->str = "append";
-		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
 		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		glob->lex->count++;
 		fflush(stdout);
 		*index += 1;
 	}

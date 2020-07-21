@@ -106,9 +106,9 @@ void		put_quotation(int *idx, char *s, t_shell *glob, char c)
 			return ;
 		ttok->type = TT_STRING;
 		ttok->str = manage_d_quote(s, idx, glob);
-		glob->lex->count++;
 		glob->lex->tokens[glob->lex->count] = ttok;
-		printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
+		glob->lex->count++;
 		fflush(stdout);
 	}
 }
