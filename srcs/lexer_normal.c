@@ -110,8 +110,8 @@ void		put_normal(int *idx, char *s, t_shell *glob)
 		ttok->type = TT_STRING;
 		ttok->str = manage_normal(s, idx, glob);
 		glob->lex->tokens[glob->lex->count] = ttok;
+		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
-//		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		fflush(stdout);
 	}
 }

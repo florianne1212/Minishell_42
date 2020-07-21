@@ -86,6 +86,20 @@ void		clean_lexer(t_shell *glob)
 	free(glob->lex);
 }
 
+void		put_end(t_shell *glob)
+{
+	t_token		*ttok;
+
+	if (!(ttok = malloc(sizeof(t_token))))
+		return ;
+	ttok->type = TT_END;
+	ttok->str = "end";
+	glob->lex->tokens[glob->lex->count] = ttok;
+	printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+	glob->lex->count++;
+	fflush(stdout);
+}
+
 int			lexe_line(char *line, t_shell *glob)
 {
 	int		index;
@@ -109,8 +123,13 @@ int			lexe_line(char *line, t_shell *glob)
 		}
 		else
 			put_string(&index, line, glob);
+		while (((index + 1) < (int)ft_strlen(line)) && ft_isspace(line[index + 1]) == 1)
+			index++;
 		index++;
 	}
+	put_end(glob);
+	printf("\n");
+	fflush(stdout);
 	parser(glob, 1);
 	clean_lexer(glob);
 	return (1);
