@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/20 17:24:26 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/21 14:01:30 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,9 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg);
 */
 int		not_a_command(char *command, char *str);
 void	ft_change_case_instruction(char *instruction);
+
+int		fork_and_run_command(t_shell *glob, char *path, char **arg, char **env);
+
 
 
 

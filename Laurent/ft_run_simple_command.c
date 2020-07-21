@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/20 18:17:41 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/21 13:52:38 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,12 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg)
 	if ((ret = check_and_run_builtin(glob, command_arg)) >= 0)
 		return (ret);
 	env_path = ft_getenv(glob->list_env, "PATH");
-	path_for_execve(command_arg[0], &path, env_path);
+	if (path_for_execve(command_arg[0], &path, env_path))
+		return (1);
 	free(env_path);
 	glob->envirron = env_create_array(glob->list_env, glob->envirron);
-	//ret = fork_and_run_command(glob, path, command_arg, glob->envirron);
-	ret = execve(path, command_arg, glob->envirron);
+	ret = fork_and_run_command(glob, path, command_arg, glob->envirron);
+	//ret = execve(path, command_arg, glob->envirron);
 	free(path);
 	return (ret);
 }
