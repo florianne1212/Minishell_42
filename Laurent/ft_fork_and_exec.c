@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/21 14:00:53 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 14:08:12 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ pid_t create_process(void)
 		pid = fork();
 	return (pid);
 }
+
+void got_the_blody_signal(int n)
+{
+signal(SIGQUIT, got_the_blody_signal);
+signal(SIGINT, got_the_blody_signal);
+ft_putstr_fd("\b\b  \b\b", 1);
+printf(" gotcha!! your (%d) signal is useless \n", n);
+}
+
 void child_process(t_shell *glob, char *path, char **arg, char **env)
 {
 	int	ret;
@@ -40,13 +49,17 @@ void father_process(int child_pid)
 {
 	int	status;
 
-	waitpid(child_pid, &status, 0);
+	(void)child_pid;
+	waitpid(-1, &status, 0);
 	printf ("on est revenu dans le pere");
 }
 
 int		fork_and_run_command(t_shell *glob, char *path, char **arg, char **env)
 {
 	pid_t pid;
+
+	signal(SIGQUIT, got_the_blody_signal);
+	signal(SIGINT, got_the_blody_signal);
 
 	if((pid = fork())== -1)
 		return (1);
