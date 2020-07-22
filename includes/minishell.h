@@ -23,7 +23,7 @@
 # include <dirent.h>
 # include <sys/errno.h>
 # include <string.h>
-#include <fcntl.h>
+# include <fcntl.h>
 # include "libft.h"
 
 typedef enum
@@ -40,6 +40,8 @@ typedef enum
 typedef struct
 {
 	t_token_type type;
+	size_t start;
+	size_t end;
 	char *str;
 } t_token;
 
@@ -53,22 +55,22 @@ typedef struct	s_list_env
 typedef struct s_lex
 {
 	int			nb_words;
-	int			i;
 	int			count;
-	int			j;
 	int			e;
+	int			j;
 	t_token		**tokens;
 }				t_lex;
 
-
-// typedef struct	s_simple_command
-// {
-// 	int			command; //nom commande argument 0
-// 	int			num_arg;
-// 	char 		**arguments;
-// 	char		*outfile;
-// 	char		*infile;
-// }				t_simple_command;
+/*
+**typedef struct	s_simple_command
+**{
+**	int			command; //nom commande argument 0
+**	int			num_arg;
+**	char 		**arguments;
+**	char		*outfile;
+**	char		*infile;
+**}				t_simple_command;
+*/
 
 typedef enum
 {
@@ -105,7 +107,9 @@ typedef struct	s_shell
 	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
-void			sort_envp(char **envp, t_shell *glob);
+/*
+** cotrol.c
+*/
 void			control_c(int i);
 void			control_back(int i);
 
@@ -209,31 +213,56 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg);
 int		not_a_command(char *command, char *str);
 void	ft_change_case_instruction(char *instruction);
 
-
-
+/*
+**var_env.c
+*/
 char	*find_value(char *str);
-
 char	*find_name(char *str);
+void	sort_envp(char **envp, t_shell *glob);
 
+/*
+** lexer.c
+*/
 int		lexe_line(char *line, t_shell *glob);
+void	init_lex(t_shell *glob, char *line);
+
+/*
+** funct_lexer.c
+*/
 void	put_pipe(int *index, char *s, t_shell *glob);
 void	put_input(int *index, char *s, t_shell *glob);
 void	put_output(int *index, char *s, t_shell *glob);
 void	put_semicolon(int *index, char *s, t_shell *glob);
-void	put_string(int *idx, char *s, t_shell *glob);
 void	put_append(int *index, char *s, t_shell *glob);
-int		ft_strch(const char *s, int c);
-void	destruct_lex(t_shell *glob);
-void	put_d_quote(int *idx, char *s, t_shell *glob, char c);
+
+/*
+** lexer_s_quote.c
+*/
+void	put_string(int *idx, char *s, t_shell *glob);
+
+/*
+** funct_normal.c
+*/
 void	put_normal(int *idx, char *s, t_shell *glob);
 char	*env_finder(char *s, int i, t_shell *glob);
-void	parser(t_shell *glob, int index);
-char	*join_env(int *idx, char *s, t_shell *glob, char *str, int j);
 
+/*
+** lexer_d_quote.c
+*/
+void	put_d_quote(int *idx, char *s, t_shell *glob, char c);
+char	*join_env(int *idx, char *s, t_shell *glob, char *str);
+
+/*
+** manage_array.c
+*/
 int		ft_strlen_array(char **s);
 char	**add_to_array(char **s1, char *s2);
 
-char	**find_argv(t_shell *glob, int i);
-int		manage_in(t_shell *glob, int i, int cmd_nb);
+/*
+** parsing.c
+*/
+void	parser(t_shell *glob);
+int		validate(t_shell *glob, int *cmd_count);
+void	init_cmd(t_shell *glob, int cmd_count);
 
 #endif

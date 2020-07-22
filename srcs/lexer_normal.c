@@ -12,11 +12,18 @@
 
 #include "../includes/minishell.h"
 
-int			size_to_mal(char *s, int *idx)
+/*
+** la focntion size_to mal permet de determiner la taille
+** de la chaine de caracter
+** et la malloc pour renvoyer str
+*/
+
+char		*size_to_mal(char *s, int *idx)
 {
 	int		j;
 	int		e;
 	int		p;
+	char	*str;
 
 	e = 0;
 	j = 0;
@@ -32,8 +39,16 @@ int			size_to_mal(char *s, int *idx)
 			e = 1;
 		j++;
 	}
-	return (j);
+	if (!(str = malloc(sizeof(char) * (j + 1))))
+		return (NULL);
+	str = ft_memset(str, '\0', *idx);
+	return (str);
 }
+
+/*
+** env_finder permet de trouver le nom de la variable qu'on cherche
+** pour ensuite aller la chercher avec la fonciton getenv
+*/
 
 char		*env_finder(char *s, int i, t_shell *glob)
 {
@@ -57,8 +72,15 @@ char		*env_finder(char *s, int i, t_shell *glob)
 	}
 	str[h] = '\0';
 	s1 = ft_getenv(glob->list_env, str);
+	free(str);
 	return (s1);
 }
+
+/*
+** manage_normal permet de recuper la chaine de caractere
+** tout en gerant les exceptions
+** doit etre reduite pour passer la norme si ce n'est pas fait
+*/
 
 char		*manage_normal(char *s, int *idx, t_shell *glob)
 {
@@ -67,18 +89,16 @@ char		*manage_normal(char *s, int *idx, t_shell *glob)
 	int		j;
 
 	c = '\0';
-	j = size_to_mal(s, idx);
-	if (!(str = malloc(sizeof(char) * (j + 1))))
-		return (NULL);
-	str = ft_memset(str, '\0', *idx);
+	str = size_to_mal(s, idx);
 	j = 0;
 	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0)
 	{
-		if (c == '\\' && ft_strchr("\\\"$\'", s[*idx + 1]))
+		if (c == '\\')
 			*idx += 1;
-		else if (c == '$')
+		if (c == '$' && (s[*idx - 1] != '\\'))
 		{
-			str = join_env(idx, s, glob, str, j);
+			glob->lex->j = j;
+			str = join_env(idx, s, glob, str);
 			return (str);
 		}
 		else if (ft_strchr_int("|;><", s[*idx]) == 1)
@@ -97,6 +117,14 @@ char		*manage_normal(char *s, int *idx, t_shell *glob)
 	return (str);
 }
 
+/*
+** la fonction put_normal permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_STRING au type
+** ainsi que de d'assigner la chaine de caractere
+** a str
+*/
+
 void		put_normal(int *idx, char *s, t_shell *glob)
 {
 	int		j;
@@ -110,7 +138,7 @@ void		put_normal(int *idx, char *s, t_shell *glob)
 		ttok->type = TT_STRING;
 		ttok->str = manage_normal(s, idx, glob);
 		glob->lex->tokens[glob->lex->count] = ttok;
-		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
+		//printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
 		fflush(stdout);
 	}

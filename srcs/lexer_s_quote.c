@@ -61,7 +61,7 @@ int			put_s_quote(int *idx, char *s, t_shell *glob, char c)
 		ttok->type = TT_STRING;
 		ttok->str = manage_quote(s, idx, c);
 		glob->lex->tokens[glob->lex->count] = ttok;
-		printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
+		//printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
 		fflush(stdout);
 		return (j);

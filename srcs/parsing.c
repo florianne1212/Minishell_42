@@ -59,7 +59,7 @@ void			print_error(t_token *tok, int expect)
 ** elle retourne 0 si la ligne de commande n'est pas valide
 */
 
-static int		validate(t_shell *glob, int *cmd_count)
+int		validate(t_shell *glob, int *cmd_count)
 {
 	t_token		*tok;
 	int			expect;
@@ -136,12 +136,12 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 ** enne initialise aussi le tableau d'arguments
 */
 
-void		init_cmd(t_shell *glob, int cmd_count)
+void			init_cmd(t_shell *glob, int cmd_count)
 {
-	int i;
+	int			i;
 
 	i = 0;
-	if(!(glob->cmd = malloc(sizeof(t_command) * cmd_count)))
+	if (!(glob->cmd = malloc(sizeof(t_command) * cmd_count)))
 		return ;
 	ft_memset(glob->cmd, 0, sizeof(t_command) * cmd_count);
 	while (i < cmd_count)
@@ -153,23 +153,25 @@ void		init_cmd(t_shell *glob, int cmd_count)
 	}
 }
 
-void
-parser(t_shell *glob, int index)
+void			parser(t_shell *glob)
 {
 	int			cmd_index;
 	int			cmd_count;
+	int			index;
 	t_token		*t;
+	int			i;
 
-	(void)index;
+	i = 0;
 	cmd_count = 0;
+	index = 0;
 	if (!(validate(glob, &cmd_count)))
 	{
 		printf("syntax error\n");
-		return;
+		return ;
 	}
 	init_cmd(glob, cmd_count);
 	cmd_index = 0;
-	for (int index = 0; index < glob->lex->count; ++index)
+	while (index < glob->lex->count)
 	{
 		t = glob->lex->tokens[index];
 
@@ -199,17 +201,23 @@ parser(t_shell *glob, int index)
 			printf("END --- \n");
 			break ;
 		}
+		index++;
 	}
-	for (int index = 0; index < cmd_count; ++index)
+	index = 0;
+	while (index < cmd_count)
 	{
 		printf("cmd {\n");
 		printf("	exec	: %s\n", glob->cmd[index].exec);
-		for(int i = 0; glob->cmd[index].argv[i] != NULL; ++i)
+		while (glob->cmd[index].argv[i] != NULL)
+		{
 			printf("	argv	: %s\n", glob->cmd[index].argv[i]);
+			i++;
+		}
 		printf("	pipe	: %s\n", glob->cmd[index].pipe ? "true" : "false");
 		printf("	in		: %s\n", glob->cmd[index].in.path);
 		printf("	out		: %s\n", glob->cmd[index].out.path);
 		printf("	append	: %s\n", glob->cmd[index].append ? "true" : "false");
 		printf("}\n");
+		index++;
 	}
 }

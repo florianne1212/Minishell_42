@@ -61,7 +61,6 @@ void		init_lex(t_shell *glob, char *line)
 	glob->lex->nb_words = 0;
 	glob->lex->tokens = NULL;
 	glob->lex->count = 0;
-	glob->lex->i = 0;
 	glob->lex->j = 0;
 	glob->lex->e = 0;
 	glob->lex->nb_words = nbr_words(line, glob);
@@ -97,6 +96,13 @@ void		clean_lexer(t_shell *glob)
 	free(glob->lex);
 }
 
+/*
+** la fonction put_output permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_END au type
+** ca nous sert en partivulier pour les verifs
+*/
+
 void		put_end(t_shell *glob)
 {
 	t_token		*ttok;
@@ -106,7 +112,7 @@ void		put_end(t_shell *glob)
 	ttok->type = TT_END;
 	ttok->str = "end";
 	glob->lex->tokens[glob->lex->count] = ttok;
-	printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
+	//printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
 	glob->lex->count++;
 	fflush(stdout);
 }
@@ -142,7 +148,7 @@ int			lexe_line(char *line, t_shell *glob)
 	put_end(glob);
 	printf("\n");
 	fflush(stdout);
-	parser(glob, 1);
+	parser(glob);
 	clean_lexer(glob);
 	return (1);
 }
