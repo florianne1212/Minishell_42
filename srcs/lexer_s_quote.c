@@ -12,6 +12,12 @@
 
 #include "../includes/minishell.h"
 
+/*
+** manage_quote renvoie la chaine de caractere qui est encadre
+** par des quotes si la chaine a un quote de debut mais ne
+** n'a pas de quote de fin on prend jusqu'a la fin
+*/
+
 char		*manage_quote(char *s, int *idx, char c)
 {
 	char	*str;
@@ -33,7 +39,15 @@ char		*manage_quote(char *s, int *idx, char c)
 	return (str);
 }
 
-int			put_quote(int *idx, char *s, t_shell *glob, char c)
+/*
+** la fonction put_s_quote permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_STRING au type
+** ainsi que de d'assigner la chaine de caractere
+** a str
+*/
+
+int			put_s_quote(int *idx, char *s, t_shell *glob, char c)
 {
 	int		j;
 	t_token	*ttok;
@@ -55,6 +69,12 @@ int			put_quote(int *idx, char *s, t_shell *glob, char c)
 	return (0);
 }
 
+/*
+** la fonction put_string permet de renvoyer
+** a la fonction qui va gerer correctement si la chaine
+** de caractere est entre single quote, entre double quote ou sans rien
+*/
+
 void		put_string(int *idx, char *s, t_shell *glob)
 {
 	int		j;
@@ -63,9 +83,9 @@ void		put_string(int *idx, char *s, t_shell *glob)
 	while (ft_isspace(s[*idx]) == 1 && s[*idx] != '\0')
 		*idx += 1;
 	if (s[*idx] == '\'')
-		put_quote(idx, s, glob, '\'');
+		put_s_quote(idx, s, glob, '\'');
 	else if (s[*idx] == '\"')
-		put_quotation(idx, s, glob, '\"');
+		put_d_quote(idx, s, glob, '\"');
 	else
 		put_normal((idx + j), s, glob);
 	return ;

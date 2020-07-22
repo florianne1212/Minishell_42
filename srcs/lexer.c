@@ -12,6 +12,12 @@
 
 #include "../includes/minishell.h"
 
+/*
+** la fonciton nbr_words compte le nombre de mot, ainsi que de separateur
+** de "|;<>" elle a tendance a surestimer mais ce n'est pas grave car elle
+** sert a mallocer assez d'espace pour le tableau de structure token
+*/
+
 int			nbr_words(char const *s, t_shell *glob)
 {
 	int		i;
@@ -39,6 +45,11 @@ int			nbr_words(char const *s, t_shell *glob)
 	(void)glob;
 	return (a);
 }
+
+/*
+** comme l'indique son nom la fonction init lex sert a
+** initialiser et mallocer la structure lex
+*/
 
 void		init_lex(t_shell *glob, char *line)
 {
@@ -123,7 +134,8 @@ int			lexe_line(char *line, t_shell *glob)
 		}
 		else
 			put_string(&index, line, glob);
-		while (((index + 1) < (int)ft_strlen(line)) && ft_isspace(line[index + 1]) == 1)
+		while (((index + 1) < (int)ft_strlen(line)) &&
+		ft_isspace(line[index + 1]) == 1)
 			index++;
 		index++;
 	}

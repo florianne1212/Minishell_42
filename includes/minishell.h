@@ -61,14 +61,14 @@ typedef struct s_lex
 }				t_lex;
 
 
-typedef struct	s_simple_command
-{
-	int			command; //nom commande argument 0
-	int			num_arg;
-	char 		**arguments;
-	char		*outfile;
-	char		*infile;
-}				t_simple_command;
+// typedef struct	s_simple_command
+// {
+// 	int			command; //nom commande argument 0
+// 	int			num_arg;
+// 	char 		**arguments;
+// 	char		*outfile;
+// 	char		*infile;
+// }				t_simple_command;
 
 typedef enum
 {
@@ -90,28 +90,7 @@ typedef struct	s_command
 	t_file  in;
 	t_file  out;
 	t_bool  append;
-
-//	int			num_simple_command;
-//	t_simple_command **simple_command;
-//	char		*outfile;
-//	char		*infile;
-//	char		*errfile;
-//	int			background;
 }				t_command;
-
-/*
-if tok == TT_IN
-   cmd.in = malloc(t_file)
-   cmd.in.path = tok + 1;
-   cmd.in.fd = open(cmd.in.path, O_READ);
-
-   if (errno != 0)
-		cmd.in.error = errno;
-		errno = 0;
-
-
-
-*/
 
 typedef struct	s_shell
 {
@@ -245,7 +224,7 @@ void	put_string(int *idx, char *s, t_shell *glob);
 void	put_append(int *index, char *s, t_shell *glob);
 int		ft_strch(const char *s, int c);
 void	destruct_lex(t_shell *glob);
-void	put_quotation(int *idx, char *s, t_shell *glob, char c);
+void	put_d_quote(int *idx, char *s, t_shell *glob, char c);
 void	put_normal(int *idx, char *s, t_shell *glob);
 char	*env_finder(char *s, int i, t_shell *glob);
 void	parser(t_shell *glob, int index);

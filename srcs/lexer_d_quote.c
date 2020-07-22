@@ -73,7 +73,7 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob)
 	j = 0;
 	while ((c = s[*idx]))
 	{
-		if (c == '\\' && ft_strchr("\\\"$", s[*idx + 1]))
+		if (c == '\\' && ft_strchr("\\\"$", s[*idx + 1]) != 0)
 			*idx += 1;
 		else if (c == '$')
 		{
@@ -81,7 +81,10 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob)
 			return (str);
 		}
 		else if (c == '"')
+		{
+			str[j] = '\0';
 			return (str);
+		}
 		else
 		{
 			str[j] = s[*idx];
@@ -93,7 +96,15 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob)
 	return (str);
 }
 
-void		put_quotation(int *idx, char *s, t_shell *glob, char c)
+/*
+** la fonction put_s_quote permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_STRING au type
+** ainsi que de d'assigner la chaine de caractere
+** a str
+*/
+
+void		put_d_quote(int *idx, char *s, t_shell *glob, char c)
 {
 	int		j;
 	t_token	*ttok;

@@ -12,6 +12,12 @@
 
 #include "../includes/minishell.h"
 
+/*
+** la fonction put_pipe permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_PIPE au type
+*/
+
 void			put_pipe(int *index, char *s, t_shell *glob)
 {
 	t_token		*ttok;
@@ -29,6 +35,12 @@ void			put_pipe(int *index, char *s, t_shell *glob)
 	}
 }
 
+/*
+** la fonction put_input permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_IN au type
+*/
+
 void			put_input(int *index, char *s, t_shell *glob)
 {
 	t_token		*ttok;
@@ -45,6 +57,12 @@ void			put_input(int *index, char *s, t_shell *glob)
 		fflush(stdout);
 	}
 }
+
+/*
+** la fonction put_output permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_OUT au type
+*/
 
 void			put_output(int *index, char *s, t_shell *glob)
 {
@@ -64,6 +82,12 @@ void			put_output(int *index, char *s, t_shell *glob)
 	}
 }
 
+/*
+** la fonction put_semicolon permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_SEMICOLON au type
+*/
+
 void			put_semicolon(int *index, char *s, t_shell *glob)
 {
 	t_token		*ttok;
@@ -80,6 +104,12 @@ void			put_semicolon(int *index, char *s, t_shell *glob)
 		fflush(stdout);
 	}
 }
+
+/*
+** la fonction put_append permet d'ajouter
+** un token dans le tableau de structure
+** et de mettre d'assigner TT_APPEND au type
+*/
 
 void			put_append(int *index, char *s, t_shell *glob)
 {
