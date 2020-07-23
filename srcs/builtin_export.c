@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:09:34 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/17 10:22:07 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:00:59 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+**-----------ft swap------------
+** echange 2 strings
+*/
 
 static void	ft_swap(char **s1, char **s2)
 {
@@ -20,6 +25,11 @@ static void	ft_swap(char **s1, char **s2)
 	*s2 = *s1;
 	*s1 = temp;
 }
+
+/*
+**---------ft list sort env---------
+** permet d'ordonner liste chainee dans ordre alphabetiaue
+*/
 
 static void	ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
 {
@@ -45,6 +55,12 @@ static void	ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
 	}
 }
 
+/*
+** --------env sorted -----------
+** lorsque export utilise sans argument
+** fait "env" avec liste triee
+*/
+
 static void	env_sorted(t_shell *glob, int fd)
 {
 	t_list_env *list;
@@ -61,6 +77,13 @@ static void	env_sorted(t_shell *glob, int fd)
 		list = list->next;
 	}
 }
+
+/*
+** -----------builtin export-----------
+** cree nouvelles variables d'environnement
+** doivent etre presentees sous la forme
+** name = value
+*/
 
 int			builtin_export(t_shell *glob, int fd, char **arg)
 {

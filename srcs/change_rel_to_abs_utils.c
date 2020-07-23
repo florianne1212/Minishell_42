@@ -6,11 +6,18 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 21:28:51 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/16 22:42:05 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:51:21 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+** ---------path free data------------
+** free le tableau de string du chemin relatif
+** free la liste chainee permettant d'avoir le chemin absolu
+** on retourne le string ret
+*/
 
 char		*path_free_data(t_list *list, char **str_array, char *ret)
 {
@@ -39,6 +46,14 @@ char		*path_free_data(t_list *list, char **str_array, char *ret)
 	return (ret);
 }
 
+/*
+** -----------path create data ------------
+** Cree tableau de string avec chaque elt path relatif (relative)
+** prend le chemin absolu de notre position actuelle (temp abs)
+** cree un tableau de string a partir de ce chemin absolu(temp absolute array)
+** que l'on transforme en liste chainee
+*/
+
 char		*path_create_data(char *rel, char ***relative, t_list **absolute)
 {
 	char	*temp_abs;
@@ -65,6 +80,11 @@ char		*path_create_data(char *rel, char ***relative, t_list **absolute)
 	return ("ok");
 }
 
+/*
+**---------delete list first elem--------------
+** supprime 1er elt liste chainee
+*/
+
 void		delete_list_first_elem(t_list **beginlist)
 {
 	t_list *tmp;
@@ -76,6 +96,14 @@ void		delete_list_first_elem(t_list **beginlist)
 	free(tmp->content);
 	free(tmp);
 }
+
+/*
+** --------create path list--------------
+** cree la liste chainee correspondant au chemin absolu
+** '..' suppression elt
+** '.' rien ne bouge
+** sinon on ajoute nouvel elt a la liste
+*/
 
 int			create_path_list(t_list **abs, char **rel)
 {
@@ -99,6 +127,11 @@ int			create_path_list(t_list **abs, char **rel)
 	}
 	return (1);
 }
+
+/*
+** ---------create abs str-------------
+** cree le chemin absolu a partir de la liste chainee
+*/
 
 char		*create_abs_str(t_list *absolute)
 {

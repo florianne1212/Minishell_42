@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:54:29 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/14 18:41:12 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 23:07:07 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@
 ** avec la macro environ !
 */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+** -------ft list env size---------
+** donne la taille de la liste chainee list_env
+*/
 
 int		ft_list_env_size(t_list_env *begin_list)
 {
@@ -32,6 +37,11 @@ int		ft_list_env_size(t_list_env *begin_list)
 	}
 	return (count);
 }
+
+/*
+** ------env destroy array-----------
+** free le tableau de variables d'environnemet
+*/
 
 void	env_destroy_array(char **envirron)
 {
@@ -50,12 +60,23 @@ void	env_destroy_array(char **envirron)
 	envirron = NULL;
 }
 
+/*
+** -----------destroy and errno ret------------
+** detruit le tableau de variables d'environnement
+** set errno et renvoie string ret
+*/
+
 char	**destroy_and_errno_ret(char **ret, char **envirron, int errnb)
 {
 	env_destroy_array(envirron);
 	errno = errnb;
 	return (ret);
 }
+
+/*
+** -----------create str env---------------
+** cree string de la forme name = value 
+*/
 
 char	*create_str_env(char *name, char *value)
 {
@@ -72,6 +93,13 @@ char	*create_str_env(char *name, char *value)
 	free(temp);
 	return (str);
 }
+
+/*
+** ----------env create array-------------
+** cree tableau de variables d'environnemet
+** et le rempli avec les strings crees
+** ce tableau est passe ensuite a execve
+*/
 
 char	**env_create_array(t_list_env *env, char **envirron)
 {

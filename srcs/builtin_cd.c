@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/17 10:07:15 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 21:29:39 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+**--------cd error---------
+**renvoie sur sortie error les message, free les eventuelles mallocs residuelles
+*/
 
 int			cd_error(char *str, int ret, char *old, char *new)
 {
@@ -27,6 +32,11 @@ int			cd_error(char *str, int ret, char *old, char *new)
 		free(new);
 	return (ret);
 }
+
+/*
+**---------cd home------------
+** gere le cas cd seul ou cd ~
+*/
 
 int			cd_home(t_list_env *env)
 {
@@ -49,6 +59,11 @@ int			cd_home(t_list_env *env)
 	free(newpath);
 	return (ret);
 }
+
+/*
+** ----------cd back----------------
+** gere le cas cd -
+*/
 
 int			cd_back(t_list_env *env, int fd)
 {
@@ -73,6 +88,11 @@ int			cd_back(t_list_env *env, int fd)
 	return (ret);
 }
 
+/*
+** ----------cd abs path-------------
+** gere le cas general avec chemin absolu
+*/
+
 int			cd_abs_path(t_list_env *env, char *newpath)
 {
 	char	*oldpath;
@@ -91,6 +111,12 @@ int			cd_abs_path(t_list_env *env, char *newpath)
 		ret = 1;
 	return (ret);
 }
+
+/*
+** ---------builtin cd---------
+** regarde 1er argument, en fonction , envoie a home, back ou
+** absolute path apres avoir transforme un eventuel chemin relatif
+*/
 
 int			builtin_cd(t_shell *glob, int fd, char **arg)
 {

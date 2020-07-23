@@ -26,7 +26,7 @@ a priori pas necessaire (* pas gere, variables gerees des le debut du lexer)
 
 -executor
 	builtin a checker avant DONE
-	commande simple, grace a PATH WIP
+	commande simple, grace a PATH DONE
 	commande avec pipe
 
 -builtin fuctions

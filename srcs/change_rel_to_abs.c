@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 16:45:14 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/15 16:45:49 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:20:01 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+**----------change rel to abs----------
+** transforme chemin relatif en chemin absolu
+*/
 
 char		*change_rel_to_abs(char *rel)
 {

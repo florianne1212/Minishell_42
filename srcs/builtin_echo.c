@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 17:28:13 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/13 01:08:35 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 21:35:00 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+**--------builtin echo ------------
+** echo +/- option -n
+*/
 
 int	builtin_echo(t_shell *glob, int fd, char **arg)
 {

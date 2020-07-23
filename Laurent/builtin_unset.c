@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 01:34:28 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/17 10:32:21 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:12:29 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** -----------builtin unset--------
+** unset les variables d'environnemet
+*/
 
 int	builtin_unset(t_shell *glob, int fd, char **arg)
 {

@@ -6,11 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:12:11 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/14 23:39:12 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 22:05:55 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 ** comme pwd de bash

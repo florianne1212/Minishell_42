@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 23:45:02 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/12 01:03:27 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/22 21:42:13 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
+
+/*
+** --------builtin env----------
+** fonction env sans option
+*/
 
 int	builtin_env(t_shell *glob, int fd, char **arg)
 {
@@ -18,7 +23,7 @@ int	builtin_env(t_shell *glob, int fd, char **arg)
 
 	if (arg[1])
 	{
-		ft_putendl_fd("env: no arguments or option in minishell", 1);
+		ft_putendl_fd("env: no arguments or option in minishell", 2);
 		return (1);
 	}
 	list = glob->list_env;
