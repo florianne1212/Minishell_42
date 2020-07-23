@@ -225,6 +225,7 @@ void	sort_envp(char **envp, t_shell *glob);
 */
 int		lexe_line(char *line, t_shell *glob);
 void	init_lex(t_shell *glob, char *line);
+void		clean_lexer(t_shell *glob);
 
 /*
 ** funct_lexer.c
@@ -261,8 +262,10 @@ char	**add_to_array(char **s1, char *s2);
 /*
 ** parsing.c
 */
-void	parser(t_shell *glob);
+void	parser(t_shell *glob, int cmd_count, int cmd_index);
 int		validate(t_shell *glob, int *cmd_count);
 void	init_cmd(t_shell *glob, int cmd_count);
+
+int			lex_and_parse(char *line, t_shell *glob);
 
 #endif

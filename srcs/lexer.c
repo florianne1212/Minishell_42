@@ -148,7 +148,5 @@ int			lexe_line(char *line, t_shell *glob)
 	put_end(glob);
 	printf("\n");
 	fflush(stdout);
-	parser(glob);
-	clean_lexer(glob);
 	return (1);
 }

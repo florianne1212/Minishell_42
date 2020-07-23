@@ -54,7 +54,7 @@ int			main(int argc, char **argv, char **envp)
 	{
 		ft_putstr("$>");
 		get_next_line(1, &line);
-		lexe_line(line, glob);
+		lex_and_parse(line, glob);
 		if (strncmp(line, "exit", 4) == 0)
 		{
 			i = 0;

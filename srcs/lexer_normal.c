@@ -41,7 +41,7 @@ char		*size_to_mal(char *s, int *idx)
 	}
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	str = ft_memset(str, '\0', *idx);
+	str = ft_memset(str, '\0', j+1);
 	return (str);
 }
 

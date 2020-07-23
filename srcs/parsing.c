@@ -141,10 +141,10 @@ void			init_cmd(t_shell *glob, int cmd_count)
 	int			i;
 
 	i = 0;
-	if (!(glob->cmd = malloc(sizeof(t_command) * cmd_count)))
+	if (!(glob->cmd = malloc(sizeof(t_command) * (cmd_count + 1))))
 		return ;
-	ft_memset(glob->cmd, 0, sizeof(t_command) * cmd_count);
-	while (i < cmd_count)
+	ft_memset(glob->cmd, 0, sizeof(t_command) * (cmd_count + 1));
+	while (i <= cmd_count)
 	{
 		if (!(glob->cmd[i].argv = (char **)malloc(sizeof(char *))))
 			return ;
@@ -153,24 +153,14 @@ void			init_cmd(t_shell *glob, int cmd_count)
 	}
 }
 
-void			parser(t_shell *glob)
+void			parser(t_shell *glob, int cmd_count,int cmd_index)
 {
-	int			cmd_index;
-	int			cmd_count;
 	int			index;
 	t_token		*t;
 	int			i;
 
 	i = 0;
-	cmd_count = 0;
 	index = 0;
-	if (!(validate(glob, &cmd_count)))
-	{
-		printf("syntax error\n");
-		return ;
-	}
-	init_cmd(glob, cmd_count);
-	cmd_index = 0;
 	while (index < glob->lex->count)
 	{
 		t = glob->lex->tokens[index];
@@ -204,8 +194,10 @@ void			parser(t_shell *glob)
 		index++;
 	}
 	index = 0;
-	while (index < cmd_count)
+	i = 0;
+	while (index <= cmd_index)
 	{
+		i = 0;
 		printf("cmd {\n");
 		printf("	exec	: %s\n", glob->cmd[index].exec);
 		while (glob->cmd[index].argv[i] != NULL)
@@ -220,4 +212,5 @@ void			parser(t_shell *glob)
 		printf("}\n");
 		index++;
 	}
+	cmd_count = 0;
 }
