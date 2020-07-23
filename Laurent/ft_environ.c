@@ -6,9 +6,14 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:30 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/16 22:59:21 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/23 10:47:27 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** fonctions du C  permettant de gerer les variables d'environnement
+** adaptees a la liste chainee env
+*/
 
 #include "minishell.h"
 

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/23 10:58:42 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/23 10:58:15 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 **c'est la patie brouillon a bcp remanier
 */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 **-------create process)-------

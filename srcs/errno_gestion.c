@@ -6,11 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 12:23:08 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/20 17:15:47 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/23 08:52:00 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 /*
 ** --------errno return str----------

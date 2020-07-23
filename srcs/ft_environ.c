@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:30 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/16 22:59:21 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/23 08:56:28 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+/*
+** fonctions du C  permettant de gerer les variables d'environnement
+** adaptees a la liste chainee env
+*/
+
+#include "../includes/minishell.h"
 
 /*
 ** fonction setenv comme la native

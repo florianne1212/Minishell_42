@@ -6,11 +6,16 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 12:30:27 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/10 12:37:56 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/07/23 08:51:36 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+** ------------env variable destructor---------------
+** free un des elts de la list t_list env
+*/
 
 void		env_variable_destructor(t_list_env *env)
 {
@@ -27,6 +32,12 @@ void		env_variable_destructor(t_list_env *env)
 	free(env);
 	env = NULL;
 }
+
+/*
+** ------------new env variable -------------
+** cree un nouvel elt pour  t_list_env
+** a partir d'un string name=value
+*/
 
 t_list_env	*new_env_variable(char *str)
 {
@@ -49,6 +60,11 @@ t_list_env	*new_env_variable(char *str)
 	return (new);
 }
 
+/*
+** --------ft lstadd front env ---------------
+** rajoute elt a la list d'environnement env
+*/
+
 void		ft_lstadd_front_env(t_list_env **alst, t_list_env *new)
 {
 	if (alst || new)
@@ -57,6 +73,11 @@ void		ft_lstadd_front_env(t_list_env **alst, t_list_env *new)
 		*alst = new;
 	}
 }
+
+/*
+** ----------ft list remove if env---------------
+** comme ft list remove if, mais avec la t_list_env
+*/
 
 void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
 				int (*cmp)(), void (*free_fct)(t_list_env *))
@@ -83,6 +104,12 @@ void		ft_list_remove_if_env(t_list_env **begin_list, void *content_ref,
 		new = new->next;
 	}
 }
+
+/*
+** ---------ft list find env ------------
+** recherche elt correspondant au nom dans la liste
+** chainee env
+*/
 
 t_list_env	*ft_list_find_env(t_list_env *begin_list, void *content_ref,
 				int (*cmp)())
