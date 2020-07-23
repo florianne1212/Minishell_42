@@ -153,7 +153,7 @@ void			init_cmd(t_shell *glob, int cmd_count)
 	}
 }
 
-void			parser(t_shell *glob, int cmd_count,int cmd_index)
+int			parser(t_shell *glob, int cmd_count,int cmd_index)
 {
 	int			index;
 	t_token		*t;
@@ -163,6 +163,7 @@ void			parser(t_shell *glob, int cmd_count,int cmd_index)
 	index = 0;
 	while (index < glob->lex->count)
 	{
+		//printf("\n__%i___\n", cmd_index);
 		t = glob->lex->tokens[index];
 
 		if (t->type == TT_STRING)
@@ -178,13 +179,14 @@ void			parser(t_shell *glob, int cmd_count,int cmd_index)
 			{
 				printf("IN : failed to open file: %s\n", strerror(glob->cmd[cmd_index].in.error));
 				printf("OUT: failed to open file: %s\n", strerror(glob->cmd[cmd_index].out.error));
-				return ; // failed to open file
+				return (0); // failed to open file
 			}
 		}
 		else if (t->type == TT_PIPE || t->type == TT_SEMICOLOM)
 		{
 			glob->cmd[cmd_index].pipe = (t->type == TT_PIPE);
-			cmd_index++;
+			cmd_index += 1;
+			printf("\nINDEX IS INCREASED parsing\n");
 		}
 		else if (t->type == TT_END)
 		{
@@ -199,6 +201,7 @@ void			parser(t_shell *glob, int cmd_count,int cmd_index)
 	{
 		i = 0;
 		printf("cmd {\n");
+		printf("    INDEX CMD : %i\n",index);
 		printf("	exec	: %s\n", glob->cmd[index].exec);
 		while (glob->cmd[index].argv[i] != NULL)
 		{
@@ -211,6 +214,8 @@ void			parser(t_shell *glob, int cmd_count,int cmd_index)
 		printf("	append	: %s\n", glob->cmd[index].append ? "true" : "false");
 		printf("}\n");
 		index++;
+		fflush(stdout);
 	}
 	cmd_count = 0;
+	return(cmd_index);
 }

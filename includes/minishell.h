@@ -262,10 +262,12 @@ char	**add_to_array(char **s1, char *s2);
 /*
 ** parsing.c
 */
-void	parser(t_shell *glob, int cmd_count, int cmd_index);
+int	parser(t_shell *glob, int cmd_count, int cmd_index);
 int		validate(t_shell *glob, int *cmd_count);
 void	init_cmd(t_shell *glob, int cmd_count);
 
 int			lex_and_parse(char *line, t_shell *glob);
+
+int		fork_and_run_command(t_shell *glob, char *path, char **arg, char **env);
 
 #endif

@@ -74,6 +74,10 @@ void		init_lex(t_shell *glob, char *line)
 	}
 }
 
+/*
+** clean_lexer permet de nettoyer la structure lexer
+*/
+
 void		clean_lexer(t_shell *glob)
 {
 	int index;
@@ -116,6 +120,11 @@ void		put_end(t_shell *glob)
 	glob->lex->count++;
 	fflush(stdout);
 }
+
+/*
+** lexe_line permet de lexer la ligne
+** jusqu'a la fin
+*/
 
 int			lexe_line(char *line, t_shell *glob)
 {

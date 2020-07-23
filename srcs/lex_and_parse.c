@@ -12,7 +12,38 @@
 
 #include "../includes/minishell.h"
 
-int			lexe_(char *line, t_shell *glob,int  *index)
+/*
+** clean_cmd permet de nettoyer la structure cmd
+*/
+
+void		clean_cmd(t_shell *glob, int cmd_count)
+{
+	int i;
+	int e;
+
+	e = 0;
+	i = 0;
+	while (i <= cmd_count)
+	{
+		e = 0;
+		free(glob->cmd[i].exec);
+		while (glob->cmd[i].argv[e] != NULL)
+		{
+			free(glob->cmd[i].argv[e]);
+			e++;
+		}
+		free(glob->cmd[i].argv);
+		i++;
+	}
+	free(glob->cmd);
+}
+
+/*
+** lexe_s_colon permet de lexer la ligne j'usqu'au prochain point virgule
+** ou a la jusqu'a la fin de la ligne
+*/
+
+int			lexe_s_colon(char *line, t_shell *glob,int  *index)
 {
 	init_lex(glob, line);
 	while (*index < (int)ft_strlen(line))
@@ -43,6 +74,11 @@ int			lexe_(char *line, t_shell *glob,int  *index)
 	return (1);
 }
 
+/*
+** la fonction lex and parse permet d'envoyer en plusieurs fois les commandes
+** si elles sont separee par un point virgule
+*/
+
 int			lex_and_parse(char *line, t_shell *glob)
 {
 	int     cmd_count;
@@ -63,23 +99,17 @@ int			lex_and_parse(char *line, t_shell *glob)
 		return (0);
 	}
 	init_cmd(glob, cmd_count);
-	//int j = 0;
+	clean_lexer(glob);
 	while(index < (int)ft_strlen(line))
 	{
-		lexe_(line, glob, &index);
-		e = 0;
-		parser(glob, cmd_count, cmd_index);
-		//clean_lexer(glob);
+	
+		lexe_s_colon(line, glob, &index);// permet de lexer jusqu'au semi colon (";")
+		cmd_index = parser(glob, cmd_count, cmd_index); // puis de parser la partie lexer
 		fflush(stdout);
-		cmd_index++;
+		clean_lexer(glob);
 		index++;
+		cmd_index++;
 	}
-	//i = lexe_(line, glob);
-	//parser(glob, cmd_count);
-	printf("_____%i", i);
-	fflush(stdout);
-	//lex jusqu'au ;
-	// parse ;
-   // parser(glob, cmd_count);
+	clean_cmd(glob, cmd_count);
 	return(0);
 }

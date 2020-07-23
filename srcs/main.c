@@ -59,7 +59,8 @@ int			main(int argc, char **argv, char **envp)
 		{
 			i = 0;
 		}
-		free(line);
+		else
+			free(line);
 	}
 	clean_exit(glob);
 }
