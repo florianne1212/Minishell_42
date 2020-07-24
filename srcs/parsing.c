@@ -151,6 +151,14 @@ void			init_cmd(t_shell *glob, int cmd_count)
 		glob->cmd[i].argv[0] = NULL;
 		i++;
 	}
+	i = 0;
+	while (i <= cmd_count)
+	{
+		if (!(glob->cmd[i].cmd_arg = (char **)malloc(sizeof(char *))))
+			return ;
+		glob->cmd[i].cmd_arg[0] = NULL;
+		i++;
+	}
 }
 
 int			parser(t_shell *glob, int cmd_count,int cmd_index)
@@ -195,6 +203,9 @@ int			parser(t_shell *glob, int cmd_count,int cmd_index)
 		}
 		index++;
 	}
+	char ** test;
+	test = glob->cmd[cmd_index].argv;
+	glob->cmd[cmd_index].cmd_arg = add_front_to_array(test, glob->cmd[cmd_index].exec);
 	index = 0;
 	i = 0;
 	while (index <= cmd_index)
@@ -206,6 +217,12 @@ int			parser(t_shell *glob, int cmd_count,int cmd_index)
 		while (glob->cmd[index].argv[i] != NULL)
 		{
 			printf("	argv	: %s\n", glob->cmd[index].argv[i]);
+			i++;
+		}
+		i = 0;
+		while (glob->cmd[index].cmd_arg[i] != NULL)
+		{
+			printf("	cmd_arg	: %s\n", glob->cmd[index].cmd_arg[i]);
 			i++;
 		}
 		printf("	pipe	: %s\n", glob->cmd[index].pipe ? "true" : "false");

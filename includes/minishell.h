@@ -88,6 +88,7 @@ typedef struct	s_command
 {
 	char	*exec;
 	char	**argv;
+	char	**cmd_arg;
 	t_bool	pipe;
 	t_file  in;
 	t_file  out;
@@ -258,6 +259,7 @@ char	*join_env(int *idx, char *s, t_shell *glob, char *str);
 */
 int		ft_strlen_array(char **s);
 char	**add_to_array(char **s1, char *s2);
+char	**add_front_to_array(char **s1, char *s2);
 
 /*
 ** parsing.c

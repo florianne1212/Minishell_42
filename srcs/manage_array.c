@@ -56,3 +56,32 @@ char		**add_to_array(char **s1, char *s2)
 	}
 	return (ss3);
 }
+
+char		**add_front_to_array(char **s1, char *s2)
+{
+	int		ss1;
+	int		i;
+	int 	j;
+	char	**ss3;
+
+	i = 0;
+	j = 0;
+	ss3 = NULL;
+	if (s1)
+	{
+		ss1 = ft_strlen_array(s1);
+		if (!(ss3 = (char **)malloc(sizeof(char *) * (ss1 + 2))))
+			return (NULL);
+		ss3[i] = s2;
+		i++;
+		while (s1[j])
+		{
+			ss3[i] = s1[j];
+			i++;
+			j++;
+		}
+		//free(s1);
+		ss3[i] = NULL;
+	}
+	return (ss3);
+}
