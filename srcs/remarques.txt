@@ -10,11 +10,27 @@ Pour le main et exit
 
 Dans lexline
 mettre strlen en variable et appeler cette variable (accelere +++)
+idem dans lex and parse
 
 pourquoi a la fin de output on a index ++ dans putoutput
 
+dans lexer d quote, dans join env, pour le retour, n'est ce pas *idx += 2 ?
+dans join env n'y a t il pas des choses a free ?
+en particulier dans
+	str = ft_strjoin(str, s2);
+le nouveau str n'est t-il pas malloque, avec perte du pointeur sur le str dans le join ?)
 
+dans manage d quote
+else if (c == '"' && (s[*idx - 1] != '\\'))
+n'y a t-il pas de risque de buffer underflow (ie avoir s[-1]) ?
 
+Dans init command, est ce que l'on ne fait pas un tableau de structure command et donc dans minishell.h , ne
+faut il pas que t_command soit **cmd ?
+
+//Dans lex and parse, apres init cmd, on a clean lexer (on l'efface ?)
+
+dans parser
+	break
 
 Interrogations
 - control + D : envoie EOF, ce qui vient faire chier notre get next line qui sert a recuperer la ligne de commande
