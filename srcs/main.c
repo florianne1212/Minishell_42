@@ -34,6 +34,10 @@ void		clean_exit(t_shell *glob)
 	//env_destroy_array(glob->envirron);
 }
 
+/*void		init_glob(t_shell	*glob)
+{
+
+}*/
 
 int			main(int argc, char **argv, char **envp)
 {

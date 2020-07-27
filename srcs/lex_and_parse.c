@@ -32,6 +32,13 @@ void		clean_cmd(t_shell *glob, int cmd_count)
 			free(glob->cmd[i].argv[e]);
 			e++;
 		}
+		e = 0;
+		while (glob->cmd[i].cmd_arg[e] != NULL)
+		{
+			free(glob->cmd[i].cmd_arg[e]);
+			e++;
+		}
+		free(glob->cmd[i].cmd_arg);
 		free(glob->cmd[i].argv);
 		i++;
 	}

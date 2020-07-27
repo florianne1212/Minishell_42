@@ -146,17 +146,12 @@ void			init_cmd(t_shell *glob, int cmd_count)
 	ft_memset(glob->cmd, 0, sizeof(t_command) * (cmd_count + 1));
 	while (i <= cmd_count)
 	{
-		if (!(glob->cmd[i].argv = (char **)malloc(sizeof(char *))))
-			return ;
-		glob->cmd[i].argv[0] = NULL;
-		i++;
-	}
-	i = 0;
-	while (i <= cmd_count)
-	{
 		if (!(glob->cmd[i].cmd_arg = (char **)malloc(sizeof(char *))))
 			return ;
 		glob->cmd[i].cmd_arg[0] = NULL;
+		if (!(glob->cmd[i].argv = (char **)malloc(sizeof(char *))))
+			return ;
+		glob->cmd[i].argv[0] = NULL;
 		i++;
 	}
 }
@@ -203,9 +198,9 @@ int			parser(t_shell *glob, int cmd_count,int cmd_index)
 		}
 		index++;
 	}
-	char ** test;
-	test = glob->cmd[cmd_index].argv;
-	glob->cmd[cmd_index].cmd_arg = add_front_to_array(test, glob->cmd[cmd_index].exec);
+	//char ** test;
+	//test = glob->cmd[cmd_index].argv;
+	//glob->cmd[cmd_index].cmd_arg = add_front_to_array(glob->cmd[cmd_index].argv, glob->cmd[cmd_index].exec);
 	index = 0;
 	i = 0;
 	while (index <= cmd_index)

@@ -58,29 +58,26 @@ char		*size_to_malloc(char *s, int *i)
 char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 {
 	char	*s2;
+	char	*tmp;
 	int		j;
 
 	j = glob->lex->j;
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
-	{
 		s2 = ft_itoa(glob->retour);
-		if (s2 != NULL)
-		{
-			str[j] = '\0';
-			str = ft_strjoin(str, s2);
-		}
-		idx += 2;
-	}
 	else
-	{
 		s2 = env_finder(s, (*idx), glob);
-		if (s2 != NULL)
-		{
-			str[j] = '\0';
-			str = ft_strjoin(str, s2);
-		}
-		*idx += glob->lex->e;
+		
+	if (s2 != NULL)
+	{
+		str[j] = '\0';
+		tmp = str;
+		str = ft_strjoin(tmp, s2);
+		free(tmp);
+		free(s2);
+
 	}
+	*idx += glob->lex->e;
+
 	return (str);
 }
 

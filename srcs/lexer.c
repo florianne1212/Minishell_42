@@ -29,15 +29,15 @@ int			nbr_words(char const *s, t_shell *glob)
 	{
 		while (ft_isspace(s[i]) == 1 && s[i] != '\0')
 			i++;
-		while (ft_strchr_int("<>|;", s[i]) == 1 && s[i] != '\0')
+		while (ft_strchr_int("<>|;$", s[i]) == 1 && s[i] != '\0')
 		{
 			a++;
 			i++;
 		}
-		if (ft_strchr_int("<>|;", s[i]) == 0 && ft_isspace(s[i]) == 0)
+		if (ft_strchr_int("<>|;$", s[i]) == 0 && ft_isspace(s[i]) == 0)
 		{
 			a++;
-			while (ft_strchr_int("<>|;", s[i]) == 0 &&
+			while (ft_strchr_int("<>|$;", s[i]) == 0 &&
 			ft_isspace(s[i]) == 0 && s[i] != '\0')
 				i++;
 		}
@@ -63,6 +63,7 @@ void		init_lex(t_shell *glob, char *line)
 	glob->lex->count = 0;
 	glob->lex->j = 0;
 	glob->lex->e = 0;
+	glob->retour = 0;
 	glob->lex->nb_words = nbr_words(line, glob);
 	if (!(glob->lex->tokens = (t_token **)malloc(sizeof(t_token *) *
 	(glob->lex->nb_words + 1))))
@@ -129,10 +130,12 @@ void		put_end(t_shell *glob)
 int			lexe_line(char *line, t_shell *glob)
 {
 	int		index;
+	int		size;
 
+	size = (int)ft_strlen(line);
 	index = 0;
 	init_lex(glob, line);
-	while (index < (int)ft_strlen(line))
+	while (index < size)
 	{
 		if (line[index] == '|')
 			put_pipe(&index, line, glob);
@@ -149,7 +152,7 @@ int			lexe_line(char *line, t_shell *glob)
 		}
 		else
 			put_string(&index, line, glob);
-		while (((index + 1) < (int)ft_strlen(line)) &&
+		while (((index + 1) < size) &&
 		ft_isspace(line[index + 1]) == 1)
 			index++;
 		index++;
