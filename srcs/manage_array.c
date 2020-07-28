@@ -72,7 +72,7 @@ char		**add_front_to_array(char **s1, char *s2)
 		ss1 = ft_strlen_array(s1);
 		if (!(ss3 = (char **)malloc(sizeof(char *) * (ss1 + 2))))
 			return (NULL);
-		ss3[i] = ft_strdup(s2);
+		ss3[i] = s2;
 		i++;
 		while (s1[j] != NULL)
 		{

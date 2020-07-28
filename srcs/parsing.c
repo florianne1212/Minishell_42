@@ -198,9 +198,9 @@ int			parser(t_shell *glob, int cmd_count,int cmd_index)
 		}
 		index++;
 	}
-	//char ** test;
-	//test = glob->cmd[cmd_index].argv;
-	//glob->cmd[cmd_index].cmd_arg = add_front_to_array(glob->cmd[cmd_index].argv, glob->cmd[cmd_index].exec);
+	// char ** test;
+	// test = glob->cmd[cmd_index].argv;
+	// glob->cmd[cmd_index].cmd_arg = add_front_to_array(glob->cmd[cmd_index].argv, glob->cmd[cmd_index].exec);
 	index = 0;
 	i = 0;
 	while (index <= cmd_index)
