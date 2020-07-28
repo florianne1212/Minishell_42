@@ -152,10 +152,9 @@ int			lexe_line(char *line, t_shell *glob)
 		}
 		else
 			put_string(&index, line, glob);
-		while (((index + 1) < size) &&
-		ft_isspace(line[index + 1]) == 1)
+		while (((index) < size) &&
+		ft_isspace(line[index]) == 1)
 			index++;
-		index++;
 	}
 	put_end(glob);
 	printf("\n");

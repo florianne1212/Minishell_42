@@ -80,7 +80,6 @@ char		**add_front_to_array(char **s1, char *s2)
 			i++;
 			j++;
 		}
-		//free(s1);
 		ss3[i] = NULL;
 	}
 	return (ss3);

@@ -26,19 +26,18 @@ void		clean_cmd(t_shell *glob, int cmd_count)
 	while (i <= cmd_count)
 	{
 		e = 0;
-		free(glob->cmd[i].exec);
 		while (glob->cmd[i].argv[e] != NULL)
 		{
 			free(glob->cmd[i].argv[e]);
+			glob->cmd[i].argv[e] = NULL;
 			e++;
 		}
-		e = 0;
-		/*while (glob->cmd[i].cmd_arg[e] != NULL)
-		{
-			free(glob->cmd[i].cmd_arg[e]);
-			e++;
-		}*/
+		/*if (glob->cmd[i].cmd_arg[0] != NULL)*/
+
+		//free(glob->cmd[i].cmd_arg[0]);
+		free(glob->cmd[i].exec);
 		free(glob->cmd[i].cmd_arg);
+		//free(glob->cmd[i].cmd_arg);
 		free(glob->cmd[i].argv);
 		i++;
 	}
@@ -53,6 +52,7 @@ void		clean_cmd(t_shell *glob, int cmd_count)
 int			lexe_s_colon(char *line, t_shell *glob,int  *index)
 {
 	init_lex(glob, line);
+
 	while (*index < (int)ft_strlen(line))
 	{
 		if (line[*index] == ';')
@@ -70,14 +70,10 @@ int			lexe_s_colon(char *line, t_shell *glob,int  *index)
 		}
 		else
 			put_string(index, line, glob);
-		while (((*index + 1) < (int)ft_strlen(line)) &&
-		ft_isspace(line[*index + 1]) == 1)
+		while (((*index) < (int)ft_strlen(line)) &&
+		ft_isspace(line[*index]) == 1)
 			*index += 1;
-		*index += 1;
 	}
-	//put_end(glob);
-	//printf("\nHELLO");
-	//fflush(stdout);
 	return (1);
 }
 
@@ -91,6 +87,8 @@ void		arg_in_tab(int i, int cmd_index, t_shell *glob)
 	{
 		e = 0;
 		test = glob->cmd[i].argv;
+		//if (i == 0)
+		free(glob->cmd[i].cmd_arg);
 		glob->cmd[i].cmd_arg = add_front_to_array(glob->cmd[i].argv, glob->cmd[i].exec);
 		while (glob->cmd[i].cmd_arg[e] != NULL)
 		{
