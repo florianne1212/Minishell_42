@@ -74,7 +74,7 @@ typedef struct s_lex
 
 typedef enum
 {
-	TRUE, FALSE
+	FALSE, TRUE
 } t_bool;
 
 typedef struct
