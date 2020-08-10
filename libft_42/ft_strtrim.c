@@ -12,12 +12,13 @@
 
 #include "libft.h"
 
-static int	isset(char const *set, char c)
+
+static int	isinset(char c, char const *set)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while (set[i] != '\0')
+	while (set[i])
 	{
 		if (c == set[i])
 			return (1);
@@ -26,49 +27,28 @@ static int	isset(char const *set, char c)
 	return (0);
 }
 
-static int	set_beginning(char const *str, char const *set)
-{
-	int		i;
-
-	i = 0;
-	while (isset(set, str[i]) == 1)
-		i++;
-	return (i);
-}
-
-static int	set_end(char const *str, char const *set)
-{
-	int		i;
-
-	i = (ft_strlen(str) - 1);
-	while (isset(set, str[i]) == 1 && i > 0)
-		--i;
-	return (i);
-	return (0);
-}
-
 char		*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	i;
-	size_t	j;
-	size_t	a;
-	size_t	c;
-	char	*trim_s1;
+	unsigned int		count;
+	unsigned int		start;
+	unsigned int		i;
 
-	if (s1)
+	if (!s1)
+		return (NULL);
+	i = 0;
+	start = 0;
+	count = ft_strlen(s1);
+	while (isinset(s1[i], set) && s1[i])
+		i++;
+	if (i == count)
+		return (ft_substr(s1, start, 0));
+	start = i;
+	count = count - i;
+	i = ft_strlen(s1) - 1;
+	while (isinset(s1[i], set))
 	{
-		a = 0;
-		i = set_beginning(s1, set);
-		j = set_end(s1, set);
-		c = j - i;
-		if (i == ft_strlen((char *)s1))
-			return (ft_strdup(""));
-		if (!(trim_s1 = malloc(sizeof(char) * (c + 2))))
-			return (0);
-		while (i <= j)
-			trim_s1[a++] = s1[i++];
-		trim_s1[a] = '\0';
-		return (trim_s1);
+		i--;
+		count--;
 	}
-	return (NULL);
+	return (ft_substr(s1, start, count));
 }

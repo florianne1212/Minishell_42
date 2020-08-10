@@ -29,9 +29,22 @@ void		clean_exit(t_shell *glob)
 		glob->list_env = ptr;
 	}
 	glob->list_env = NULL;
-	free(glob);
+	//free(glob);
 	glob = NULL;
 	//env_destroy_array(glob->envirron);
+}
+
+int	empty_line(char *line)
+{
+	char *tmp;
+	int i;
+
+	i = 0;
+	tmp = ft_strtrim(line, " \t");
+	if (ft_strlen(tmp) != 0)
+		i = 1;
+	free(tmp);
+	return(i);
 }
 
 /*void		init_glob(t_shell	*glob)
@@ -39,26 +52,28 @@ void		clean_exit(t_shell *glob)
 
 }*/
 
+
 int			main(int argc, char **argv, char **envp)
 {
-	t_shell	*glob;
+t_shell	glob;
 	char	*line;
 	int		i;
 
 	i = 1;
 	signal(SIGINT, control_c); //permet d'intercepter le signal envoyer par ctrl-C
 	signal(SIGQUIT, control_back); //permet d'intercepter le signal envoyer par ctrl-backslash
-	if (!(glob = malloc(sizeof(t_shell))))
-		return (0);
+	ft_memset(&glob, 0, sizeof(t_shell));
 	printf("\nargc %i", argc);
 	printf("\nargv %s\n", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
 	fflush(stdout);
-	sort_envp(envp, glob);
+	sort_envp(envp, &glob);
 	while (i == 1)
 	{
 		ft_putstr("$>");
 		get_next_line(1, &line);
-		lex_and_parse(line, glob);
+		//line = ft_strdup("ls");
+		if (empty_line(line) != 0)
+			lex_and_parse(line, &glob);
 		if (strncmp(line, "exit", 4) == 0)
 		{
 			i = 0;
@@ -66,5 +81,5 @@ int			main(int argc, char **argv, char **envp)
 		else
 			free(line);
 	}
-	clean_exit(glob);
+	clean_exit(&glob);
 }

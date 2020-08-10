@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_and_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/19 21:50:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/01 20:02:23 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,11 @@ void		arg_in_tab(int i, int cmd_index, t_shell *glob)
 		//if (i == 0)
 		free(glob->cmd[i].cmd_arg);
 		glob->cmd[i].cmd_arg = add_front_to_array(glob->cmd[i].argv, glob->cmd[i].exec);
-		while (glob->cmd[i].cmd_arg[e] != NULL)
-		{
-			printf("\n		cmd_arg	: %s\n", glob->cmd[i].cmd_arg[e]);
-			e++;
-		}
+		ft_run_simple_command(glob, glob->cmd[i].cmd_arg);
+		//la ligne que j'ai change//
 		i++;
 	}
 	fflush(stdout);
-	
 }
 
 /*

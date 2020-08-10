@@ -147,5 +147,6 @@ void		put_d_quote(int *idx, char *s, t_shell *glob, char c)
 		//printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
 		fflush(stdout);
+		//*idx += 1;
 	}
 }
