@@ -62,6 +62,8 @@ int		gnl_read_file(char *temp, char **rest, char **line, int fd)
 	}
 	if (i > 0)
 		i = 1;
+	if (i == 0)
+		exit(EXIT_SUCCESS);
 	return (i);
 }
 
