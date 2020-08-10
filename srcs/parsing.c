@@ -123,7 +123,7 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 			mode = O_WRONLY | O_CREAT;
 	}
 	file->path = path;
-	file->fd = open(path, mode);
+	file->fd = open(path, mode, 0644);
 	if (errno != 0)
 		file->error = errno;
 	errno = 0;
