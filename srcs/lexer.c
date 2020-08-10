@@ -29,12 +29,12 @@ int			nbr_words(char const *s, t_shell *glob)
 	{
 		while (ft_isspace(s[i]) == 1 && s[i] != '\0')
 			i++;
-		while (ft_strchr_int("<>|;$", s[i]) == 1 && s[i] != '\0')
+		while (ft_strchr_int("<>|;$\'", s[i]) == 1 && s[i] != '\0')
 		{
 			a++;
 			i++;
 		}
-		if (ft_strchr_int("<>|;$", s[i]) == 0 && ft_isspace(s[i]) == 0)
+		if (ft_strchr_int("<>|;$\'", s[i]) == 0 && ft_isspace(s[i]) == 0)
 		{
 			a++;
 			while (ft_strchr_int("<>|$;", s[i]) == 0 &&
@@ -65,6 +65,7 @@ void		init_lex(t_shell *glob, char *line)
 	glob->lex->e = 0;
 	glob->retour = 0;
 	glob->lex->nb_words = nbr_words(line, glob);
+	printf("\n_____Nb words : %i\n", glob->lex->nb_words);
 	if (!(glob->lex->tokens = (t_token **)malloc(sizeof(t_token *) *
 	(glob->lex->nb_words + 1))))
 		return ;

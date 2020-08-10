@@ -40,7 +40,7 @@ char		*size_to_malloc(char *s, int *i)
 	}
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	str = ft_memset(str, '\0', *i);
+	str = ft_memset(str, '\0', j+1);
 	return (str);
 }
 
@@ -147,6 +147,6 @@ void		put_d_quote(int *idx, char *s, t_shell *glob, char c)
 		//printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
 		fflush(stdout);
-		//*idx += 1;
+		*idx += 1;
 	}
 }

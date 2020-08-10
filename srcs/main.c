@@ -81,5 +81,6 @@ t_shell	glob;
 		else
 			free(line);
 	}
+	free(line);
 	clean_exit(&glob);
 }
