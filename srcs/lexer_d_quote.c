@@ -63,9 +63,16 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 
 	j = glob->lex->j;
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
+	{
 		s2 = ft_itoa(glob->retour);
+		printf("\non est bien la");
+		*idx += 2;
+	}
 	else
+	{
 		s2 = env_finder(s, (*idx), glob);
+		*idx += glob->lex->e;
+	}
 		
 	if (s2 != NULL)
 	{
@@ -76,7 +83,7 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 		free(s2);
 
 	}
-	*idx += glob->lex->e;
+	//*idx += glob->lex->e;
 
 	return (str);
 }
