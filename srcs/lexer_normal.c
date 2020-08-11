@@ -41,7 +41,7 @@ char		*size_to_mal(char *s, int *idx)
 	}
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	str = ft_memset(str, '\0', j+1);
+	str = ft_memset(str, '\0', j + 1);
 	return (str);
 }
 
@@ -93,25 +93,18 @@ char		*manage_normal(char *s, int *idx, t_shell *glob)
 	j = 0;
 	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0)
 	{
+		glob->lex->j = j;
 		if (c == '\\')
 			*idx += 1;
-		if (c == '$' && (s[*idx - 1] != '\\'))
-		{
-			glob->lex->j = j;
-			str = join_env(idx, s, glob, str);
-			return (str);
-		}
+		if (c == '$' && (s[*idx + 1] != '\\'))
+			return (join_env(idx, s, glob, str));
 		else if (ft_strchr_int("|;><", s[*idx]) == 1)
 		{
 			str[j] = '\0';
 			return (str);
 		}
 		else
-		{
-			str[j] = s[*idx];
-			j++;
-			*idx += 1;
-		}
+			str = manage_end(str, idx, s, &j);
 	}
 	str[j] = '\0';
 	return (str);
@@ -138,7 +131,6 @@ void		put_normal(int *idx, char *s, t_shell *glob)
 		ttok->type = TT_STRING;
 		ttok->str = manage_normal(s, idx, glob);
 		glob->lex->tokens[glob->lex->count] = ttok;
-		//printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
 		fflush(stdout);
 	}

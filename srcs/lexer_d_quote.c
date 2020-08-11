@@ -40,7 +40,7 @@ char		*size_to_malloc(char *s, int *i)
 	}
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
-	str = ft_memset(str, '\0', j+1);
+	str = ft_memset(str, '\0', j + 1);
 	return (str);
 }
 
@@ -65,7 +65,6 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
 	{
 		s2 = ft_itoa(glob->retour);
-		printf("\non est bien la");
 		*idx += 2;
 	}
 	else
@@ -73,7 +72,6 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 		s2 = env_finder(s, (*idx), glob);
 		*idx += glob->lex->e;
 	}
-		
 	if (s2 != NULL)
 	{
 		str[j] = '\0';
@@ -81,10 +79,15 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 		str = ft_strjoin(tmp, s2);
 		free(tmp);
 		free(s2);
-
 	}
-	//*idx += glob->lex->e;
+	return (str);
+}
 
+char		*manage_end(char *str, int *idx, char *s, int *j)
+{
+	str[*j] = s[*idx];
+	*j += 1;
+	*idx += 1;
 	return (str);
 }
 
@@ -105,25 +108,18 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob)
 	j = 0;
 	while ((c = s[*idx]))
 	{
+		glob->lex->j = j;
 		if (c == '\\' && ft_strchr("$\\\"", s[*idx + 1]) != 0)
 			*idx += 1;
 		if (c == '$' && (s[*idx - 1] != '\\'))
-		{
-			glob->lex->j = j;
-			str = join_env(idx, s, glob, str);
-			return (str);
-		}
+			return (join_env(idx, s, glob, str));
 		else if (c == '"' && (s[*idx - 1] != '\\'))
 		{
 			str[j] = '\0';
 			return (str);
 		}
 		else
-		{
-			str[j] = s[*idx];
-			j++;
-			*idx += 1;
-		}
+			str = manage_end(str, idx, s, &j);
 	}
 	str[j] = '\0';
 	return (str);
@@ -151,7 +147,6 @@ void		put_d_quote(int *idx, char *s, t_shell *glob, char c)
 		ttok->type = TT_STRING;
 		ttok->str = manage_d_quote(s, idx, glob);
 		glob->lex->tokens[glob->lex->count] = ttok;
-		//printf("_.%s._", glob->lex->tokens[glob->lex->count]->str);
 		glob->lex->count++;
 		fflush(stdout);
 		*idx += 1;

@@ -253,6 +253,7 @@ char	*env_finder(char *s, int i, t_shell *glob);
 */
 void	put_d_quote(int *idx, char *s, t_shell *glob, char c);
 char	*join_env(int *idx, char *s, t_shell *glob, char *str);
+char	*manage_end(char *str, int *idx, char *s, int *j);
 
 /*
 ** manage_array.c

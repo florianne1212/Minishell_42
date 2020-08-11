@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+int retour;
+
 void		clean_exit(t_shell *glob)
 {
 	t_list_env *ptr;
@@ -55,10 +57,11 @@ int	empty_line(char *line)
 
 int			main(int argc, char **argv, char **envp)
 {
-t_shell	glob;
+	t_shell	glob;
 	char	*line;
 	int		i;
 
+	retour = 0;
 	i = 1;
 	signal(SIGINT, control_c); //permet d'intercepter le signal envoyer par ctrl-C
 	signal(SIGQUIT, control_back); //permet d'intercepter le signal envoyer par ctrl-backslash

@@ -52,6 +52,7 @@ void			print_error(t_token *tok, int expect)
 	fflush(stdout);
 	ft_putnbr_base(tok->type, "01");
 	printf(")\n");
+	exit(EXIT_SUCCESS);
 }
 
 /*
@@ -156,7 +157,57 @@ void			init_cmd(t_shell *glob, int cmd_count)
 	}
 }
 
-int			parser(t_shell *glob, int cmd_count,int cmd_index)
+void		print_parser(t_shell *glob, int cmd_index)
+{
+	int index;
+	int i;
+
+	index = 0;
+	i = 0;
+	while (index <= cmd_index)
+	{
+		i = 0;
+		printf("cmd {\n");
+		printf("    INDEX CMD : %i\n", index);
+		printf("	exec	: %s\n", glob->cmd[index].exec);
+		while (glob->cmd[index].argv[i] != NULL)
+		{
+			printf("	argv	: %s\n", glob->cmd[index].argv[i]);
+			i++;
+		}
+		printf("	pipe	: %s\n", glob->cmd[index].pipe ? "true" : "false");
+		printf("	in		: %s\n", glob->cmd[index].in.path);
+		printf("	out		: %s\n", glob->cmd[index].out.path);
+		printf("	append	: %s\n", glob->cmd[index].append ? "true" : "false");
+		printf("}\n");
+		index++;
+		fflush(stdout);
+	}
+}
+
+void		parser_string(t_shell *glob, int cmd_index, t_token *t)
+{
+	if (glob->cmd[cmd_index].exec == NULL)
+		glob->cmd[cmd_index].exec = ft_strdup(t->str);
+	else
+		glob->cmd[cmd_index].argv = add_to_array(glob->cmd[cmd_index].argv, t->str);
+}
+
+int		parser_redirection(t_shell *glob, int cmd_index, t_token *t, int index)
+{
+	if (!open_file(t->type, &(glob->cmd[cmd_index]),
+	glob->lex->tokens[index + 1]->str))
+	{
+		printf("IN : failed to open file: %s\n",
+		strerror(glob->cmd[cmd_index].in.error));
+		printf("OUT: failed to open file: %s\n",
+		strerror(glob->cmd[cmd_index].out.error));
+		return (0);
+	}
+	return (1);
+}
+
+int			parser(t_shell *glob, int cmd_count, int cmd_index)
 {
 	int			index;
 	t_token		*t;
@@ -166,25 +217,11 @@ int			parser(t_shell *glob, int cmd_count,int cmd_index)
 	index = 0;
 	while (index < glob->lex->count)
 	{
-		//printf("\n__%i___\n", cmd_index);
 		t = glob->lex->tokens[index];
-
 		if (t->type == TT_STRING)
-		{
-			if (glob->cmd[cmd_index].exec == NULL)
-				glob->cmd[cmd_index].exec = ft_strdup(t->str);
-			else
-				glob->cmd[cmd_index].argv = add_to_array(glob->cmd[cmd_index].argv, t->str);
-		}
+			parser_string(glob, cmd_index, t);
 		else if (t->type == TT_IN || t->type == TT_OUT || t->type == TT_APPEND)
-		{
-			if (!open_file(t->type, &(glob->cmd[cmd_index]), glob->lex->tokens[index + 1]->str))
-			{
-				printf("IN : failed to open file: %s\n", strerror(glob->cmd[cmd_index].in.error));
-				printf("OUT: failed to open file: %s\n", strerror(glob->cmd[cmd_index].out.error));
-				return (0); // failed to open file
-			}
-		}
+			parser_redirection(glob, cmd_index, t, index);
 		else if (t->type == TT_PIPE || t->type == TT_SEMICOLOM)
 		{
 			glob->cmd[cmd_index].pipe = (t->type == TT_PIPE);
@@ -198,36 +235,7 @@ int			parser(t_shell *glob, int cmd_count,int cmd_index)
 		}
 		index++;
 	}
-	// char ** test;
-	// test = glob->cmd[cmd_index].argv;
-	// glob->cmd[cmd_index].cmd_arg = add_front_to_array(glob->cmd[cmd_index].argv, glob->cmd[cmd_index].exec);
-	index = 0;
-	i = 0;
-	while (index <= cmd_index)
-	{
-		i = 0;
-		printf("cmd {\n");
-		printf("    INDEX CMD : %i\n",index);
-		printf("	exec	: %s\n", glob->cmd[index].exec);
-		while (glob->cmd[index].argv[i] != NULL)
-		{
-			printf("	argv	: %s\n", glob->cmd[index].argv[i]);
-			i++;
-		}
-		i = 0;
-		while (glob->cmd[index].cmd_arg[i] != NULL)
-		{
-			printf("	cmd_arg	: %s\n", glob->cmd[index].cmd_arg[i]);
-			i++;
-		}
-		printf("	pipe	: %s\n", glob->cmd[index].pipe ? "true" : "false");
-		printf("	in		: %s\n", glob->cmd[index].in.path);
-		printf("	out		: %s\n", glob->cmd[index].out.path);
-		printf("	append	: %s\n", glob->cmd[index].append ? "true" : "false");
-		printf("}\n");
-		index++;
-		fflush(stdout);
-	}
-	cmd_count = 0;
-	return(cmd_index);
+	print_parser(glob, cmd_index);
+	//cmd_count = 0;
+	return (cmd_index);
 }

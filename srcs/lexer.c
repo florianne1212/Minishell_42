@@ -65,7 +65,6 @@ void		init_lex(t_shell *glob, char *line)
 	glob->lex->e = 0;
 	glob->retour = 0;
 	glob->lex->nb_words = nbr_words(line, glob);
-	printf("\n_____Nb words : %i\n", glob->lex->nb_words);
 	if (!(glob->lex->tokens = (t_token **)malloc(sizeof(t_token *) *
 	(glob->lex->nb_words + 1))))
 		return ;
@@ -118,9 +117,30 @@ void		put_end(t_shell *glob)
 	ttok->type = TT_END;
 	ttok->str = "end";
 	glob->lex->tokens[glob->lex->count] = ttok;
-	//printf(".%s.", glob->lex->tokens[glob->lex->count]->str);
 	glob->lex->count++;
 	fflush(stdout);
+}
+
+void		assign_token(int *index, char *line, t_shell *glob, int size)
+{
+	if (line[*index] == '|')
+		put_pipe(index, line, glob);
+	else if (line[*index] == ';')
+		put_semicolon(index, line, glob);
+	else if (line[*index] == '<')
+		put_input(index, line, glob);
+	else if (line[*index] == '>')
+	{
+		if (line[*index + 1] == '>')
+			put_append(index, line, glob);
+		else
+			put_output(index, line, glob);
+	}
+	else
+		put_string(index, line, glob);
+	while (((*index) < size) &&
+	ft_isspace(line[*index]) == 1)
+		*index += 1;
 }
 
 /*
@@ -138,24 +158,7 @@ int			lexe_line(char *line, t_shell *glob)
 	init_lex(glob, line);
 	while (index < size)
 	{
-		if (line[index] == '|')
-			put_pipe(&index, line, glob);
-		else if (line[index] == ';')
-			put_semicolon(&index, line, glob);
-		else if (line[index] == '<')
-			put_input(&index, line, glob);
-		else if (line[index] == '>')
-		{
-			if (line[index + 1] == '>')
-				put_append(&index, line, glob);
-			else
-				put_output(&index, line, glob);
-		}
-		else
-			put_string(&index, line, glob);
-		while (((index) < size) &&
-		ft_isspace(line[index]) == 1)
-			index++;
+		assign_token(&index, line, glob, size);
 	}
 	put_end(glob);
 	printf("\n");
