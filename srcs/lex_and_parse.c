@@ -92,7 +92,7 @@ void		arg_in_tab(int i, int cmd_index, t_shell *glob)
 }
 
 /*
-** la fonction lex and validate permet de lexer un premiere fois toute 
+** la fonction lex and validate permet de lexer un premiere fois toute
 ** la ligne puis de verifier que tout soit bon
 */
 
@@ -100,10 +100,12 @@ int			lex_and_validate(char *line, t_shell *glob)
 {
 	int		cmd_count;
 
+	cmd_count = 0;
 	lexe_line(line, glob);
 	if (!(validate(glob, &cmd_count)))
 	{
 		printf("syntax error\n");
+		clean_lexer(glob);
 		return (0);
 	}
 	return (cmd_count);
@@ -124,15 +126,15 @@ int			lex_and_parse(char *line, t_shell *glob)
 	index = 0;
 	cmd_index = 0;
 	i = 0;
-	lexe_line(line, glob);
-	cmd_count = lex_and_validate(line, glob);
+	if ((cmd_count = lex_and_validate(line, glob)) <= 0)
+		return (0);
 	init_cmd(glob, cmd_count);
 	clean_lexer(glob);
 	while (index < (int)ft_strlen(line))
 	{
 		i = cmd_index;
 		lexe_s_colon(line, glob, &index);
-		cmd_index = parser(glob, cmd_count, cmd_index);
+		cmd_index = parser(glob, cmd_index);
 		fflush(stdout);
 		clean_lexer(glob);
 		arg_in_tab(i, cmd_index, glob);

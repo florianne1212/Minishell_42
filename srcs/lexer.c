@@ -47,35 +47,6 @@ int			nbr_words(char const *s, t_shell *glob)
 }
 
 /*
-** comme l'indique son nom la fonction init lex sert a
-** initialiser et mallocer la structure lex
-*/
-
-void		init_lex(t_shell *glob, char *line)
-{
-	int		i;
-
-	i = 0;
-	if (!(glob->lex = malloc(sizeof(t_lex))))
-		return ;
-	glob->lex->nb_words = 0;
-	glob->lex->tokens = NULL;
-	glob->lex->count = 0;
-	glob->lex->j = 0;
-	glob->lex->e = 0;
-	glob->retour = 0;
-	glob->lex->nb_words = nbr_words(line, glob);
-	if (!(glob->lex->tokens = (t_token **)malloc(sizeof(t_token *) *
-	(glob->lex->nb_words + 1))))
-		return ;
-	while (i <= glob->lex->nb_words)
-	{
-		glob->lex->tokens[i] = NULL;
-		i++;
-	}
-}
-
-/*
 ** clean_lexer permet de nettoyer la structure lexer
 */
 

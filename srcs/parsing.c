@@ -13,93 +13,6 @@
 #include "../includes/minishell.h"
 
 /*
-** la fonction meet permet de verifier si le type
-** rencontree correspond a ce qu'on attend
-** elle retourne 1 si vrai et 0 si faux
-*/
-
-static int		meet(int expect, t_token *tok, t_token_type type)
-{
-	return ((expect & type) && tok->type == type);
-}
-
-/*
-** La fonction print_error permet d'afficher les erreurs
-** lors de la verification de la ligne de commande
-*/
-
-void			print_error(t_token *tok, int expect)
-{
-	printf("expected (");
-	fflush(stdout);
-	ft_putnbr_base(tok->type, "01");
-	printf("): ");
-	if (expect & TT_STRING)
-		printf("string, ");
-	if (expect & TT_PIPE)
-		printf("pipe, ");
-	if (expect & TT_APPEND)
-		printf("append, ");
-	if (expect & TT_OUT)
-		printf("out, ");
-	if (expect & TT_IN)
-		printf("in, ");
-	if (expect & TT_SEMICOLOM)
-		printf("semicolon, ");
-	if (expect & TT_END)
-		printf("end of line, ");
-	printf("but got: %s (mask ", tok->str);
-	fflush(stdout);
-	ft_putnbr_base(tok->type, "01");
-	printf(")\n");
-	exit(EXIT_SUCCESS);
-}
-
-/*
-** la fonction validate prmet de verifier si notre ligne de commande est valide
-** elle retourne 0 si la ligne de commande n'est pas valide
-*/
-
-int		validate(t_shell *glob, int *cmd_count)
-{
-	t_token		*tok;
-	int			expect;
-	int			index;
-
-	index = 0;
-	expect = TT_STRING;
-	while (index < glob->lex->count)
-	{
-		tok = glob->lex->tokens[index];
-		*cmd_count += (tok->type == TT_PIPE || tok->type == TT_SEMICOLOM);
-		if (meet(expect, tok, TT_STRING))
-			expect = TT_STRING | TT_PIPE | TT_APPEND | TT_OUT | TT_IN | TT_SEMICOLOM | TT_END;
-		else if (meet(expect, tok, TT_PIPE))
-			expect = TT_STRING;
-		else if (meet(expect, tok, TT_APPEND) || meet(expect, tok, TT_OUT) || meet(expect, tok, TT_IN))
-			expect = TT_STRING;
-		else if (meet(expect, tok, TT_SEMICOLOM))
-			expect = TT_STRING | TT_END;
-		else if (meet(expect, tok, TT_END))
-			expect = 0;
-		else
-		{
-			print_error(tok, expect);
-			return (0);
-		}
-		printf("%d %s\n", index, tok->str);
-		index++;
-	}
-	if (expect != 0)
-	{
-		printf("unexpected end\n");
-		return (0);
-	}
-	*cmd_count += 1;
-	return (1);
-}
-
-/*
 ** la fonction open_file permet de faire la bonne ouverture
 ** de fichier correspondant a la commande
 ** elle retourne 0 si il y a une erreur dans l'ouverture du fichier ou sinon 1
@@ -132,35 +45,14 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 }
 
 /*
-** la fonction init_cmd initialise la structure commande
-** selon le nombre de "commande" separe par des pipes et des ";"
-** enne initialise aussi le tableau d'arguments
+** la fonction print_parser permet d'afficher
+** les elements parser
 */
 
-void			init_cmd(t_shell *glob, int cmd_count)
+void			print_parser(t_shell *glob, int cmd_index)
 {
+	int			index;
 	int			i;
-
-	i = 0;
-	if (!(glob->cmd = malloc(sizeof(t_command) * (cmd_count + 1))))
-		return ;
-	ft_memset(glob->cmd, 0, sizeof(t_command) * (cmd_count + 1));
-	while (i <= cmd_count)
-	{
-		if (!(glob->cmd[i].cmd_arg = (char **)malloc(sizeof(char *))))
-			return ;
-		glob->cmd[i].cmd_arg[0] = NULL;
-		if (!(glob->cmd[i].argv = (char **)malloc(sizeof(char *))))
-			return ;
-		glob->cmd[i].argv[0] = NULL;
-		i++;
-	}
-}
-
-void		print_parser(t_shell *glob, int cmd_index)
-{
-	int index;
-	int i;
 
 	index = 0;
 	i = 0;
@@ -178,25 +70,40 @@ void		print_parser(t_shell *glob, int cmd_index)
 		printf("	pipe	: %s\n", glob->cmd[index].pipe ? "true" : "false");
 		printf("	in		: %s\n", glob->cmd[index].in.path);
 		printf("	out		: %s\n", glob->cmd[index].out.path);
-		printf("	append	: %s\n", glob->cmd[index].append ? "true" : "false");
+		printf("	append	: %s\n",
+		glob->cmd[index].append ? "true" : "false");
 		printf("}\n");
 		index++;
 		fflush(stdout);
 	}
 }
 
-void		parser_string(t_shell *glob, int cmd_index, t_token *t)
+/*
+** la donction parser_string permet de parser
+** les string et de les mettres dans au bon endroit
+** dans la structure cmd en fonction si c'est l'executable
+** ouu les arguments
+*/
+
+void			parser_string(t_shell *glob, int cmd_index, t_token *t)
 {
 	if (glob->cmd[cmd_index].exec == NULL)
 		glob->cmd[cmd_index].exec = ft_strdup(t->str);
 	else
-		glob->cmd[cmd_index].argv = add_to_array(glob->cmd[cmd_index].argv, t->str);
+		glob->cmd[cmd_index].argv = add_to_array(glob->cmd[cmd_index].argv,
+		t->str);
 }
 
-int		parser_redirection(t_shell *glob, int cmd_index, t_token *t, int index)
+/*
+** la donction parser_redir permet de parser
+** les redirections in, out et append et d'appeller
+** la fonction open_fille en consequence
+*/
+
+int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 {
 	if (!open_file(t->type, &(glob->cmd[cmd_index]),
-	glob->lex->tokens[index + 1]->str))
+	glob->lex->tokens[idx + 1]->str))
 	{
 		printf("IN : failed to open file: %s\n",
 		strerror(glob->cmd[cmd_index].in.error));
@@ -207,7 +114,12 @@ int		parser_redirection(t_shell *glob, int cmd_index, t_token *t, int index)
 	return (1);
 }
 
-int			parser(t_shell *glob, int cmd_count, int cmd_index)
+/*
+** comme l'indique son nom la fonction parser permet de
+** parser les elements precedement lexer et verifier
+*/
+
+int				parser(t_shell *glob, int cmd_index)
 {
 	int			index;
 	t_token		*t;
@@ -221,21 +133,16 @@ int			parser(t_shell *glob, int cmd_count, int cmd_index)
 		if (t->type == TT_STRING)
 			parser_string(glob, cmd_index, t);
 		else if (t->type == TT_IN || t->type == TT_OUT || t->type == TT_APPEND)
-			parser_redirection(glob, cmd_index, t, index);
+			parser_redir(glob, cmd_index, t, index);
 		else if (t->type == TT_PIPE || t->type == TT_SEMICOLOM)
 		{
 			glob->cmd[cmd_index].pipe = (t->type == TT_PIPE);
 			cmd_index += 1;
-			printf("\nINDEX IS INCREASED parsing\n");
 		}
 		else if (t->type == TT_END)
-		{
-			printf("END --- \n");
 			break ;
-		}
 		index++;
 	}
 	print_parser(glob, cmd_index);
-	//cmd_count = 0;
 	return (cmd_index);
 }

@@ -225,8 +225,8 @@ void	sort_envp(char **envp, t_shell *glob);
 ** lexer.c
 */
 int		lexe_line(char *line, t_shell *glob);
-void	init_lex(t_shell *glob, char *line);
-void		clean_lexer(t_shell *glob);
+void	clean_lexer(t_shell *glob);
+int			nbr_words(char const *s, t_shell *glob);
 
 /*
 ** funct_lexer.c
@@ -265,8 +265,17 @@ char	**add_front_to_array(char **s1, char *s2);
 /*
 ** parsing.c
 */
-int	parser(t_shell *glob, int cmd_count, int cmd_index);
+int		parser(t_shell *glob, int cmd_index);
+
+/*
+** validate_line.c
+*/
 int		validate(t_shell *glob, int *cmd_count);
+
+/*
+** init.c
+*/
+void	init_lex(t_shell *glob, char *line);
 void	init_cmd(t_shell *glob, int cmd_count);
 
 int			lex_and_parse(char *line, t_shell *glob);
