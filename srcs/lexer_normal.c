@@ -22,24 +22,22 @@ char		*size_to_mal(char *s, int *idx)
 {
 	int		j;
 	int		e;
-	int		p;
 	char	*str;
 
 	e = 0;
 	j = 0;
-	p = 0;
-	while (s[*idx + j + p] != '\0' && e == 0 && s[*idx + j + p] != '$' &&
-	ft_isspace(s[*idx + j + p]) == 0)
+	while ((s[*idx + j]) && ft_isspace(s[*idx + j]) == 0 && e == 0)
 	{
-		if (ft_strchr_int("\"\'$", s[*idx + j + p]) == 0 &&
-		s[*idx + j + p] == '\\')
-			p++;
-		if (ft_strchr_int("\"\'$", s[*idx + j + p]) == 1 &&
-		s[*idx + j + p] != '\\')
+		if (s[*idx + j] == '\\')
+			j += 1;
+		if (s[*idx + j] == '$' && (s[*idx + j + 1] != '\\'))
 			e = 1;
-		j++;
+		else if (ft_strchr_int("|;><", s[*idx + j]) == 1)
+			e = 1;
+		else
+			j++;
 	}
-	j+=4;
+	j++;
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
 	str = ft_memset(str, '\0', j + 1);

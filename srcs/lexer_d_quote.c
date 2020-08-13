@@ -22,21 +22,20 @@ char		*size_to_malloc(char *s, int *i)
 {
 	int		j;
 	int		e;
-	int		p;
 	char	*str;
 
 	e = 0;
 	j = 0;
-	p = 0;
-	while (s[*i + j + p] != '\0' && e == 0)
+	while ((s[*i + j]) && e == 0)
 	{
-		if (s[*i + j + 1 + p] == '\"' && s[*i + j + p] == '\\')
-			p++;
-		if (s[*i + j + 1 + p] == '\"' && s[*i + j + p] != '\\')
+		if (s[*i + j] == '\\' && ft_strchr("$\\\"", s[*i + j + 1]) != 0)
+			j += 1;
+		if (s[*i + j] == '$' && (s[*i + j - 1] != '\\'))
 			e = 1;
-		if (s[*i + j + 1 + p] == '$' && s[*i + j + p] != '\\')
+		else if (s[*i + j] == '"' && (s[*i + j - 1] != '\\'))
 			e = 1;
-		j++;
+		else
+			j++;
 	}
 	if (!(str = malloc(sizeof(char) * (j + 1))))
 		return (NULL);
@@ -85,12 +84,9 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 
 char		*manage_end(char *str, int *idx, char *s, int *j)
 {
-	//if (*idx < (int)ft_strlen(s))
-	//{
-		str[*j] = s[*idx];
-		*j += 1;
-		*idx += 1;
-	//}
+	str[*j] = s[*idx];
+	*j += 1;
+	*idx += 1;
 	return (str);
 }
 
