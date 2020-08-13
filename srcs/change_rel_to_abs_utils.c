@@ -63,7 +63,7 @@ char		*path_create_data(char *rel, char ***relative, t_list **absolute)
 	i = 0;
 	if (!(*relative = ft_split((const char *)rel, '/')))
 		return (NULL);
-	if (!(temp_abs = getcwd(NULL, 1)))
+	if (!(temp_abs = getcwd(NULL, 0)))
 		return (NULL);
 	if (!(temp_absolute_array = ft_split((const char *)temp_abs, '/')))
 	{

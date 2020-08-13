@@ -56,6 +56,25 @@ static void	ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
 }
 
 /*
+** la fonction print_value permet d'afficher
+** les backslash comme dans export dans bash
+*/
+
+void	print_value(char *str, int fd)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\"' || str[i] == '\\')
+			ft_putchar_fd('\\', fd);
+		ft_putchar_fd(str[i], fd);
+		i++;
+	}
+}
+
+/*
 ** --------env sorted -----------
 ** lorsque export utilise sans argument
 ** fait "env" avec liste triee
@@ -72,7 +91,8 @@ static void	env_sorted(t_shell *glob, int fd)
 		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(list->name, fd);
 		ft_putstr_fd("=\"", fd);
-		ft_putstr_fd(list->value, fd);
+		print_value(list->value, fd); // ligne que j'ai rajouter
+		//ft_putstr_fd(list->value, fd);
 		ft_putstr_fd("\"\n", fd);
 		list = list->next;
 	}

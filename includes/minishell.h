@@ -108,9 +108,12 @@ typedef struct	s_shell
 	int			fd;//probablement a enlever mais utile actuellemet
 }				t_shell;
 
+int		global_retour;
+
 /*
 ** cotrol.c
 */
+void			manage_control();
 void			control_c(int i);
 void			control_back(int i);
 

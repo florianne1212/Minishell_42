@@ -45,7 +45,7 @@ int			cd_home(t_list_env *env)
 	int		ret;
 
 	ret = 0;
-	oldpath = getcwd(NULL, 1);
+	oldpath = getcwd(NULL, 0);
 	newpath = ft_getenv(env, "HOME");
 	if (!oldpath || !newpath)
 		return (cd_error(NULL, 1, oldpath, newpath));
@@ -72,7 +72,7 @@ int			cd_back(t_list_env *env, int fd)
 	int		ret;
 
 	ret = 0;
-	oldpath = getcwd(NULL, 1);
+	oldpath = getcwd(NULL, 0);
 	newpath = ft_getenv(env, "OLDPWD");
 	if (!oldpath || !newpath)
 		return (cd_error(NULL, 1, oldpath, newpath));
@@ -99,7 +99,7 @@ int			cd_abs_path(t_list_env *env, char *newpath)
 	int		ret;
 
 	ret = 0;
-	oldpath = getcwd(NULL, 1);
+	oldpath = getcwd(NULL, 0);
 	if (!oldpath || !newpath)
 		return (cd_error(NULL, 1, oldpath, NULL));
 	if (chdir(newpath))

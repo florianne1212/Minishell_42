@@ -63,16 +63,12 @@ int			main(int argc, char **argv, char **envp)
 
 	retour = 0;
 	i = 1;
-	signal(SIGINT, control_c); //permet d'intercepter le signal envoyer par ctrl-C
-	signal(SIGQUIT, control_back); //permet d'intercepter le signal envoyer par ctrl-backslash
 	ft_memset(&glob, 0, sizeof(t_shell));
-	printf("\nargc %i", argc);
-	printf("\nargv %s\n", argv[0]); //en attendant juste pour ne pas avoir d'erreurs de compilation
-	fflush(stdout);
+	manage_control(&glob);
 	sort_envp(envp, &glob);
 	while (i == 1)
 	{
-		ft_putstr("$>");
+		ft_putstr_fd("$>", 2);
 		get_next_line(1, &line);
 		//line = ft_strdup("ls");
 		if (empty_line(line) != 0)
@@ -86,4 +82,6 @@ int			main(int argc, char **argv, char **envp)
 	}
 	free(line);
 	clean_exit(&glob);
+	(void)argv;
+	(void)argc;
 }

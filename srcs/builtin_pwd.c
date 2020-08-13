@@ -22,7 +22,7 @@ int	builtin_pwd(t_shell *glob, int fd, char **arg)
 
 	(void)arg;
 	(void)glob;
-	if (!(pwd = getcwd(NULL, 1)))
+	if (!(pwd = getcwd(NULL, 0)))
 		return (1);
 	ft_putendl_fd(pwd, fd);
 	free(pwd);
