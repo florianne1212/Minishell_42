@@ -50,9 +50,11 @@ char		**add_to_array(char **s1, char *s2)
 			ss3[i] = s1[i];
 			i++;
 		}
-		free(s1);
-		ss3[i++] = ft_strdup(s2);
+		
+		ss3[i] = ft_strdup(s2);
+		i++;
 		ss3[i] = NULL;
+		free(s1);
 	}
 	return (ss3);
 }

@@ -97,6 +97,17 @@ typedef struct	s_command
 
 typedef struct	s_shell
 {
+	//changements pour tester
+	int tmpin; //a mettre dans global
+	int tmpout; //a mettre dans global
+	int fdin; //a mettre dans global
+	int fdout; //a mettre dans global
+	char *infile; //est dans la chaine de commandes
+	char *outfile; //est dans la chaine de commande
+	int cmd_index;
+	int piping_index;
+	//fin changement pour tester
+
 	char		**envirron; //tableau similaire a "environ", a mettre a null++
 	//en fin de programme , appeler env_destroy_array, sinon leaks
 	int			retour; //echo $?
@@ -205,11 +216,16 @@ char		*create_abs_str(t_list *absolute);
 /*
 ** ft_run_simple_command.c
 */
+int ft_run_commands(t_shell *glob);
+
+/*
+** ft_run_simple_command.c
+*/
 int		check_and_run_builtin(t_shell *glob, char **arg);
 char	*create_command_path(char *env_path, char *command);
 char	*ft_search_env_path(char *env_paths, char *command);
 int		path_for_execve(char *file, char **path, char *env_path);
-int		ft_run_simple_command(t_shell *glob, char **command_arg);
+int		ft_run_simple_command(t_shell *glob, char **command_arg, char *env_path);
 
 /*
 ** ft_run_simple_command2.c

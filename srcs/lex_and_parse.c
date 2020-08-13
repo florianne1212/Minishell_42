@@ -85,9 +85,10 @@ void		arg_in_tab(int i, int cmd_index, t_shell *glob)
 		free(glob->cmd[i].cmd_arg);
 		glob->cmd[i].cmd_arg = add_front_to_array(glob->cmd[i].argv,
 		glob->cmd[i].exec);
-		ft_run_simple_command(glob, glob->cmd[i].cmd_arg);
 		i++;
 	}
+	glob->cmd_index = cmd_index;
+	ft_run_commands(glob);
 	fflush(stdout);
 }
 

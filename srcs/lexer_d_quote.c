@@ -85,9 +85,12 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 
 char		*manage_end(char *str, int *idx, char *s, int *j)
 {
-	str[*j] = s[*idx];
-	*j += 1;
-	*idx += 1;
+	//if (*idx < (int)ft_strlen(s))
+	//{
+		str[*j] = s[*idx];
+		*j += 1;
+		*idx += 1;
+	//}
 	return (str);
 }
 
