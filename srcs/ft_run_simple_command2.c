@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:57:14 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/23 11:02:07 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 13:41:51 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,31 @@ void	ft_change_case_instruction(char *instruction)
 			instruction[i] += 32;
 		i++;
 	}
+}
+
+/*
+** ----------nb of path--------------
+** calculate number of different paths in PATH env variable
+*/
+
+int		nbr_of_path(char **paths)
+{
+	int	i;
+
+	i = 0;
+	while (paths[i])
+		i++;
+	return (i);
+}
+
+/*
+**-----------free path null---------------
+**free path variable and send back NULL
+*/
+
+char	*free_path_null(char **path)
+{
+	free(*path);
+	*path = NULL;
+	return (NULL);
 }

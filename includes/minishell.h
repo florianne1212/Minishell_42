@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/20 17:24:26 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 13:38:39 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int			create_path_list(t_list **abs, char **rel);
 char		*create_abs_str(t_list *absolute);
 
 /*
-** ft_run_simple_command.c
+** ft_run_commands.c
 */
 int ft_run_commands(t_shell *glob);
 
@@ -232,6 +232,9 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg, char *env_path);
 */
 int		not_a_command(char *command, char *str);
 void	ft_change_case_instruction(char *instruction);
+int		nbr_of_path(char **paths);
+char 	*free_path_null(char **path);
+
 
 /*
 **var_env.c

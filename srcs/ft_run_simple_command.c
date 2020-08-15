@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/08 20:15:02 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 13:36:35 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ char	*ft_search_env_path(char *env_paths, char *command)
 
 	path = NULL;
 	i = 0;
-	max = 0;
 	if (!(paths = ft_split(env_paths, ':')))
 		return (errno_return_str(ENOMEM, NULL));
-	while (paths[max])
-		max++;
+	max = nbr_of_path(paths);
 	while (paths[i])
 	{
 		if (path)
@@ -93,6 +91,8 @@ char	*ft_search_env_path(char *env_paths, char *command)
 		i++;
 	}
 	split_destructor(paths);
+	if (!(!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode)))
+		return (free_path_null(&path));
 	return (path);
 }
 
@@ -106,6 +106,7 @@ int		path_for_execve(char *file, char **path, char *env_path)
 {
 	struct stat	s_bufstat;
 
+	ft_memset(&s_bufstat, 0, sizeof(stat));
 	if (file[0] == '/')
 	{
 		if (!(*path = ft_strdup(file)))
@@ -156,7 +157,13 @@ int		ft_run_simple_command(t_shell *glob, char **command_arg, char *env_path)
 		return (ret);
 	//env_path = ft_getenv(glob->list_env, "PATH");
 	if (path_for_execve(command_arg[0], &path, env_path))
-		return (1);
+	{
+	//+++++++++
+		if (path)
+			free(path);
+		return (1); //+++++il doit falloir free path ici +++++++++
+	//++++++++++
+	}
 	//free(env_path);
 	// glob->envirron = env_create_array(glob->list_env, glob->envirron);
 	ret = fork_and_run_command(glob, path, command_arg, glob->envirron);

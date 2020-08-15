@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/13 09:58:25 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 13:18:47 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ static void	get_piping_index(t_shell *glob, int i)
 	glob->piping_index++;
 }
 
-void		initialize_redirections(t_shell *glob)
+void		initialize_redirections(t_shell *glob) //attention voir si ok dans suite de pipe avec les redirections
 {
-	//ft_putstr("coucou1\n");
-	glob->tmpin = dup(0);
-	glob->tmpout = dup(1);
+	glob->tmpin = dup(STDIN_FILENO);
+	glob->tmpout = dup(STDOUT_FILENO);
+	//printf ("tmpin = %d, tmpout = %d\n", glob->tmpin, glob->tmpout);
 	if (glob->infile)
 	{
 		glob->fdin = open(glob->infile, O_RDONLY);
-		//ft_putstr("coucou2\n");
+	//	printf ("fdin = %d\n", glob->fdin);
 	}
 	else
 	{
 		glob->fdin = dup(glob->tmpin);
-		//ft_putstr("coucou3\n");
+		//printf ("fdin = %d\n", glob->fdin);
 
 		//fdin est soit le fichier, soit 0
 	}
@@ -67,17 +67,23 @@ int			tube_output_init(t_shell *glob, t_command *command)
 	if (glob->outfile && command->append)
 	{
 		if ((glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT |
-				O_APPEND)) < 0)
+				O_APPEND, 0666))< 0)
 			return (1);
+		ft_putstr_fd("append\n", 2);
+
 	}
 	else if (glob->outfile && !command->append)
 	{
-		if ((glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT)) < 0)
+		if ((glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT, 0666))< 0)
 			return (1);
+		ft_putstr_fd("open\n", 2);
+
 	}
 	else
 	{
 		glob->fdout = dup(glob->tmpout);
+		ft_putstr_fd("on y est\n", 2);
+
 	}
 	return (0);
 }
@@ -88,43 +94,51 @@ int			redir_one_piped_cmd(t_shell *glob, t_command *command, int j)
 {
 	int fdpipe[2];
 
-	ft_putstr("1er argument ");
-	ft_putstr(command->cmd_arg[0]);
-	ft_putstr("\n");
+	// ft_putstr("1er argument ");
+	// ft_putstr(command->cmd_arg[0]);
+	// ft_putstr("\n");
 	if (dup2(glob->fdin, 0) < 0)
+		//perror("dup2 : ");
 		return (1);
 	close(glob->fdin);
-	printf("j dans one piped = %d\n", j);
 	if (j == glob->piping_index - 1)
 	// derniere commande du pipe
 	{
-		ft_putstr("dernier du pipe\n");
+		// ft_putstr_fd("dernier argument ", 2);
+		// ft_putstr_fd(command->cmd_arg[0], 2);
+		// ft_putstr_fd("\n", 2);
 		if (tube_output_init(glob, command))
-			return (1);
+		return (1);
 	}
 	else //ce n'est pas la derniere commande
 	{
-		ft_putstr("dans le pipe\n");
-		pipe(fdpipe);
+		if (pipe(fdpipe))
+			return (1);
+			//perror ("pipe :");
 		glob->fdout = fdpipe[1];
 		glob->fdin = fdpipe[0];
+		// ft_putstr_fd("yala\n", 2);
+
+		//printf ("fdpin = %d, fdpout = %d\n", glob->fdin, glob->fdout);
 		//pour moi : faut il close fdpipe ?
 	}
 	if (dup2(glob->fdout, 1) < 0)
 		return (1);
+		//perror("dup2 : ");
 	close(glob->fdout);
 	return (0);
 }
 
 int			prepare_piped_cmd(t_shell *glob, char **arg,
-				char *env_path, char *path)
+				char *env_path, char **path)
 {
 	int	ret;
 
 	ft_change_case_instruction(arg[0]);
+
 	if ((ret = check_and_run_builtin(glob, arg)) >= 0)
 		return (ret);
-	if (path_for_execve(arg[0], &path, env_path))
+	if (path_for_execve(arg[0], path, env_path))
 		return (1);
 	return (0);
 }
@@ -161,49 +175,46 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 	int		j;
 	int		ret;
 	char	*path;
-	(void) env_path;
 
 	ret = 0;
 	j = 0;
 	get_piping_index(glob, i);
 	//pour test de redirection
-	if (glob->piping_index == 2)
-	{
-		glob->infile = ft_strdup("./srcs/ft_run_commands.c");
-		glob->outfile = ft_strdup("lolo");
-	}
-	else
-	{
-		glob->infile = NULL;
-		glob->outfile =  NULL;
-	}
+
+	glob->infile = NULL;
+	// glob->outfile =  "lolo2";
+	glob->outfile =  NULL;
+
 
 	//fin test redirection
 
 	initialize_redirections(glob);
 	// on tourne ensuite sur chaque i
-	printf("j = %d\n", j);
 	 while (j < glob->piping_index)
 	{
-		 path = NULL;
-	 	// if (redir_one_piped_cmd(glob, &glob->cmd[i + j], j))
-	 	// 	return (1);
-		// printf("j = %d\n", j);
-
+		path = NULL;
 		if (redir_one_piped_cmd(glob, &glob->cmd[i + j], j))
 	 		return (1);
+		if (prepare_piped_cmd(glob, glob->cmd[i + j].cmd_arg, env_path, &path))
+		{
+			if (path)
+				free (path);
+			return (1);
+		}
+		ft_putstr_fd("on continue\n",2);
+		// ft_putstr_fd("path =", 2);
+		// ft_putstr_fd(path, 2);
+		// ft_putstr_fd("\n", 2);
 
-	// 	if (prepare_piped_cmd(glob, glob->cmd[i + j].cmd_arg, env_path, path))
-	// 		return (1);
-	// 	if ((ret = fork_exec_piped_cmd(path, glob->cmd[i + j].cmd_arg,
-	// 			glob->envirron)) < 0)
-	// 		return (1);
-	// 	free(path);
-		printf("piping index = %d, i = %d, j = %d\n", glob->piping_index, i, j);
-		ft_putstr("coucou\n");
+		// if ((ret = fork_exec_piped_cmd(path, glob->cmd[i + j].cmd_arg,
+		// 		glob->envirron)) < 0)
+		// {
+		// 	free (path);
+		// 	return (1);
+		// }
+		free(path);
+		// printf("piping index = %d, i = %d, j = %d\n", glob->piping_index, i, j);
 		j++;
-		printf("j = %d\n", j);
-
 	}
 	// restore_in_out_and_wait(glob, ret);
 	ft_putstr("hourra on s'en sort\n");
