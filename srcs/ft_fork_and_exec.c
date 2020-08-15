@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/01 20:03:56 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 15:02:11 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void father_process(int child_pid)
 	int	status;
 
 	(void)child_pid;
-	waitpid(-1, &status, 0);
+	waitpid(child_pid, &status, 0);
 	printf ("on est revenu dans le pere, youpi\n");
 }
 

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/15 13:18:47 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 15:16:43 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int			fork_exec_piped_cmd(char *path, char **arg, char **env)
 {
 	pid_t pid;
 
+	ft_putstr_fd("on rentre dans le dur\n",2);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
@@ -194,30 +195,33 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 	{
 		path = NULL;
 		if (redir_one_piped_cmd(glob, &glob->cmd[i + j], j))
-	 		return (1);
+	 		return (1);//mais il faut restorer les redirections
 		if (prepare_piped_cmd(glob, glob->cmd[i + j].cmd_arg, env_path, &path))
 		{
 			if (path)
 				free (path);
-			return (1);
+			return (1);//la aussi restoration redirections
 		}
 		ft_putstr_fd("on continue\n",2);
 		// ft_putstr_fd("path =", 2);
 		// ft_putstr_fd(path, 2);
 		// ft_putstr_fd("\n", 2);
 
-		// if ((ret = fork_exec_piped_cmd(path, glob->cmd[i + j].cmd_arg,
-		// 		glob->envirron)) < 0)
-		// {
-		// 	free (path);
-		// 	return (1);
-		// }
+		if ((ret = fork_exec_piped_cmd(path, glob->cmd[i + j].cmd_arg,
+				glob->envirron)) < 0)
+		{
+			free (path);
+			return (1);//restorer redirections|
+		}
+		ft_putstr_fd("dans le pere apres commande du pipe executee\n", 2);
+
 		free(path);
 		// printf("piping index = %d, i = %d, j = %d\n", glob->piping_index, i, j);
 		j++;
 	}
-	// restore_in_out_and_wait(glob, ret);
+	restore_in_out_and_wait(glob, ret);
 	ft_putstr("hourra on s'en sort\n");
+
 	return (0);
 }
 
