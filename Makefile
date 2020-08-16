@@ -16,7 +16,7 @@ SRC =	$(foreach dir, $(SRC_DIR), $(foreach file, $(wildcard $(dir)/*.c), $(notdi
 OBJ = 	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 #Compilation flag
-CFLAGS = -Wall -Wextra -Werror -O0 -g3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -O0 #-g3 -fsanitize=address
 
 #Include flag
 IFLAGS = $(foreach dir, $(INC_DIR), -I$(dir))

@@ -6,16 +6,28 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/16 15:12:51 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/16 19:03:08 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	get_piping_index(t_shell *glob, int i)
+static void	get_piping_index_and_infile_outfile(t_shell *glob, int i)
 {
+	glob->infile = 0;
+	glob->outfile = 0; //a voir
 	while (glob->cmd[i + glob->piping_index].pipe)
+	{
+		if (glob->cmd[i + glob->piping_index].in.path)
+			glob->infile = glob->cmd[i + glob->piping_index].in.fd;
+		if (glob->cmd[i + glob->piping_index].out.path)
+			glob->outfile = glob->cmd[i + glob->piping_index].out.fd;
 		glob->piping_index++;
+	}
+	if (glob->cmd[i + glob->piping_index].in.path)
+			glob->infile = glob->cmd[i + glob->piping_index].in.fd;
+	if (glob->cmd[i + glob->piping_index].out.path)
+		glob->outfile = glob->cmd[i + glob->piping_index].out.fd;
 	glob->piping_index++;
 }
 
@@ -26,7 +38,7 @@ void		initialize_redirections(t_shell *glob) //attention voir si ok dans suite d
 	//printf ("tmpin = %d, tmpout = %d\n", glob->tmpin, glob->tmpout);
 	if (glob->infile)
 	{
-		glob->fdin = open(glob->infile, O_RDONLY);
+		glob->fdin = glob->infile;
 	//	printf ("fdin = %d\n", glob->fdin);
 
 	}
@@ -63,35 +75,20 @@ void		restore_in_out_and_wait(t_shell *glob, int ret)
 
 //*renvoie 1 en cas d'erreur*/
 
-int			tube_output_init(t_shell *glob, t_command *command)
+int			tube_output_init(t_shell *glob)
 {
-	if (glob->outfile && command->append)
-	{
-		if ((glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT |
-				O_APPEND, 0666))< 0)
-			return (1);
-		ft_putstr_fd("append\n", 2);
-
-	}
-	else if (glob->outfile && !command->append)
-	{
-		if ((glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT, 0666))< 0)
-			return (1);
-		ft_putstr_fd("open\n", 2);
-
-	}
+	if (glob->outfile)
+		glob->fdout = glob->outfile;
 	else
 	{
 		glob->fdout = dup(glob->tmpout);
-		ft_putstr_fd("on y est\n", 2);
-
 	}
 	return (0);
 }
 
 //retour = 0 si ok, 1 si pb
 
-int			redir_one_piped_cmd(t_shell *glob, t_command *command, int j)
+int			redir_one_piped_cmd(t_shell *glob, int j)
 {
 	int fdpipe[2];
 
@@ -108,7 +105,7 @@ int			redir_one_piped_cmd(t_shell *glob, t_command *command, int j)
 		// ft_putstr_fd("dernier argument ", 2);
 		// ft_putstr_fd(command->cmd_arg[0], 2);
 		// ft_putstr_fd("\n", 2);
-		if (tube_output_init(glob, command))
+		if (tube_output_init(glob))
 		return (1);
 	}
 	else //ce n'est pas la derniere commande
@@ -180,13 +177,13 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 
 	ret = 0;
 	j = 0;
-	get_piping_index(glob, i);
+	get_piping_index_and_infile_outfile(glob, i);
 	initialize_redirections(glob);
 	// on tourne ensuite sur chaque i
 	 while (j < glob->piping_index)
 	{
 		path = NULL;
-		if (redir_one_piped_cmd(glob, &glob->cmd[i + j], j))
+		if (redir_one_piped_cmd(glob, j))
 	 		return (1);//mais il faut restorer les redirections
 		if (prepare_piped_cmd(glob, glob->cmd[i + j].cmd_arg, env_path, &path))
 		{

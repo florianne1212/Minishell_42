@@ -8,6 +8,11 @@ le deuxieme -e de sed est pas bon
 
 grep "libf" < loulou ok, par contre grep < loulou "libft" ne fonctionne pas car prend loulou en 1er qargument de grep
 
+rm loulou ; echo pauvre nase > loulou ; echo "MIDDLE" ; cat loulou : vu que les fichiers restent ouverts, le fait de faire rm loulou l'efface --> gros bug
+
+
+proteger les dup et les pipes
+
 Pour fonction control
 -une seule fonction qui recupere le numero devrait suffire, et on envoie a  $? 128 + n (enzo idea)
 -ft_putstr_fd("\b\b  \b\b", 1); a mettre : permet d'effacer ce que le shell ecrit (^C ou ^\)
