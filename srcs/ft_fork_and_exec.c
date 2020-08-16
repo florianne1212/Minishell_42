@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/15 15:02:11 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/15 23:53:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void child_process(t_shell *glob, char *path, char **arg, char **env)
 {
 	int	ret;
 
+	// signal(SIGQUIT, SIG_DFL);
+	// signal(SIGINT, SIG_DFL);
 	ret = execve(path, arg, env);
 	glob->retour = ret;
 }

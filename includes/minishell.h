@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/15 13:38:39 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/16 15:28:27 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct	s_command
 	char	*exec;
 	char	**argv;
 	char	**cmd_arg;
+	pid_t	pid;
 	t_bool	pipe;
 	t_file  in;
 	t_file  out;
@@ -225,7 +226,7 @@ int		check_and_run_builtin(t_shell *glob, char **arg);
 char	*create_command_path(char *env_path, char *command);
 char	*ft_search_env_path(char *env_paths, char *command);
 int		path_for_execve(char *file, char **path, char *env_path);
-int		ft_run_simple_command(t_shell *glob, char **command_arg, char *env_path);
+int		ft_run_simple_command(t_shell *glob, int i, char *env_path);
 
 /*
 ** ft_run_simple_command2.c
@@ -235,6 +236,13 @@ void	ft_change_case_instruction(char *instruction);
 int		nbr_of_path(char **paths);
 char 	*free_path_null(char **path);
 
+/*
+** check_redir_simple_command.c
+*/
+void	check_stdout_simple(t_shell *glob, int i);
+void 	check_stdin_simple(t_shell *glob, int i);
+void	simple_redirection(t_shell *glob, int i);
+void	restore_in_out_simple(t_shell *glob);
 
 /*
 **var_env.c

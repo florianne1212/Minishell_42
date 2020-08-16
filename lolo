@@ -1,0 +1,14 @@
+
+IN : failed to open file: Undefined error: 0
+OUT: failed to open file: Bad file descriptor
+cmd {
+    INDEX CMD : 0
+	exec	: pwd
+	argv	: lolo
+	pipe	: false
+	in		: (null)
+	out		: lolo
+	append	: false
+}
+nulfdin = 9
+filefdout = 5

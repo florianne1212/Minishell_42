@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/15 15:16:43 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/16 15:12:51 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		initialize_redirections(t_shell *glob) //attention voir si ok dans suite d
 	{
 		glob->fdin = open(glob->infile, O_RDONLY);
 	//	printf ("fdin = %d\n", glob->fdin);
+
 	}
 	else
 	{
@@ -47,17 +48,17 @@ void		restore_in_out_and_wait(t_shell *glob, int ret)
 	close(glob->tmpin);
 	close(glob->tmpout);
 	waitpid(ret, &status, 0);
-	// a voir si besoin de le faire
-	if (glob->infile)
-	{
-		free(glob->infile);
-		glob->infile = NULL;
-	}
-	if (glob->outfile)
-	{
-		free(glob->outfile);
-		glob->outfile = NULL;
-	}
+	// // a voir si besoin de le faire
+	// if (glob->infile)
+	// {
+	// 	free(glob->infile);
+	// 	glob->infile = NULL;
+	// }
+	// if (glob->outfile)
+	// {
+	// 	free(glob->outfile);
+	// 	glob->outfile = NULL;
+	// }
 }
 
 //*renvoie 1 en cas d'erreur*/
@@ -180,15 +181,6 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 	ret = 0;
 	j = 0;
 	get_piping_index(glob, i);
-	//pour test de redirection
-
-	glob->infile = NULL;
-	// glob->outfile =  "lolo2";
-	glob->outfile =  NULL;
-
-
-	//fin test redirection
-
 	initialize_redirections(glob);
 	// on tourne ensuite sur chaque i
 	 while (j < glob->piping_index)
@@ -248,7 +240,7 @@ int			ft_run_commands(t_shell *glob)
 		}
 		else //simple bloc
 		{
-			ret = ft_run_simple_command(glob, glob->cmd[i].cmd_arg, env_path);
+			ret = ft_run_simple_command(glob, i, env_path);
 			i++;
 		}
 		free(env_path);

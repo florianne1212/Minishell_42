@@ -1,3 +1,13 @@
+
+qd on tape echo lolo > loulou tata, loulou est aussi pris en argument de echo
+
+control C : on doit reafficher le prompt
+
+base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g
+le deuxieme -e de sed est pas bon
+
+grep "libf" < loulou ok, par contre grep < loulou "libft" ne fonctionne pas car prend loulou en 1er qargument de grep
+
 Pour fonction control
 -une seule fonction qui recupere le numero devrait suffire, et on envoie a  $? 128 + n (enzo idea)
 -ft_putstr_fd("\b\b  \b\b", 1); a mettre : permet d'effacer ce que le shell ecrit (^C ou ^\)
