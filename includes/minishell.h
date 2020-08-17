@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/17 14:20:14 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 17:13:01 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,12 @@ typedef struct	s_shell
 	int tmpout; //a mettre dans global
 	int fdin; //a mettre dans global
 	int fdout; //a mettre dans global
-	int infile; //le dernier infile du pipe
-	int outfile; //le dernier outfile du pipe
+	int infile;
+	int outfile;
+	//pour altenative avec open pour les redirections
+	// char *infile; //le dernier infile du pipe
+	// char *outfile; //le dernier outfile du pipe
+	// int append;//va avec outfile
 	int cmd_index;
 	int piping_index;
 	int running;

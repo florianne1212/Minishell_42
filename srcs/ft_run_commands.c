@@ -6,12 +6,14 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 14:27:44 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 18:09:08 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+//voir si on ne prend l'input que du premier terme et l'output que dans le dernier
+// +++++ alternative a cote
 static void	get_piping_index_and_infile_outfile(t_shell *glob, int i)
 {
 	glob->infile = 0;
@@ -31,13 +33,72 @@ static void	get_piping_index_and_infile_outfile(t_shell *glob, int i)
 	glob->piping_index++;
 }
 
-void		initialize_redirections(t_shell *glob) //attention voir si ok dans suite de pipe avec les redirections
+//hypothese 1
+
+// //infile dans 1ere instruction, outfile dans la derniere du pipe
+// //il me semble que c'est celle a gerer
+//
+// static void	get_piping_index_and_infile_outfile(t_shell *glob, int i)
+// {
+// 	glob->infile = 0;
+// 	glob->outfile = 0;
+//	glob->append = 0;
+// 	if (glob->cmd[i + glob->piping_index].in.path)
+// 		glob->infile = ft_strdup(glob->cmd[i + glob->piping_index].in.path);
+// 	while (glob->cmd[i + glob->piping_index].pipe)
+// 		glob->piping_index++;
+// 	if (glob->cmd[i + glob->piping_index].out.path)
+//	{
+// 		glob->outfile = ft_strdup(glob->cmd[i + glob->piping_index].out.path);
+//		if (glob->cmd[i + glob->piping_index].append)
+//			glob->append = 1;
+//	}
+// 	glob->piping_index++;
+// }
+
+// hypothese 2
+
+//infile n'importe ou dans le pipe, outfile n'importe ou dans le pipe
+//dans ce cas je n'ai pas gere le append (trop long et hypothese probablement pas utile)
+
+
+// static void	get_piping_index_and_infile_outfile(t_shell *glob, int i)
+// {
+// 	char *temp_in;
+// 	char * temp_out;
+
+// 	temp_in = NULL;
+// 	temp_out = NULL;
+// 	glob->infile = NULL;
+// 	glob->outfile = NULL;
+// 	while (glob->cmd[i + glob->piping_index].pipe)
+// 	{
+// 		if (glob->cmd[i + glob->piping_index].in.path)
+// 			temp_in = glob->cmd[i + glob->piping_index].in.path;
+// 		if (glob->cmd[i + glob->piping_index].out.path)
+// 			temp_out = glob->cmd[i + glob->piping_index].out.path;
+// 		glob->piping_index++;
+// 	}
+// 	if (glob->cmd[i + glob->piping_index].in.path)
+// 		temp_in = glob->cmd[i + glob->piping_index].in.path;
+// 	if (glob->cmd[i + glob->piping_index].out.path)
+// 		temp_out = glob->cmd[i + glob->piping_index].out.path;
+// 	glob->piping_index++;
+// 	glob->infile = ft_strdup(temp_in);
+// 	glob->outfile = ft_strdup(temp_out);
+// }
+
+void		initialize_redirections(t_shell *glob)
+//avec alternative open
 {
 	glob->tmpin = dup(STDIN_FILENO);
 	glob->tmpout = dup(STDOUT_FILENO);
 	if (glob->infile)
 	{
 		glob->fdin = glob->infile;
+		// glob->fdin = open(glob->infile, O_RDONLY);
+		// free(glob->infile);
+		// glob->infile = NULL;
 	}
 	else
 	{
@@ -68,9 +129,19 @@ void		restore_in_out_and_wait(t_shell *glob, int ret)
 }
 
 int			tube_output_init(t_shell *glob)
+//alternative with open
 {
 	if (glob->outfile)
 		glob->fdout = glob->outfile;
+	// {
+	// 	if (glob->append)
+	// 		glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	// 	if(!glob->append)
+	// 		glob->fdout = open(glob->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	// 	free(glob->outfile);
+	// 	glob->outfile = NULL;
+	// 	glob->append = 0;
+	// }
 	else
 	{
 		glob->fdout = dup(glob->tmpout);
