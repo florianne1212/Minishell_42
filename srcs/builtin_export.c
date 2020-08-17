@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:09:34 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/22 22:00:59 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/16 22:22:39 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
 ** les backslash comme dans export dans bash
 */
 
-void	print_value(char *str, int fd)
+void		print_value(char *str, int fd)
 {
 	int i;
 
@@ -91,8 +91,7 @@ static void	env_sorted(t_shell *glob, int fd)
 		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(list->name, fd);
 		ft_putstr_fd("=\"", fd);
-		print_value(list->value, fd); // ligne que j'ai rajouter
-		//ft_putstr_fd(list->value, fd);
+		print_value(list->value, fd);
 		ft_putstr_fd("\"\n", fd);
 		list = list->next;
 	}
