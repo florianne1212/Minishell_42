@@ -132,7 +132,6 @@ int			fork_exec_piped_cmd(char *path, char **arg, char **env)
 {
 	pid_t pid;
 
-	ft_putstr_fd("on rentre dans le dur\n", 2);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
@@ -201,6 +200,7 @@ int			ft_run_commands(t_shell *glob)
 			ret = ft_run_simple_command(glob, i, env_path);
 			i++;
 		}
+		env_destroy_array(glob->envirron);
 		free(env_path);
 	}
 	return (ret);
