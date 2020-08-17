@@ -62,6 +62,7 @@ int			put_s_quote(int *idx, char *s, t_shell *glob, char c)
 		ttok->str = manage_quote(s, idx, c);
 		glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
+		*idx += 1;
 		fflush(stdout);
 		return (j);
 	}

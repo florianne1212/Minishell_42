@@ -36,6 +36,7 @@ pid_t	create_process(void)
 
 void	got_the_blody_signal(int n)
 {
+	n = 0;
 	signal(SIGQUIT, got_the_blody_signal);
 	signal(SIGINT, got_the_blody_signal);
 	ft_putstr_fd("\b\b  \b\b", 1);
