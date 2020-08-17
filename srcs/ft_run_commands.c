@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 08:27:52 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 14:27:44 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,17 @@ int			piped_child_process(char *path, char **arg, char **env)
 	return (ret);
 }
 
-int			fork_exec_piped_cmd(char *path, char **arg, char **env)
+int			fork_exec_piped_cmd(t_shell *glob, char *path, char **arg, int i)
 {
 	pid_t pid;
 
 	pid = fork();
+	glob->cmd[i].pid = pid;
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 	{
-		if (piped_child_process(path, arg, env) < 0)
+		if (piped_child_process(path, arg, glob->envirron) < 0)
 			return (-1);
 	}
 	return ((int)pid);
@@ -164,8 +165,8 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 				free(path);
 			return (1);//la aussi restoration redirections
 		}
-		if ((ret = fork_exec_piped_cmd(path, glob->cmd[i + j].cmd_arg,
-				glob->envirron)) < 0)
+		if ((ret = fork_exec_piped_cmd(glob, path, glob->cmd[i + j].cmd_arg,
+				i + j)) < 0)
 		{
 			free(path);
 			return (1);//restorer redirections|

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/16 20:40:06 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 14:10:05 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int		ft_run_simple_command(t_shell *glob, int i, char *env_path)
 			free(path);
 		return (1);
 	}
-	ret = fork_and_run_cmd(glob, path, glob->cmd[i].cmd_arg, glob->envirron);
+	ret = fork_and_run_cmd(glob, path, i, glob->envirron);
 	free(path);
 	restore_in_out_simple(glob);
 	return (ret);

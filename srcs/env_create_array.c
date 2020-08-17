@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:54:29 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/22 23:07:07 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 14:18:20 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	**destroy_and_errno_ret(char **ret, char **envirron, int errnb)
 
 /*
 ** -----------create str env---------------
-** cree string de la forme name = value 
+** cree string de la forme name = value
 */
 
 char	*create_str_env(char *name, char *value)
@@ -108,7 +108,7 @@ char	**env_create_array(t_list_env *env, char **envirron)
 	int		i;
 
 	i = 0;
-	env_destroy_array(envirron);
+	//env_destroy_array(envirron);
 	size = ft_list_env_size(env);
 	if (!(envirron = (char**)malloc(sizeof(char *) * (size + 1))))
 		return (destroy_and_errno_ret(NULL, envirron, ENOMEM));

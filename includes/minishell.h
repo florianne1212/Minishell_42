@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/16 20:40:06 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 14:20:14 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,7 @@ void	init_cmd(t_shell *glob, int cmd_count);
 
 int			lex_and_parse(char *line, t_shell *glob);
 
-int		fork_and_run_cmd(t_shell *glob, char *path, char **arg, char **env);
+int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env);
 
 char		*ft_strjoin_free(char *s1, char *s2);
 

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/16 22:09:58 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/17 14:19:57 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,18 @@ void	father_process(int child_pid)
 ** comme son nom l'indique fait un fork puis execute la commande dans le fils
 */
 
-int		fork_and_run_cmd(t_shell *glob, char *path, char **arg, char **env)
+int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env)
 {
 	pid_t pid;
 
 	// signal(SIGQUIT, got_the_blody_signal);
 	// signal(SIGINT, got_the_blody_signal);
-	if ((pid = fork()) == -1)
+	pid = fork();
+	glob->cmd[i].pid = pid;
+	if (pid  == -1)
 		return (1);
 	if (pid == 0)
-		child_process(glob, path, arg, env);
+		child_process(glob, path, glob->cmd[i].cmd_arg, env);
 	else
 	{
 		father_process(pid);
