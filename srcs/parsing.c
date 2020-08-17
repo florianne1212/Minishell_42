@@ -133,7 +133,10 @@ int				parser(t_shell *glob, int cmd_index)
 		if (t->type == TT_STRING)
 			parser_string(glob, cmd_index, t);
 		else if (t->type == TT_IN || t->type == TT_OUT || t->type == TT_APPEND)
-			parser_redir(glob, cmd_index, t, index);
+		{
+			if (parser_redir(glob, cmd_index, t, index) == 1)
+				index++;
+		}
 		else if (t->type == TT_PIPE || t->type == TT_SEMICOLOM)
 		{
 			glob->cmd[cmd_index].pipe = (t->type == TT_PIPE);
