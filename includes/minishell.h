@@ -107,6 +107,7 @@ typedef struct	s_shell
 	int outfile; //le dernier outfile du pipe
 	int cmd_index;
 	int piping_index;
+	int running;
 	//fin changement pour tester
 
 	char		**envirron; //tableau similaire a "environ", a mettre a null++
@@ -190,6 +191,11 @@ int			cd_error(char *str, int ret, char *oldpath, char *newpath);
 int			cd_home(t_list_env *env);
 int			cd_back(t_list_env *env, int fd);
 int			cd_abs_path(t_list_env *env, char *newpath);
+
+/*
+// builtin_exit.c
+*/
+int builtin_exit(t_shell *glob, int fd, char **arg);
 
 /*
 // env_create_array.c

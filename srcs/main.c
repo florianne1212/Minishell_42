@@ -59,28 +59,21 @@ int			main(int argc, char **argv, char **envp)
 {
 	t_shell	glob;
 	char	*line;
-	int		i;
 
 	retour = 0;
-	i = 1;
 	ft_memset(&glob, 0, sizeof(t_shell));
+	glob.running = 1;
 	manage_control(&glob);
 	sort_envp(envp, &glob);
-	while (i == 1)
+	while (glob.running)
 	{
 		ft_putstr_fd("$>", 2);
 		get_next_line(1, &line);
 		//line = ft_strdup("ls");
 		if (empty_line(line) != 0)
 			lex_and_parse(line, &glob);
-		if (strncmp(line, "exit", 4) == 0)
-		{
-			i = 0;
-		}
-		else
 			free(line);
 	}
-	free(line);
 	clean_exit(&glob);
 	(void)argv;
 	(void)argc;

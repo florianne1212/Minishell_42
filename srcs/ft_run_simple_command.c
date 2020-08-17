@@ -35,6 +35,8 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 		ret = builtin_pwd(glob, glob->fd, arg);
 	else if (!(ft_strcmp(arg[0], "unset")))
 		ret = builtin_unset(glob, glob->fd, arg);
+	else if (!(ft_strcmp(arg[0], "exit")))
+		ret = builtin_exit(glob, glob->fd, arg);
 	return (ret);
 }
 
