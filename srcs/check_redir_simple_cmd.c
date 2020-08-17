@@ -25,12 +25,10 @@ void	check_stdin_simple(t_shell *glob, int i)
 	if (glob->cmd[i].in.path)
 	{
 		glob->fdin = glob->cmd[i].in.fd;
-		printf("filefdin = %d\n", glob->fdin);
 	}
 	else
 	{
 		glob->fdin = dup(glob->tmpin);
-		printf("nulfdin = %d\n", glob->fdin);
 	}
 }
 
@@ -45,12 +43,10 @@ void	check_stdout_simple(t_shell *glob, int i)
 	if (glob->cmd[i].out.path)
 	{
 		glob->fdout = glob->cmd[i].out.fd;
-		printf("filefdout = %d\n", glob->fdout);
 	}
 	else
 	{
 		glob->fdout = dup(glob->tmpout);
-		printf("nulfdout = %d\n", glob->fdout);
 	}
 }
 
@@ -65,8 +61,6 @@ void	restore_in_out_simple(t_shell *glob)
 	dup2(glob->tmpout, STDOUT_FILENO);
 	close(glob->tmpin);
 	close(glob->tmpout);
-	printf("sortie fdout = %d\n", glob->fdout);
-	printf("sortie fdin = %d\n", glob->fdin);
 }
 
 /*
