@@ -38,10 +38,11 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 	}
 	file->path = path;
 	file->fd = open(path, mode, 0644);
-	if (errno != 0)
-		file->error = errno;
-	errno = 0;
-	return (file->error == 0);
+	// if (errno != 0)
+	// 	file->error = errno;
+	// errno = 0;
+	//return (file->error == 0);
+	return (file->fd != -1);
 }
 
 /*
@@ -105,10 +106,11 @@ int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 	if (!open_file(t->type, &(glob->cmd[cmd_index]),
 	glob->lex->tokens[idx + 1]->str))
 	{
-		printf("IN : failed to open file: %s\n",
-		strerror(glob->cmd[cmd_index].in.error));
-		printf("OUT: failed to open file: %s\n",
-		strerror(glob->cmd[cmd_index].out.error));
+		printf("error invalid fd");
+		// printf("IN : failed to open file: %s\n",
+		// strerror(glob->cmd[cmd_index].in.error));
+		// printf("OUT: failed to open file: %s\n",
+		// strerror(glob->cmd[cmd_index].out.error));
 		return (0);
 	}
 	return (1);
@@ -134,8 +136,8 @@ int				parser(t_shell *glob, int cmd_index)
 			parser_string(glob, cmd_index, t);
 		else if (t->type == TT_IN || t->type == TT_OUT || t->type == TT_APPEND)
 		{
-			if (parser_redir(glob, cmd_index, t, index) == 1)
-				index++;
+			parser_redir(glob, cmd_index, t, index);
+			index++;
 		}
 		else if (t->type == TT_PIPE || t->type == TT_SEMICOLOM)
 		{
