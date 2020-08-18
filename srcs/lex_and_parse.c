@@ -133,12 +133,12 @@ int			lex_and_parse(char *line, t_shell *glob)
 	clean_lexer(glob);
 	while (index < (int)ft_strlen(line))
 	{
-		i = cmd_index;
+		glob->tmp_cmd_index = cmd_index;
 		lexe_s_colon(line, glob, &index);
 		cmd_index = parser(glob, cmd_index);
 		fflush(stdout);
 		clean_lexer(glob);
-		arg_in_tab(i, cmd_index, glob);
+		arg_in_tab(glob->tmp_cmd_index, cmd_index, glob);
 		index++;
 		cmd_index++;
 	}

@@ -109,6 +109,7 @@ typedef struct	s_shell
 	// char *infile; //le dernier infile du pipe
 	// char *outfile; //le dernier outfile du pipe
 	// int append;//va avec outfile
+	int	tmp_cmd_index;
 	int cmd_index;
 	int piping_index;
 	int running;
