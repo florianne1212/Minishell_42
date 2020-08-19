@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/19 19:23:37 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/20 00:49:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			main(int argc, char **argv, char **envp)
 	while (glob.running)
 	{
 		ft_putstr_fd("$>", 2);
-		get_next_line(1, &line);
+		get_next_line(0, &line);
 		//line = ft_strdup("ls");
 		if (empty_line(line) != 0)
 			lex_and_parse(line, &glob);
