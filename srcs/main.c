@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/14 19:32:25 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/19 14:26:40 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int			main(int argc, char **argv, char **envp)
 {
 	t_shell	glob;
 	char	*line;
+	int i;
 
 	retour = 0;
 	ft_memset(&glob, 0, sizeof(t_shell));
@@ -72,9 +73,11 @@ int			main(int argc, char **argv, char **envp)
 		//line = ft_strdup("ls");
 		if (empty_line(line) != 0)
 			lex_and_parse(line, &glob);
-			free(line);
+		free(line);
 	}
+	i = glob.exit_code;
 	clean_exit(&glob);
 	(void)argv;
 	(void)argc;
+	return (i);
 }

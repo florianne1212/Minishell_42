@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/17 17:13:01 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/19 08:45:16 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct	s_shell
 	int cmd_index;
 	int piping_index;
 	int running;
+	unsigned char exit_code;
 	//fin changement pour tester
 
 	char		**envirron; //tableau similaire a "environ", a mettre a null++
