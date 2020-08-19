@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 18:09:08 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/19 19:11:34 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,34 @@ int			ft_run_commands(t_shell *glob)
 
 	i = 0;
 	while (i <= glob->cmd_index)
+	{
+		env_path = ft_getenv(glob->list_env, "PATH");
+		glob->envirron = env_create_array(glob->list_env, glob->envirron);
+		if (glob->cmd[i].pipe)
+		// bloc de pipes
+		{
+			glob->piping_index = 0;
+			ret = pipe_and_run(glob, i, env_path);
+			i += glob->piping_index;
+		}
+		else //simple bloc
+		{
+			ret = ft_run_simple_command(glob, i, env_path);
+			i++;
+		}
+		env_destroy_array(glob->envirron);
+		free(env_path);
+	}
+	return (ret);
+}
+
+int			ft_run_commands2(int i, int index, t_shell *glob)
+{
+	int		ret;
+	char	*env_path;
+
+	glob->error = 0;
+	while (i <= index)
 	{
 		env_path = ft_getenv(glob->list_env, "PATH");
 		glob->envirron = env_create_array(glob->list_env, glob->envirron);

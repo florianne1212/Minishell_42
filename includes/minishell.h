@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/19 08:45:16 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/19 19:15:23 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,8 @@ char		*create_abs_str(t_list *absolute);
 ** ft_run_commands.c
 */
 int ft_run_commands(t_shell *glob);
+int			ft_run_commands2(int i, int index, t_shell *glob);
+
 
 /*
 ** ft_run_simple_command.c

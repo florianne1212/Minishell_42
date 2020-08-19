@@ -1,14 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/19 18:13:59 by lcoiffie          #+#    #+#             */
+/*   Updated: 2020/08/19 18:17:20 by lcoiffie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int check_exit_arg(t_shell *glob, char **arg)
+int		check_exit_arg(t_shell *glob, char **arg)
 {
 	int i;
 
 	i = 0;
 	if (arg[1][0] == '-')
-			i++;
-	while(arg[1][i])
+		i++;
+	while (arg[1][i])
 	{
 		if (arg[1][i] < '0' || arg[1][i] > '9')
 		{
@@ -24,15 +35,16 @@ int check_exit_arg(t_shell *glob, char **arg)
 	if (arg[2])
 	{
 		ft_putstr_fd("exit: trop d'arguments\n", 2);
+		glob->error = 1;
 		return (1);
 	}
 	return (0);
 }
 
-int builtin_exit(t_shell *glob, int fd, char **arg)
+int		builtin_exit(t_shell *glob, int fd, char **arg)
 {
 	(void)fd;
-    if (arg[1])
+	if (arg[1])
 	{
 		if (check_exit_arg(glob, arg))
 			return (1);
@@ -41,8 +53,6 @@ int builtin_exit(t_shell *glob, int fd, char **arg)
 		return (0);
 	}
 	glob->exit_code = 0;
-    glob->running = 0;
-    return (0);
+	glob->running = 0;
+	return (0);
 }
-// teste si valeur numerique  si pas valeur numerique : exit avec code 2 et messqge erreur str: argument numerique necessaire
-// si valeur numerique et autre argument : ne sort pas et exit: trop d'arguments
