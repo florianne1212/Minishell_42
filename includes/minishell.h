@@ -125,9 +125,11 @@ typedef struct	s_shell
 	t_list_env	*list_env;
 	t_command	*cmd;
 	int			fd;//probablement a enlever mais utile actuellemet
+	int 		signal;
 }				t_shell;
 
 int		global_retour;
+t_shell	glob;
 
 /*
 ** cotrol.c
@@ -325,6 +327,7 @@ void	init_cmd(t_shell *glob, int cmd_count);
 int			lex_and_parse(char *line, t_shell *glob);
 
 int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env);
+void		clean_cmd(t_shell *glob, int cmd_count);
 
 char		*ft_strjoin_free(char *s1, char *s2);
 

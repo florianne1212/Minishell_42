@@ -133,6 +133,7 @@ int			lex_and_parse(char *line, t_shell *glob)
 	clean_lexer(glob);
 	while (index < (int)ft_strlen(line))
 	{
+		glob->signal = 1;
 		glob->tmp_cmd_index = cmd_index;
 		lexe_s_colon(line, glob, &index);
 		cmd_index = parser(glob, cmd_index);
@@ -143,7 +144,9 @@ int			lex_and_parse(char *line, t_shell *glob)
 		index++;
 		cmd_index++;
 	}
+	if (glob->cmd)
+		clean_cmd(glob, cmd_count);
+	glob->signal = 0;
 	//ft_run_commands(glob);
-	clean_cmd(glob, cmd_count);
 	return (0);
 }

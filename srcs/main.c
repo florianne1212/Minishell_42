@@ -57,15 +57,14 @@ int	empty_line(char *line)
 
 int			main(int argc, char **argv, char **envp)
 {
-	t_shell	glob;
 	char	*line;
 	int i;
 
 	retour = 0;
 	ft_memset(&glob, 0, sizeof(t_shell));
 	glob.running = 1;
-	manage_control(&glob);
 	sort_envp(envp, &glob);
+	manage_control(&glob);
 	while (glob.running)
 	{
 		ft_putstr_fd("$>", 2);
@@ -73,6 +72,7 @@ int			main(int argc, char **argv, char **envp)
 		//line = ft_strdup("ls");
 		if (empty_line(line) != 0)
 			lex_and_parse(line, &glob);
+		
 		free(line);
 	}
 	i = glob.exit_code;

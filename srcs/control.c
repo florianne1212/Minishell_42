@@ -27,8 +27,22 @@ void	manage_control()
 
 void	control_c(int i)
 {
-	ft_putstr("\n control_c");
-	printf("\n%i\n", i);
+	int p;
+
+	p = 0;
+	if (glob.signal == 0)
+	{
+		ft_putstr("\b\b  \b\b\n$>");
+	}
+	else
+	{
+		while (glob.cmd[p].pid)
+		{
+			kill(glob.cmd[p].pid, i);
+			p++;
+		}
+		ft_putstr("\n");
+	}
 	global_retour = 128 + i;
 }
 
@@ -39,7 +53,21 @@ void	control_c(int i)
 
 void	control_back(int i)
 {
-	ft_putstr("\n control_backslash");
-	printf("\n%i\n", i);
+	int p;
+
+	p = 0;
+	if (glob.signal == 0)
+	{
+		ft_putstr("\b\b  \b\b");
+	}
+	else
+	{
+		while (glob.cmd[p].pid)
+		{
+			kill(glob.cmd[p].pid, i);
+			p++;
+		}
+		ft_putstr("Quit : 3\n");
+	}
 	global_retour = 128 + i;
 }
