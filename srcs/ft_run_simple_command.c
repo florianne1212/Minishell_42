@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 14:10:05 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/20 14:52:08 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 
 	ret = -1;
 	if (!(ft_strcmp(arg[0], "cd")))
-		ret = builtin_cd(glob, glob->fd, arg);
+		ret = builtin_cd(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "echo")))
-		ret = builtin_echo(glob, glob->fd, arg);
+		ret = builtin_echo(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "env")))
-		ret = builtin_env(glob, glob->fd, arg);
+		ret = builtin_env(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "export")))
-		ret = builtin_export(glob, glob->fd, arg);
+		ret = builtin_export(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "pwd")))
-		ret = builtin_pwd(glob, glob->fd, arg);
+		ret = builtin_pwd(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "unset")))
-		ret = builtin_unset(glob, glob->fd, arg);
+		ret = builtin_unset(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "exit")))
-		ret = builtin_exit(glob, glob->fd, arg);
+		ret = builtin_exit(glob, 1, arg);
 	return (ret);
 }
 
@@ -92,6 +92,7 @@ char	*ft_search_env_path(char *env_paths, char *command)
 			i = max - 1;
 		i++;
 	}
+	errno = 0;
 	split_destructor(paths);
 	if (!(!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode)))
 		return (free_path_null(&path));
