@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 10:20:52 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:26:11 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 		ret = builtin_unset(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "exit")))
 		ret = builtin_exit(glob, 1, arg);
+	glob->retour = ret;
 	return (ret);
 }
 
@@ -78,11 +79,11 @@ char	*ft_search_env_path(char *env_paths, char *command)
 	struct stat	s_bufstat;
 
 	path = NULL;
-	i = 0;
+	i = -1;
 	if (!(paths = ft_split(env_paths, ':')))
 		return (errno_return_str(ENOMEM, NULL));
 	max = nbr_of_path(paths);
-	while (paths[i])
+	while (paths[++i])
 	{
 		if (path)
 			free(path);
@@ -90,7 +91,6 @@ char	*ft_search_env_path(char *env_paths, char *command)
 			return (destroy_split_errno_ret_str(paths, ENOMEM, NULL));
 		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
 			i = max - 1;
-		i++;
 	}
 	errno = 0;
 	split_destructor(paths);
@@ -161,11 +161,11 @@ int		ft_run_simple_command(t_shell *glob, int i, char *env_path)
 		restore_in_out_simple(glob);
 		return (ret);
 	}
-	if (path_for_execve(glob->cmd[i].cmd_arg[0], &path, env_path))
+	if ((ret = path_for_execve(glob->cmd[i].cmd_arg[0], &path, env_path)))
 	{
 		if (path)
 			free(path);
-		return (1);
+		return (ret);
 	}
 	ret = fork_and_run_cmd(glob, path, i, glob->envirron);
 	free(path);

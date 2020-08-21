@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/20 00:56:15 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:47:03 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,12 @@ int			lex_and_parse(char *line, t_shell *glob)
 		clean_lexer(glob);
 		arg_in_tab(glob->tmp_cmd_index, cmd_index, glob);
 		ft_run_commands2(glob->tmp_cmd_index, cmd_index, glob);
+		printf("global->retour =%d\n", glob->retour);
 		index++;
 		cmd_index++;
 	}
 	if (glob->cmd)
 		clean_cmd(glob, cmd_count);
 	glob->signal = 0;
-	//ft_run_commands(glob);
 	return (0);
 }

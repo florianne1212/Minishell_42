@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:57:14 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/15 13:41:51 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 12:09:28 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int		not_a_command(char *command, char *str)
 	ft_putstr_fd(command, 2);
 	ft_putendl_fd(str, 2);
 	errno = ENOENT;
+	if (!ft_strcmp(": command not found", str))
+		return (127);
 	return (1);
 }
 

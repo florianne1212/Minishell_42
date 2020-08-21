@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 14:19:57 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 10:44:10 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env)
 	// signal(SIGINT, got_the_blody_signal);
 	pid = fork();
 	glob->cmd[i].pid = pid;
-	if (pid  == -1)
+	if (pid == -1)
 		return (1);
 	if (pid == 0)
 		child_process(glob, path, glob->cmd[i].cmd_arg, env);

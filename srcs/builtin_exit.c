@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 18:13:59 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 10:22:36 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 11:31:37 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		check_exit_arg(t_shell *glob, char **arg)
 	if (arg[2])
 	{
 		ft_putstr_fd("exit: trop d'arguments\n", 2);
-		glob->error = 1;
+		glob->retour = 1;
 		return (1);
 	}
 	return (0);
@@ -52,8 +52,6 @@ int		builtin_exit(t_shell *glob, int fd, char **arg)
 		glob->running = 0;
 		return (0);
 	}
-	glob->exit_code = 0;
 	glob->running = 0;
-	
 	return (0);
 }

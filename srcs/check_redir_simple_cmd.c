@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 13:47:03 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 15:26:00 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 10:32:32 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	check_stdin_simple(t_shell *glob, int i)
 // 	}
 // }
 
-
 /*
 ** ---------check_stdout_simple-----------
 ** check output file and create filedescriptor
@@ -65,7 +64,6 @@ void	check_stdout_simple(t_shell *glob, int i)
 	}
 }
 
-
 //alternate with open
 // void	check_stdout_simple(t_shell *glob, int i)
 // {
@@ -82,7 +80,6 @@ void	check_stdout_simple(t_shell *glob, int i)
 // 		glob->fdout = dup(glob->tmpout);
 // 	}
 // }
-
 
 /*
 ** ---------restore_in_out_simple-----------
