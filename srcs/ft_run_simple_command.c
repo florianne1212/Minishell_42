@@ -37,7 +37,7 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 		ret = builtin_unset(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "exit")))
 		ret = builtin_exit(glob, 1, arg);
-	glob->retour = ret;
+	global_retour = ret;
 	return (ret);
 }
 

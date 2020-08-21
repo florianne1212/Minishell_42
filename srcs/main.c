@@ -62,6 +62,7 @@ int			main(int argc, char **argv, char **envp)
 
 	retour = 0;
 	ft_memset(&glob, 0, sizeof(t_shell));
+	//global_retour = 0;
 	glob.running = 1;
 	sort_envp(envp, &glob);
 	manage_control(&glob);

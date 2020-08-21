@@ -35,7 +35,7 @@ int		check_exit_arg(t_shell *glob, char **arg)
 	if (arg[2])
 	{
 		ft_putstr_fd("exit: trop d'arguments\n", 2);
-		glob->retour = 1;
+		global_retour = 1;
 		return (1);
 	}
 	return (0);

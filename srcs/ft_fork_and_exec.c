@@ -55,7 +55,8 @@ void	child_process(t_shell *glob, char *path, char **arg, char **env)
 	// signal(SIGQUIT, SIG_DFL);
 	// signal(SIGINT, SIG_DFL);
 	ret = execve(path, arg, env);
-	glob->retour = ret;
+	global_retour = ret;
+	(void)glob;
 }
 
 /*

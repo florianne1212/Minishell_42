@@ -15,7 +15,7 @@
 
 void	manage_control()
 {
-	global_retour = 0;
+	//global_retour = 0;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, control_back);
 }
@@ -33,6 +33,7 @@ void	control_c(int i)
 	if (glob.signal == 0)
 	{
 		ft_putstr("\b\b  \b\b\n$>");
+		global_retour = 1;
 	}
 	else
 	{
@@ -42,8 +43,8 @@ void	control_c(int i)
 			p++;
 		}
 		ft_putstr("\n");
+		global_retour = 128 + i;
 	}
-	global_retour = 128 + i;
 }
 
 /*
@@ -68,6 +69,7 @@ void	control_back(int i)
 			p++;
 		}
 		ft_putstr("Quit : 3\n");
-	}
-	global_retour = 128 + i;
+		global_retour = 128 + i;
+
+	}	
 }

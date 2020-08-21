@@ -281,8 +281,8 @@ int			ft_run_commands2(int i, int index, t_shell *glob)
 	int		ret;
 	char	*env_path;
 
-	glob->exit_code = glob->retour;
-	glob->retour = 0;
+	glob->exit_code = global_retour;
+	global_retour = 0;
 	while (i <= index)
 	{
 		env_path = ft_getenv(glob->list_env, "PATH");
@@ -299,8 +299,8 @@ int			ft_run_commands2(int i, int index, t_shell *glob)
 			ret = ft_run_simple_command(glob, i, env_path);
 			i++;
 		}
-		glob->retour = ret;
-		printf("global->retour =%d\n", glob->retour);
+		if (global_retour ==  0)
+			global_retour = ret;
 		env_destroy_array(glob->envirron);
 		free(env_path);
 	}
