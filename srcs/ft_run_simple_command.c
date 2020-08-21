@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/20 14:52:08 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/21 10:20:52 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,10 @@ int		ft_run_simple_command(t_shell *glob, int i, char *env_path)
 	ft_change_case_instruction(glob->cmd[i].cmd_arg[0]);
 	simple_redirection(glob, i);
 	if ((ret = check_and_run_builtin(glob, glob->cmd[i].cmd_arg)) >= 0)
+	{
+		restore_in_out_simple(glob);
 		return (ret);
+	}
 	if (path_for_execve(glob->cmd[i].cmd_arg[0], &path, env_path))
 	{
 		if (path)
