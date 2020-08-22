@@ -55,7 +55,7 @@ void			init_lex(t_shell *glob, char *line)
 	glob->lex->count = 0;
 	glob->lex->j = 0;
 	glob->lex->e = 0;
-	glob->retour = global_retour;
+	//global_retour = 0;
 	glob->lex->nb_words = nbr_words(line, glob);
 	if (!(glob->lex->tokens = (t_token **)malloc(sizeof(t_token *) *
 	(glob->lex->nb_words + 1))))

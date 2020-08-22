@@ -148,6 +148,6 @@ int				parser(t_shell *glob, int cmd_index)
 			break ;
 		index++;
 	}
-	print_parser(glob, cmd_index);
+	//print_parser(glob, cmd_index);
 	return (cmd_index);
 }

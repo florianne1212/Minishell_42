@@ -141,7 +141,6 @@ int			lex_and_parse(char *line, t_shell *glob)
 		clean_lexer(glob);
 		arg_in_tab(glob->tmp_cmd_index, cmd_index, glob);
 		ft_run_commands2(glob->tmp_cmd_index, cmd_index, glob);
-		printf("global->retour =%d\n", glob->retour);
 		index++;
 		cmd_index++;
 	}

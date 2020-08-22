@@ -63,7 +63,7 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 	j = glob->lex->j;
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
 	{
-		s2 = ft_itoa(glob->retour);
+		s2 = ft_itoa(global_retour);
 		*idx += 2;
 	}
 	else
