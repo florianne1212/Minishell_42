@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/21 12:08:10 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/22 21:56:12 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ int		ft_run_simple_command(t_shell *glob, int i, char *env_path);
 /*
 ** ft_run_simple_command2.c
 */
-int		not_a_command(char *command, char *str);
+int		not_a_command(char *command, char *str, int ret);
 void	ft_change_case_instruction(char *instruction);
 int		nbr_of_path(char **paths);
 char 	*free_path_null(char **path);

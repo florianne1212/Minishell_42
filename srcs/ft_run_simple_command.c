@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 12:26:11 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/22 21:57:22 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*ft_search_env_path(char *env_paths, char *command)
 			free(path);
 		if (!(path = create_command_path(paths[i], command)))
 			return (destroy_split_errno_ret_str(paths, ENOMEM, NULL));
-		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
+		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))//et on a les droits ??
 			i = max - 1;
 	}
 	errno = 0;
@@ -123,13 +123,17 @@ int		path_for_execve(char *file, char **path, char *env_path)
 	else
 	{
 		if (!(*path = ft_search_env_path(env_path, file)))
-			return (not_a_command(file, ": command not found"));
+			return (not_a_command(file, ": command not found", 127));
 	}
 	if (!(stat(*path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
-		return (0);
+	{
+		if (s_bufstat.st_mode & S_IXUSR)
+			return (0);
+		return (not_a_command(*path, "access denied", 126));
+	}
 	if (S_ISDIR(s_bufstat.st_mode))
-		return (not_a_command(*path, ": is a directory"));
-	return (not_a_command(file, ": No such file or directory"));
+		return (not_a_command(*path, ": is a directory", 126));
+	return (not_a_command(file, ": No such file or directory", 127));
 }
 
 /*
