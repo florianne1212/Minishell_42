@@ -123,7 +123,7 @@ int		path_for_execve(char *file, char **path, char *env_path)
 	else
 	{
 		if (!(*path = ft_search_env_path(env_path, file)))
-			return (not_a_command(file, ": command not found", 127));
+			return (not_a_command(file, ": commande introuvable", 127));
 	}
 	if (!(stat(*path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
 	{
