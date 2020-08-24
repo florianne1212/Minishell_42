@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:59:31 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 10:44:10 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/25 00:51:49 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ pid_t	create_process(void)
 ** n est le numero du signal, a envoyer a $? + 128
 */
 
-void	got_the_blody_signal(int n)
+void	control_child(int n)
 {
-	n = 0;
-	signal(SIGQUIT, got_the_blody_signal);
-	signal(SIGINT, got_the_blody_signal);
-	ft_putstr_fd("\b\b  \b\b", 1);
+	exit(128 + n);
 }
 
 /*
@@ -48,29 +45,44 @@ void	got_the_blody_signal(int n)
 ** recuperer l'entree dans tube d'entreemettre pour $? le retour de execve
 */
 
-void	child_process(t_shell *glob, char *path, char **arg, char **env)
+int	child_process(t_shell *glob, char *path, char **arg, char **env)
 {
 	int	ret;
 
+	ret = 0;
 	// signal(SIGQUIT, SIG_DFL);
-	// signal(SIGINT, SIG_DFL);
+	signal(SIGINT, control_child);
+	signal(SIGQUIT, control_child);
 	ret = execve(path, arg, env);
-	global_retour = ret;
+	//global_retour = ret;
 	(void)glob;
+	return(ret);
 }
 
+
+void control_C_parent(int n)
+{
+	ft_putstr_fd("\n", 2);
+	global_retour = 128 + n;
+}
+
+void control_back_parent(int n)
+{
+	ft_putstr_fd("Quitter (core dumped)\n", 2);
+	global_retour = 128 + n;
+}
 /*
 ** taches a accomplir par le pere
 ** pipe entrees sortie vers child
-** signaux ?
 */
 
 void	father_process(int child_pid)
 {
 	int	status;
+	signal(SIGINT, control_C_parent);
+	signal(SIGQUIT, control_back_parent);
 
 	waitpid(child_pid, &status, 0);
-	//printf ("on est revenu dans le pere, youpi\n");
 }
 
 /*
@@ -81,14 +93,16 @@ int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env)
 {
 	pid_t pid;
 
-	// signal(SIGQUIT, got_the_blody_signal);
-	// signal(SIGINT, got_the_blody_signal);
 	pid = fork();
 	glob->cmd[i].pid = pid;
 	if (pid == -1)
 		return (1);
 	if (pid == 0)
-		child_process(glob, path, glob->cmd[i].cmd_arg, env);
+	{
+		if(child_process(glob, path, glob->cmd[i].cmd_arg, env) < 0)
+			return (1);
+	}
+		//attention a le proteger
 	else
 	{
 		father_process(pid);

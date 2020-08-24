@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   control.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <fcoudert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/06/25 22:05:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/25 01:18:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 
-void	manage_control()
+void	manage_control(t_shell *glob)
 {
-	//global_retour = 0;
+	(void)glob;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, control_back);
+	//signal(SIGQUIT, SIG_IGN);
+
 }
 
 /*
@@ -27,24 +29,25 @@ void	manage_control()
 
 void	control_c(int i)
 {
-	int p;
+	//int p;
 
-	p = 0;
-	if (glob.signal == 0)
-	{
-		ft_putstr("\b\b  \b\b\n$>");
-		global_retour = 1;
-	}
-	else
-	{
-		while (glob.cmd[p].pid)
-		{
-			kill(glob.cmd[p].pid, i);
-			p++;
-		}
-		ft_putstr("\n");
+	// p = 0;
+	// if (glob.signal == 0)
+	// {
+		// ft_putstr("coucou");
+		ft_putstr_fd("\n$>", 2);
 		global_retour = 128 + i;
-	}
+
+	// }
+	//else
+	// {
+	// 	while (glob.cmd[p].pid)
+	// 	{
+	// 		kill(glob.cmd[p].pid, i);
+	// 		p++;
+	// 	}
+	// ft_putstr_fd("\n", 2);
+	global_retour = 128 + i;
 }
 
 /*
@@ -54,22 +57,23 @@ void	control_c(int i)
 
 void	control_back(int i)
 {
-	int p;
+	// int p;
 
-	p = 0;
-	if (glob.signal == 0)
-	{
-		ft_putstr("\b\b  \b\b");
-	}
-	else
-	{
-		while (glob.cmd[p].pid)
-		{
-			kill(glob.cmd[p].pid, i);
-			p++;
-		}
-		ft_putstr("Quit : 3\n");
-		global_retour = 128 + i;
+	// p = 0;
+	// if (glob.signal == 0)
+	// {
+	(void)i;
+	ft_putstr_fd("\b\b  \b\b", 0);
+	// }
+	// else
+	// {
+	// 	while (glob.cmd[p].pid)
+	// 	{
+	// 		kill(glob.cmd[p].pid, i);
+	// 		p++;
+	// 	}
+	// 	ft_putstr("Quit : 3\n");
+	// global_retour = 128 + i;
 
-	}	
+	// }
 }

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/20 00:49:41 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/25 01:23:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,22 @@ int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	int i;
+	t_shell glob;
 
 	retour = 0;
 	ft_memset(&glob, 0, sizeof(t_shell));
 	//global_retour = 0;
 	glob.running = 1;
 	sort_envp(envp, &glob);
-	manage_control(&glob);
 	while (glob.running)
 	{
+		manage_control(&glob);
 		ft_putstr_fd("$>", 2);
 		get_next_line(0, &line);
 		//line = ft_strdup("ls");
 		if (empty_line(line) != 0)
 			lex_and_parse(line, &glob);
-		
+		// printf("line = %s\n", line);
 		free(line);
 	}
 	i = glob.exit_code;

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 12:18:48 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 12:44:36 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/25 00:59:31 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,11 +187,31 @@ int			prepare_piped_cmd(t_shell *glob, char **arg,
 	return (0);
 }
 
+void	control_child_piped(int n)
+{
+	exit(128 + n);
+}
+
+
+void control_back_parent_piped(int n)
+{
+	ft_putstr_fd("Quitter (core dumped)\n", 2);
+	global_retour = 128 + n;
+}
+
+void control_C_parent_piped(int n)
+{
+	ft_putstr_fd("\n", 2);
+	global_retour = 128 + n;
+}
+
 int			piped_child_process(char *path, char **arg, char **env)
 {
 	int	ret;
 
 	ret = 0;
+	signal(SIGINT, control_child_piped);
+	signal(SIGQUIT, control_child_piped);
 	ret = execve(path, arg, env);
 	return (ret);
 }
@@ -209,6 +229,9 @@ int			fork_exec_piped_cmd(t_shell *glob, char *path, char **arg, int i)
 		if (piped_child_process(path, arg, glob->envirron) < 0)
 			return (-1);
 	}
+	signal(SIGINT, control_C_parent_piped);
+	signal(SIGQUIT, control_back_parent_piped);
+
 	return ((int)pid);
 }
 

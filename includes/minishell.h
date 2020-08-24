@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/22 21:56:12 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/24 22:39:48 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ typedef struct	s_shell
 }				t_shell;
 
 int		global_retour;
-t_shell	glob;
+//t_shell	glob;
 
 /*
 ** cotrol.c
