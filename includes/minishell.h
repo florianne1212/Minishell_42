@@ -129,7 +129,7 @@ typedef struct	s_shell
 }				t_shell;
 
 int		global_retour;
-//t_shell	glob;
+t_shell	glob;
 
 /*
 ** cotrol.c

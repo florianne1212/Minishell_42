@@ -26,11 +26,24 @@
 
 static int	ft_setenv2(t_list_env *new, const char *value, int overwrite)
 {
+	char *tmp;
 	if (overwrite == 1)
 	{
 		free(new->value);
 		if (!(new->value = ft_strdup(value)))
 			return (errno_return_int(ENOMEM, -1));
+	}
+	if (overwrite == 2)
+	{
+		ft_putstr("\n here");
+		ft_putstr(new->value);
+		ft_putstr("\n");
+		ft_putstr((char *)value);
+		tmp = ft_strdup(new->value);
+		free(new->value);
+		new->value = ft_strjoin(tmp, (char *)value);
+		ft_putstr("\n");
+		ft_putstr(new->value);
 	}
 	return (0);
 }
@@ -39,6 +52,9 @@ int			ft_setenv(t_list_env **env, const char *name, const char *value,
 				int overwrite)
 {
 	t_list_env	*new;
+
+	ft_putstr("\nhi");
+	ft_putstr((char *)value);
 
 	if (!name || !ft_strcmp(name, "") || ft_isinstring('=', (char*)name))
 		return (errno_return_int(EINVAL, -1));
@@ -54,7 +70,7 @@ int			ft_setenv(t_list_env **env, const char *name, const char *value,
 		env_variable_destructor(new);
 		return (errno_return_int(ENOMEM, -1));
 	}
-	if (!(new->value = ft_strdup(value)))
+	if (value != NULL && !(new->value = ft_strdup(value)))
 	{
 		env_variable_destructor(new);
 		return (errno_return_int(ENOMEM, -1));

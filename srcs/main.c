@@ -59,7 +59,7 @@ int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	int i;
-	t_shell glob;
+//	t_shell glob;
 
 	retour = 0;
 	ft_memset(&glob, 0, sizeof(t_shell));

@@ -29,10 +29,13 @@ int	builtin_env(t_shell *glob, int fd, char **arg)
 	list = glob->list_env;
 	while (list != NULL)
 	{
-		ft_putstr_fd(list->name, fd);
-		ft_putstr_fd("=", fd);
-		ft_putstr_fd(list->value, fd);
-		ft_putstr_fd("\n", fd);
+		if(list->value != NULL)
+		{
+			ft_putstr_fd(list->name, fd);
+			ft_putstr_fd("=", fd);
+			ft_putstr_fd(list->value, fd);
+			ft_putstr_fd("\n", fd);
+		}
 		list = list->next;
 	}
 	return (0);

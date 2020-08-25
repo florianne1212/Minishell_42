@@ -50,14 +50,14 @@ void	env_destroy_array(char **envirron)
 	i = 0;
 	if (!envirron)
 		return ;
-	while (envirron[i])
+	/*while (envirron[i])
 	{
 		free(envirron[i]);
 		envirron[i] = NULL;
 		i++;
 	}
 	free(envirron);
-	envirron = NULL;
+	envirron = NULL;*/
 }
 
 /*
@@ -83,15 +83,19 @@ char	*create_str_env(char *name, char *value)
 	char	*str;
 	char	*temp;
 
-	if (!(temp = ft_strjoin(name, "=")))
-		return (NULL);
-	if (!(str = ft_strjoin(temp, value)))
+	if(value != NULL)
 	{
+		if (!(temp = ft_strjoin(name, "=")))
+			return (NULL);
+		if (!(str = ft_strjoin(temp, value)))
+		{
+			free(temp);
+			return (NULL);
+		}
 		free(temp);
-		return (NULL);
+		return (str);
 	}
-	free(temp);
-	return (str);
+	return(name);
 }
 
 /*
