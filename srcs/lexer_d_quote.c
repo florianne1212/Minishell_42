@@ -61,7 +61,12 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 	int		j;
 
 	j = glob->lex->j;
-	if (s[*idx] == '$' && s[*idx + 1] == '?')
+	if (s[*idx] == '$' && s[*idx + 1] == '0')
+	{
+		s2 = ft_strdup("minishell");
+		*idx += 2;
+	}
+	else if (s[*idx] == '$' && s[*idx + 1] == '?')
 	{
 		s2 = ft_itoa(global_retour);
 		*idx += 2;

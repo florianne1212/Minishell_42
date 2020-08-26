@@ -40,6 +40,7 @@ static int	ft_setenv2(t_list_env *new, const char *value, int overwrite)
 			tmp = ft_strdup(new->value);
 			free(new->value);
 			new->value = ft_strjoin(tmp, (char *)value);
+			free(tmp);
 		}
 		else 
 			new->value = ft_strdup(value);
