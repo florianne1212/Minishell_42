@@ -132,7 +132,7 @@ int			lexe_line(char *line, t_shell *glob)
 		assign_token(&index, line, glob, size);
 	}
 	put_end(glob);
-	printf("\n");
+	//printf("\n");
 	fflush(stdout);
 	return (1);
 }

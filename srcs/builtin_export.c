@@ -195,21 +195,10 @@ int			ft_putenv_append(t_list_env **env, char *string)
 	int		i;
 
 	i = 0;
-	ft_putchar_fd(string[i], 2);
 	if (!(name = find_name_bis(string)))
 		return (errno_return_int(ENOMEM, -1));
-	/*if (value != NULL)
-	{*/
 	if (!(value = find_value(string)))
 			return (errno_return_int(ENOMEM, -1));
-	// 	tmp = ft_strjoin(value, append);
-	// }
-	//value = ft_strdup("pouet");
-	ft_putstr("\n");
-	ft_putstr(value);
-	ft_putstr("\n");
-	ft_putstr(name);
-	ft_putstr("\n");
 	ret = ft_setenv(env, name, value, 2);
 	free(name);
 	free(value);
