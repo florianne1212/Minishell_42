@@ -50,14 +50,14 @@ void	env_destroy_array(char **envirron)
 	i = 0;
 	if (!envirron)
 		return ;
-	/*while (envirron[i])
-	{
-		free(envirron[i]);
-		envirron[i] = NULL;
-		i++;
-	}
-	free(envirron);
-	envirron = NULL;*/
+	// while (envirron[i])
+	// {
+	// 	free(envirron[i]);
+	// 	envirron[i] = NULL;
+	// 	i++;
+	// }
+	// free(envirron);
+	// envirron = NULL;
 }
 
 /*

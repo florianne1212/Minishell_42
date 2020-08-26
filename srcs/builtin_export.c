@@ -209,6 +209,7 @@ int			ft_putenv_append(t_list_env **env, char *string)
 int			check_argi(char *str)
 {
 	int i;
+	char c;
 
 	i = 0;
 	if (ft_isdigit(str[0]) == 1)
@@ -218,8 +219,11 @@ int			check_argi(char *str)
 		ft_putstr_fd(" not a valid identifier \n", 2);
 		return(0);
 	}
-	while (str[i] != '\0' && str[i] != '=' && (str[i] != '+' && str[i+1] != '='))
+	while ((c = str[i]) != '\0')
 	{
+		if (c == '=' || (i != 0 && str[i - 1] == '+'))
+			break ;
+		ft_putchar_fd(str[i], 2); 
 		if (ft_isalnum(str[i]) == 0)
 		{
 			ft_putstr_fd("\nbash: export: ", 2);
@@ -227,6 +231,7 @@ int			check_argi(char *str)
 			ft_putstr_fd(" not a valid identifier \n", 2);
 			return(0);
 		}
+		
 		i++;
 	}
 	i = 0;

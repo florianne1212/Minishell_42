@@ -25,15 +25,17 @@ void		clean_exit(t_shell *glob)
 		ptr = glob->list_env->next;
 		free(glob->list_env->name);
 		glob->list_env->name = NULL;
-		free(glob->list_env->value);
+		if(glob->list_env->value != NULL)
+			free(glob->list_env->value);
 		glob->list_env->value = NULL;
 		free(glob->list_env);
 		glob->list_env = ptr;
 	}
+	//env_destroy_array(glob->envirron);
 	glob->list_env = NULL;
 	//free(glob);
 	glob = NULL;
-	//env_destroy_array(glob->envirron);
+	
 }
 
 int	empty_line(char *line)
