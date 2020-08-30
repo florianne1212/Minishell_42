@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/22 21:29:39 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/30 17:59:22 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			cd_back(t_list_env *env, int fd)
 ** gere le cas general avec chemin absolu
 */
 
-int			cd_abs_path(t_list_env *env, char *newpath)
+int			cd_abs_path(t_list_env *env, char *newpath, char *arg_path)
 {
 	char	*oldpath;
 	int		ret;
@@ -103,7 +103,7 @@ int			cd_abs_path(t_list_env *env, char *newpath)
 	if (!oldpath || !newpath)
 		return (cd_error(NULL, 1, oldpath, NULL));
 	if (chdir(newpath))
-		return (cd_error(newpath, 1, oldpath, NULL));
+		return (cd_error(arg_path, 1, oldpath, NULL));
 	if ((ft_setenv(&env, "OLDPWD", oldpath, 1)) == -1)
 		ret = 1;
 	free(oldpath);
@@ -128,11 +128,11 @@ int			builtin_cd(t_shell *glob, int fd, char **arg)
 	else if (!(ft_strcmp(arg[1], "-")))
 		return (cd_back(glob->list_env, fd));
 	else if (arg[1][0] == '/')
-		return (cd_abs_path(glob->list_env, arg[1]));
+		return (cd_abs_path(glob->list_env, arg[1], arg[1]));
 	else
 	{
 		absolute = change_rel_to_abs(arg[1]);
-		ret = cd_abs_path(glob->list_env, absolute);
+		ret = cd_abs_path(glob->list_env, absolute, arg[1]);
 		free(absolute);
 		return (ret);
 	}

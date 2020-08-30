@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/30 17:05:45 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/30 17:53:00 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	manage_control(t_shell *glob)
 	(void)glob;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, control_back);
-	//signal(SIGQUIT, SIG_IGN);
+	//signal(SIGQUIT, SIG_DFL);
 
 }
 
 /*
 ** fonction qui gere quand control c est envoye
 ** la fonction dvra stocker 130 pour echo $?
-*/ 
+*/
 
 void	control_c(int i)
 {

@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/30 17:14:14 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/30 17:59:59 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int			builtin_cd(t_shell *glob, int fd, char **arg);
 int			cd_error(char *str, int ret, char *oldpath, char *newpath);
 int			cd_home(t_list_env *env);
 int			cd_back(t_list_env *env, int fd);
-int			cd_abs_path(t_list_env *env, char *newpath);
+int			cd_abs_path(t_list_env *env, char *newpath, char *arg_path);
 
 /*
 // builtin_exit.c
