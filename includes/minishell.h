@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/24 22:39:48 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/30 17:14:14 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct	s_shell
 	int piping_index;
 	int running;
 	unsigned char exit_code;
+	int	forked;
 	//fin changement pour tester
 
 	char		**envirron; //tableau similaire a "environ", a mettre a null++
@@ -129,7 +130,7 @@ typedef struct	s_shell
 }				t_shell;
 
 int		global_retour;
-t_shell	glob;
+//t_shell	glob;
 
 /*
 ** cotrol.c
@@ -229,11 +230,20 @@ int			create_path_list(t_list **abs, char **rel);
 char		*create_abs_str(t_list *absolute);
 
 /*
-** ft_run_commands.c
+**run_commands.c
 */
-int ft_run_commands(t_shell *glob);
-int			ft_run_commands2(int i, int index, t_shell *glob);
-
+void		run_commands(int i, t_shell *glob);
+int			pipe_and_run(t_shell *glob, int i, char *env_path);
+int			prepare_cmd(t_shell *glob, char **arg, char *env_path, char **path);
+int			fork_exec_piped_cmd(t_shell *glob, char *path, int i);
+int			piped_child_process(char *path, char **arg, char **env);
+void		control_c_parent_piped(int n);
+void		control_back_parent_piped(int n);
+void		control_child_piped(int n);
+int			redir_one_piped_cmd(t_shell *glob, int j);
+int			tube_output_init(t_shell *glob);
+int			restore_in_out_wait_and_return(t_shell *glob, int back, int ret);
+void		get_piping_index_and_initialize_redirection_in(t_shell *glob, int i);
 
 /*
 ** ft_run_simple_command.c
@@ -242,7 +252,6 @@ int		check_and_run_builtin(t_shell *glob, char **arg);
 char	*create_command_path(char *env_path, char *command);
 char	*ft_search_env_path(char *env_paths, char *command);
 int		path_for_execve(char *file, char **path, char *env_path);
-int		ft_run_simple_command(t_shell *glob, int i, char *env_path);
 
 /*
 ** ft_run_simple_command2.c

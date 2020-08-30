@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/22 21:57:22 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/28 12:09:22 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 		ret = builtin_unset(glob, 1, arg);
 	else if (!(ft_strcmp(arg[0], "exit")))
 		ret = builtin_exit(glob, 1, arg);
-	global_retour = ret;
 	return (ret);
 }
 
@@ -89,7 +88,7 @@ char	*ft_search_env_path(char *env_paths, char *command)
 			free(path);
 		if (!(path = create_command_path(paths[i], command)))
 			return (destroy_split_errno_ret_str(paths, ENOMEM, NULL));
-		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))//et on a les droits ??
+		if (!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode))
 			i = max - 1;
 	}
 	errno = 0;
@@ -129,11 +128,11 @@ int		path_for_execve(char *file, char **path, char *env_path)
 	{
 		if (s_bufstat.st_mode & S_IXUSR)
 			return (0);
-		return (not_a_command(*path, "access denied", 126));
+		return (not_a_command(file, "Permission non accordee", 126));
 	}
 	if (S_ISDIR(s_bufstat.st_mode))
-		return (not_a_command(*path, ": is a directory", 126));
-	return (not_a_command(file, ": No such file or directory", 127));
+		return (not_a_command(file, ": est un dossier", 126));
+	return (not_a_command(file, ": Aucun fichier ou dossier de ce type", 127));
 }
 
 /*
@@ -151,28 +150,28 @@ int		path_for_execve(char *file, char **path, char *env_path)
 ** REMARQUE IMPORTANTE  :  Path est a free !!!!
 */
 
-int		ft_run_simple_command(t_shell *glob, int i, char *env_path)
-{
-	int		ret;
-	char	*path;
+// int		ft_run_simple_command(t_shell *glob, int i, char *env_path)
+// {
+// 	int		ret;
+// 	char	*path;
 
-	path = NULL;
-	ret = 0;
-	ft_change_case_instruction(glob->cmd[i].cmd_arg[0]);
-	simple_redirection(glob, i);
-	if ((ret = check_and_run_builtin(glob, glob->cmd[i].cmd_arg)) >= 0)
-	{
-		restore_in_out_simple(glob);
-		return (ret);
-	}
-	if ((ret = path_for_execve(glob->cmd[i].cmd_arg[0], &path, env_path)))
-	{
-		if (path)
-			free(path);
-		return (ret);
-	}
-	ret = fork_and_run_cmd(glob, path, i, glob->envirron);
-	free(path);
-	restore_in_out_simple(glob);
-	return (ret);
-}
+// 	path = NULL;
+// 	ret = 0;
+// 	ft_change_case_instruction(glob->cmd[i].cmd_arg[0]);
+// 	simple_redirection(glob, i);
+// 	if ((ret = check_and_run_builtin(glob, glob->cmd[i].cmd_arg)) >= 0)
+// 	{
+// 		restore_in_out_simple(glob);
+// 		return (ret);
+// 	}
+// 	if ((ret = path_for_execve(glob->cmd[i].cmd_arg[0], &path, env_path)))
+// 	{
+// 		if (path)
+// 			free(path);
+// 		return (ret);
+// 	}
+// 	ret = fork_and_run_cmd(glob, path, i, glob->envirron);
+// 	free(path);
+// 	restore_in_out_simple(glob);
+// 	return (ret);
+// }

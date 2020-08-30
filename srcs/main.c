@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/25 01:23:41 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/30 17:06:28 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		clean_exit(t_shell *glob)
 	glob->list_env = NULL;
 	//free(glob);
 	glob = NULL;
-	
+
 }
 
 int	empty_line(char *line)
@@ -61,7 +61,7 @@ int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	int i;
-//	t_shell glob;
+	t_shell glob;
 
 	retour = 0;
 	ft_memset(&glob, 0, sizeof(t_shell));
