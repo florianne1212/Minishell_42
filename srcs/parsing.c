@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/19 22:15:10 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/31 12:10:43 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 		if ((cmd->append = (type == TT_APPEND)))
 			mode = O_WRONLY | O_APPEND | O_CREAT;
 		else
-			mode = O_WRONLY | O_CREAT;
+			mode = O_WRONLY | O_CREAT | O_TRUNC;
 	}
 	file->path = path;
 	file->fd = open(path, mode, 0644);

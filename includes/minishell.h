@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/30 17:59:59 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/08/31 10:32:00 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ int			redir_one_piped_cmd(t_shell *glob, int j);
 int			tube_output_init(t_shell *glob);
 int			restore_in_out_wait_and_return(t_shell *glob, int back, int ret);
 void		get_piping_index_and_initialize_redirection_in(t_shell *glob, int i);
+int		gnl2(int fd, char **out);
 
 /*
 ** ft_run_simple_command.c
