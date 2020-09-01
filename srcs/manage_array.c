@@ -17,15 +17,18 @@
 ** de notr char **
 */
 
-int			ft_strlen_array(char **s)
+int			ft_strlen_array(void **s)
 {
 	int i;
 
 	i = 0;
+	if(s == NULL)
+		return(0);
 	while (s[i])
 		i++;
 	return (i);
 }
+
 
 /*
 ** add_to_array permet d'ajouter un char * a la suite
@@ -42,7 +45,7 @@ char		**add_to_array(char **s1, char *s2)
 	ss3 = NULL;
 	if (s1)
 	{
-		ss1 = ft_strlen_array(s1);
+		ss1 = ft_strlen_array((void **)s1);
 		if (!(ss3 = (char **)malloc(sizeof(char *) * (ss1 + 2))))
 			return (NULL);
 		while (s1[i])
@@ -71,7 +74,7 @@ char		**add_front_to_array(char **s1, char *s2)
 	ss3 = NULL;
 	if (s1)
 	{
-		ss1 = ft_strlen_array(s1);
+		ss1 = ft_strlen_array((void **)s1);
 		if (!(ss3 = (char **)malloc(sizeof(char *) * (ss1 + 2))))
 			return (NULL);
 		ss3[i] = s2;

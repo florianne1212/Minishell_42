@@ -13,37 +13,6 @@
 #include "../includes/minishell.h"
 
 /*
-** la focntion size_to malloc permet de determiner la taille
-** de la chaine de caracter entre guillemets
-** et la malloc pour renvoyer str
-*/
-
-char		*size_to_malloc(char *s, int *i)
-{
-	int		j;
-	int		e;
-	char	*str;
-
-	e = 0;
-	j = 0;
-	while ((s[*i + j]) && e == 0)
-	{
-		if (s[*i + j] == '\\' && ft_strchr("$\\\"", s[*i + j + 1]) != 0)
-			j += 1;
-		if (s[*i + j] == '$' && (s[*i + j - 1] != '\\'))
-			e = 1;
-		else if (s[*i + j] == '"' && (s[*i + j - 1] != '\\'))
-			e = 1;
-		else
-			j++;
-	}
-	if (!(str = malloc(sizeof(char) * (j + 1))))
-		return (NULL);
-	str = ft_memset(str, '\0', j + 1);
-	return (str);
-}
-
-/*
 ** join_env permet de faire un strjoin de :
 ** 	- la variable d'environnement
 ** 	- ou la valeur de retour (si $? est envoye)
@@ -73,12 +42,11 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 	}
 	else
 	{
-		s2 = env_finder(s, (*idx), glob);
+		s2 = env_finder(s, idx, glob);
 		*idx += glob->lex->e;
 	}
 	if (s2 != NULL)
 	{
-		str[j] = '\0';
 		tmp = str;
 		str = ft_strjoin(tmp, s2);
 		free(tmp);
@@ -89,7 +57,11 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 
 char		*manage_end(char *str, int *idx, char *s, int *j)
 {
-	str[*j] = s[*idx];
+	char *tmp;
+
+	tmp = str;
+	str = add_to_1d(tmp, s[*idx]);
+	//free(tmp);
 	*j += 1;
 	*idx += 1;
 	return (str);
@@ -101,15 +73,13 @@ char		*manage_end(char *str, int *idx, char *s, int *j)
 ** doit etre reduite pour passer la norme si ce n'est pas fait
 */
 
-char		*manage_d_quote(char *s, int *idx, t_shell *glob)
+char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str)
 {
 	char	c;
-	char	*str;
 	int		j;
 
 	c = '\0';
-	str = size_to_malloc(s, idx);
-	j = 0;
+	*idx = *idx + 1;
 	while ((c = s[*idx]))
 	{
 		glob->lex->j = j;
@@ -119,40 +89,11 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob)
 			return (join_env(idx, s, glob, str));
 		else if (c == '"' && (s[*idx - 1] != '\\'))
 		{
-			str[j] = '\0';
+			*idx = *idx+1;
 			return (str);
 		}
 		else
 			str = manage_end(str, idx, s, &j);
 	}
-	str[j] = '\0';
 	return (str);
-}
-
-/*
-** la fonction put_d_quote permet d'ajouter
-** un token dans le tableau de structure
-** et de mettre d'assigner TT_STRING au type
-** ainsi que de d'assigner la chaine de caractere
-** a str
-*/
-
-void		put_d_quote(int *idx, char *s, t_shell *glob, char c)
-{
-	int		j;
-	t_token	*ttok;
-
-	j = 0;
-	if (s[*idx] != '\0' && s[*idx] == c)
-	{
-		*idx += 1;
-		if (!(ttok = malloc(sizeof(t_token))))
-			return ;
-		ttok->type = TT_STRING;
-		ttok->str = manage_d_quote(s, idx, glob);
-		glob->lex->tokens[glob->lex->count] = ttok;
-		glob->lex->count++;
-		fflush(stdout);
-		*idx += 1;
-	}
 }

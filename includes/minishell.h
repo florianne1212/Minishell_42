@@ -302,7 +302,7 @@ void	put_string(int *idx, char *s, t_shell *glob);
 ** funct_normal.c
 */
 void	put_normal(int *idx, char *s, t_shell *glob);
-char	*env_finder(char *s, int i, t_shell *glob);
+char	*env_finder(char *s, int *i, t_shell *glob);
 
 /*
 ** lexer_d_quote.c
@@ -314,7 +314,7 @@ char	*manage_end(char *str, int *idx, char *s, int *j);
 /*
 ** manage_array.c
 */
-int		ft_strlen_array(char **s);
+int			ft_strlen_array(void **s);
 char	**add_to_array(char **s1, char *s2);
 char	**add_front_to_array(char **s1, char *s2);
 
@@ -340,5 +340,10 @@ int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env);
 void		clean_cmd(t_shell *glob, int cmd_count);
 
 char		*ft_strjoin_free(char *s1, char *s2);
+
+void	**add_to_2d(void ***of, void *ptr);
+char 	*add_to_1d(char *of, char ptr);
+char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str);
+char		*manage_normal(char *s, int *idx, t_shell *glob, char *str);
 
 #endif

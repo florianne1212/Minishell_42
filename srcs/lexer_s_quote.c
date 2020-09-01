@@ -18,55 +18,20 @@
 ** n'a pas de quote de fin on prend jusqu'a la fin
 */
 
-char		*manage_quote(char *s, int *idx, char c)
+char		*manage_quote(char *s, int *idx, char *str)
 {
-	char	*str;
-	int		j;
+	char	*tmp;
 
-	j = 0;
-	while (s[*idx + j] != '\0' && s[*idx + j] != c)
-		j++;
-	if (!(str = malloc(sizeof(char) * (j + 1))))
-		return (NULL);
-	j = 0;
-	while (s[*idx] != '\0' && s[*idx] != c)
+	*idx = *idx + 1;
+	while (s[*idx] != '\0' && s[*idx] != '\'')
 	{
-		str[j] = s[*idx];
+		tmp = str;
+		str = add_to_1d(tmp, s[*idx]);
 		*idx += 1;
-		j++;
+
 	}
-	str[j] = '\0';
+	*idx = *idx +1;
 	return (str);
-}
-
-/*
-** la fonction put_s_quote permet d'ajouter
-** un token dans le tableau de structure
-** et de mettre d'assigner TT_STRING au type
-** ainsi que de d'assigner la chaine de caractere
-** a str
-*/
-
-int			put_s_quote(int *idx, char *s, t_shell *glob, char c)
-{
-	int		j;
-	t_token	*ttok;
-
-	j = 0;
-	if (s[*idx] != '\0' && s[*idx] == c)
-	{
-		*idx += 1;
-		if (!(ttok = malloc(sizeof(t_token))))
-			return (0);
-		ttok->type = TT_STRING;
-		ttok->str = manage_quote(s, idx, c);
-		glob->lex->tokens[glob->lex->count] = ttok;
-		glob->lex->count++;
-		*idx += 1;
-		fflush(stdout);
-		return (j);
-	}
-	return (0);
 }
 
 /*
@@ -77,16 +42,69 @@ int			put_s_quote(int *idx, char *s, t_shell *glob, char c)
 
 void		put_string(int *idx, char *s, t_shell *glob)
 {
-	int		j;
+	t_token	*ttok;
+	//char *tmp;
+	
+	if (!(ttok = malloc(sizeof(t_token))))
+		return ;
+	ttok->type = TT_STRING;
+	ttok->str = ft_strdup("");
+	while (1)
+	{
+		if (s[*idx] == '\'')
+		{
+			//tmp = ttok->str;
+			ttok->str = manage_quote(s,idx, ttok->str);
+		}
+		else if (s[*idx] == '\"')
+		{
+			//tmp = ttok->str;
+			ttok->str = manage_d_quote(s, idx, glob, ttok->str);
+		}
+		else
+		{
+			//tmp = ttok->str;
+			ttok->str = manage_normal(s, idx, glob, ttok->str);
+		}
+		if (ft_isspace(s[*idx]) == 1 || s[*idx] == '\0')
+			break ;
+	}
+	add_to_2d((void***)&glob->lex->tokens, ttok);
+	glob->lex->count++;	
 
-	j = 0;
-	while (ft_isspace(s[*idx]) == 1 && s[*idx] != '\0')
-		*idx += 1;
-	if (s[*idx] == '\'')
-		put_s_quote(idx, s, glob, '\'');
-	else if (s[*idx] == '\"')
-		put_d_quote(idx, s, glob, '\"');
-	else
-		put_normal((idx + j), s, glob);
-	return ;
+}
+
+void        **add_to_2d(void ***of, void *ptr)
+{
+    size_t  length;
+    size_t  size;
+    void    **nw;
+
+    length = ft_strlen_array(*of);
+    size = sizeof(void*) * (length + 1 + 1);
+    if (!(nw = malloc(size)))
+        return (NULL);
+	if (*of)
+    	ft_memcpy(nw, *of, size - sizeof(void*));
+    nw[length] = ptr;
+    nw[length + 1] = NULL;
+    free(*of);
+    return (*of = nw);
+}
+
+char        *add_to_1d(char *of, char ptr)
+{
+    size_t  length;
+    size_t  size;
+    char    *nw;
+
+    length = ft_strlen(of);
+    size = sizeof(char) * (length + 1 + 1);
+    if (!(nw = malloc(size)))
+        return (NULL);
+    ft_memcpy(nw, of, size - sizeof(char));
+    nw[length] = ptr;
+    nw[length + 1] = '\0';
+    free(of);
+    return (nw);
 }

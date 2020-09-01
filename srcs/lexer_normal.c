@@ -49,7 +49,7 @@ char		*size_to_mal(char *s, int *idx)
 ** pour ensuite aller la chercher avec la fonciton getenv
 */
 
-char		*env_finder(char *s, int i, t_shell *glob)
+char		*env_finder(char *s, int *i, t_shell *glob)
 {
 	int		h;
 	char	*str;
@@ -57,21 +57,30 @@ char		*env_finder(char *s, int i, t_shell *glob)
 
 	h = 0;
 	h++;
-	while (s[i + h] != '\0' && ft_isspace(s[i + h]) == 0 && s[i + h] != '\"')
+	if (ft_isalpha(s[*i + h]) != 1)
+	{
+		*i += 2;
+		return ft_strdup("");
+	}
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1  || s[*i + h] == '_'))
 		h++;
 	if (!(str = malloc(sizeof(char) * (h + 1))))
 		return (NULL);
+	
 	glob->lex->e = h;
 	h = 0;
-	i++;
-	while (s[i + h] != '\0' && ft_isspace(s[i + h]) == 0 && s[i + h] != '\"')
+	*i = *i+1;
+	//h++;
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1  || s[*i + h] == '_'))
 	{
-		str[h] = s[i + h];
+		str[h] = s[*i + h];
 		h++;
 	}
 	str[h] = '\0';
+	//ft_putstr(str);
 	s1 = ft_getenv(glob->list_env, str);
 	free(str);
+	*i = *i-1;
 	return (s1);
 }
 
@@ -81,16 +90,14 @@ char		*env_finder(char *s, int i, t_shell *glob)
 ** doit etre reduite pour passer la norme si ce n'est pas fait
 */
 
-char		*manage_normal(char *s, int *idx, t_shell *glob)
+char		*manage_normal(char *s, int *idx, t_shell *glob, char *str)
 {
 	char	c;
-	char	*str;
 	int		j;
 
 	c = '\0';
-	str = size_to_mal(s, idx);
-	j = 0;
-	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0)
+	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0 &&
+	c != '\'' && c != '\"')
 	{
 		glob->lex->j = j;
 		if (c == '\\')
@@ -98,39 +105,9 @@ char		*manage_normal(char *s, int *idx, t_shell *glob)
 		if (c == '$' && (s[*idx + 1] != '\\'))
 			return (join_env(idx, s, glob, str));
 		else if (ft_strchr_int("|;><", s[*idx]) == 1)
-		{
-			str[j] = '\0';
 			return (str);
-		}
 		else
 			str = manage_end(str, idx, s, &j);
 	}
-	str[j] = '\0';
 	return (str);
-}
-
-/*
-** la fonction put_normal permet d'ajouter
-** un token dans le tableau de structure
-** et de mettre d'assigner TT_STRING au type
-** ainsi que de d'assigner la chaine de caractere
-** a str
-*/
-
-void		put_normal(int *idx, char *s, t_shell *glob)
-{
-	int		j;
-	t_token	*ttok;
-
-	j = 0;
-	if (s[*idx] != '\0')
-	{
-		if (!(ttok = malloc(sizeof(t_token))))
-			return ;
-		ttok->type = TT_STRING;
-		ttok->str = manage_normal(s, idx, glob);
-		glob->lex->tokens[glob->lex->count] = ttok;
-		glob->lex->count++;
-		fflush(stdout);
-	}
 }
