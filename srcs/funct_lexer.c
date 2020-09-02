@@ -27,7 +27,7 @@ void			put_pipe(int *index, char *s, t_shell *glob)
 		if (!(ttok = malloc(sizeof(t_token))))
 			return ;
 		ttok->type = TT_PIPE;
-		ttok->str = "pipe";
+		ttok->str = ft_strdup("pipe");
 		//glob->lex->tokens[glob->lex->count] = ttok;
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
@@ -51,7 +51,7 @@ void			put_input(int *index, char *s, t_shell *glob)
 		if (!(ttok = malloc(sizeof(t_token))))
 			return ;
 		ttok->type = TT_IN;
-		ttok->str = "input";
+		ttok->str = ft_strdup("input");
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		//glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
@@ -75,7 +75,7 @@ void			put_output(int *index, char *s, t_shell *glob)
 		if (!(ttok = malloc(sizeof(t_token))))
 			return ;
 		ttok->type = TT_OUT;
-		ttok->str = "output";
+		ttok->str = ft_strdup("output");
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		//glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
@@ -99,7 +99,7 @@ void			put_semicolon(int *index, char *s, t_shell *glob)
 		if (!(ttok = malloc(sizeof(t_token))))
 			return ;
 		ttok->type = TT_SEMICOLOM;
-		ttok->str = "semicolon";
+		ttok->str = ft_strdup("semicolon");
 		//glob->lex->tokens[glob->lex->count] = ttok;
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
@@ -123,7 +123,7 @@ void			put_append(int *index, char *s, t_shell *glob)
 		if (!(ttok = malloc(sizeof(t_token))))
 			return ;
 		ttok->type = TT_APPEND;
-		ttok->str = "append";
+		ttok->str = ft_strdup("append");
 		//glob->lex->tokens[glob->lex->count] = ttok;
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;

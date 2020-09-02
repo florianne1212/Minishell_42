@@ -49,23 +49,17 @@ void		put_string(int *idx, char *s, t_shell *glob)
 		return ;
 	ttok->type = TT_STRING;
 	ttok->str = ft_strdup("");
+	while (ft_isspace(s[*idx]) == 1)
+		*idx += 1;
+	
 	while (1)
 	{
 		if (s[*idx] == '\'')
-		{
-			//tmp = ttok->str;
 			ttok->str = manage_quote(s,idx, ttok->str);
-		}
 		else if (s[*idx] == '\"')
-		{
-			//tmp = ttok->str;
 			ttok->str = manage_d_quote(s, idx, glob, ttok->str);
-		}
 		else
-		{
-			//tmp = ttok->str;
 			ttok->str = manage_normal(s, idx, glob, ttok->str);
-		}
 		if (ft_isspace(s[*idx]) == 1 || s[*idx] == '\0')
 			break ;
 	}

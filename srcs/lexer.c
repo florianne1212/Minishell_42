@@ -55,8 +55,8 @@ void		clean_lexer(t_shell *glob)
 	int index;
 
 	index = 0;
-	// while (index < glob->lex->count)
-	// {
+	//while (index < glob->lex->count)
+	//{
 	// 	if (glob->lex->tokens[index]->type == TT_STRING)
 	// 		free(glob->lex->tokens[index]->str);
 	// 	index++;
@@ -141,7 +141,7 @@ int			lexe_line(char *line, t_shell *glob)
 	{
 		while (i < glob->lex->count)
 		{
-	 		printf("\n ___%s\n", glob->lex->tokens[i]->str);
+	 		printf("\n ___%u\n", glob->lex->tokens[i]->str);
 	 		i++;
 		}
 	}*/
