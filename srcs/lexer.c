@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/19 21:50:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/02 11:14:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,18 +133,18 @@ int			lexe_line(char *line, t_shell *glob)
 	{
 		assign_token(&index, line, glob, size);
 	}
-	//printf("\nwe put an endd\n");
+	//printf("\nwe put an endd %i \n", glob->lex->count);
 	put_end(glob);
-	// int i = 0;
+	/*int i = 0;
 
-	// if(glob->lex->tokens != NULL)
-	// {
-	// 	while (i < glob->lex->count)
-	// 	{
-	// 		printf("\n ___%s\n", glob->lex->tokens[i]->str);
-	// 		i++;
-	// 	}
-	// }
+	if(glob->lex->tokens != NULL)
+	{
+		while (i < glob->lex->count)
+		{
+	 		printf("\n ___%s\n", glob->lex->tokens[i]->str);
+	 		i++;
+		}
+	}*/
 	
 	//printf("\n");
 	fflush(stdout);

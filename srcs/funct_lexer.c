@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funct_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <fcoudert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/06/25 22:05:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/02 11:14:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void			put_pipe(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_PIPE;
 		ttok->str = "pipe";
-		glob->lex->tokens[glob->lex->count] = ttok;
+		//glob->lex->tokens[glob->lex->count] = ttok;
+		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
 		fflush(stdout);
 		*index += 1;
@@ -51,7 +52,8 @@ void			put_input(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_IN;
 		ttok->str = "input";
-		glob->lex->tokens[glob->lex->count] = ttok;
+		add_to_2d((void***)&glob->lex->tokens, ttok);
+		//glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
 		fflush(stdout);
 		*index += 1;
@@ -74,7 +76,8 @@ void			put_output(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_OUT;
 		ttok->str = "output";
-		glob->lex->tokens[glob->lex->count] = ttok;
+		add_to_2d((void***)&glob->lex->tokens, ttok);
+		//glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
 		fflush(stdout);
 		*index += 1;
@@ -97,7 +100,8 @@ void			put_semicolon(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_SEMICOLOM;
 		ttok->str = "semicolon";
-		glob->lex->tokens[glob->lex->count] = ttok;
+		//glob->lex->tokens[glob->lex->count] = ttok;
+		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
 		fflush(stdout);
 		*index += 1;
@@ -120,7 +124,8 @@ void			put_append(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_APPEND;
 		ttok->str = "append";
-		glob->lex->tokens[glob->lex->count] = ttok;
+		//glob->lex->tokens[glob->lex->count] = ttok;
+		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
 		fflush(stdout);
 		*index += 2;

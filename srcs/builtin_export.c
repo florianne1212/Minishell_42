@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 22:09:34 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/16 22:22:39 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/02 11:15:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ int			builtin_export(t_shell *glob, int fd, char **arg)
 
 	ret = 0;
 
-	if (ft_strlen_array(arg) == 1)
+	if (ft_strlen_array((void **)arg) == 1)
 		env_sorted(glob, fd);
 	i = 1;
 	while (arg[i])
