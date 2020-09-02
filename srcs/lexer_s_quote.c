@@ -57,7 +57,11 @@ void		put_string(int *idx, char *s, t_shell *glob)
 		if (s[*idx] == '\'')
 			ttok->str = manage_quote(s,idx, ttok->str);
 		else if (s[*idx] == '\"')
+		{
 			ttok->str = manage_d_quote(s, idx, glob, ttok->str);
+			if (s[*idx] == '\"')
+				 *idx += 1;
+		}
 		else
 			ttok->str = manage_normal(s, idx, glob, ttok->str);
 		if (ft_isspace(s[*idx]) == 1 || s[*idx] == '\0')
