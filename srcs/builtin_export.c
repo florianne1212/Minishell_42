@@ -224,7 +224,7 @@ int			check_argi(char *str)
 		if (c == '=' || (c == '+' && str[i + 1] == '='))
  			break ;
 		//ft_putchar_fd(str[i], 2); 
-		if (ft_isalnum(str[i]) == 0)
+		if (c != '_' && ft_isalnum(str[i]) == 0)
 		{
 			ft_putstr_fd("\nbash: export: ", 2);
 			ft_putstr_fd(str,2);

@@ -29,6 +29,8 @@ int	builtin_echo(t_shell *glob, int fd, char **arg)
 		n_opt = 1;
 		i++;
 	}
+	while (arg[i] && (ft_strcmp(arg[i], "-n") == 0))
+		i++;
 	while (arg[i])
 	{
 		ft_putstr_fd(arg[i], fd);
