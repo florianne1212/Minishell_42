@@ -30,12 +30,7 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 	int		j;
 
 	j = glob->lex->j;
-	if (s[*idx] == '$' && s[*idx + 1] == '0')
-	{
-		s2 = ft_strdup("minishell");
-		*idx += 2;
-	}
-	else if (s[*idx] == '$' && s[*idx + 1] == '?')
+	if (s[*idx] == '$' && s[*idx + 1] == '?')
 	{
 		s2 = ft_itoa(global_retour);
 		*idx += 2;
@@ -61,7 +56,6 @@ char		*manage_end(char *str, int *idx, char *s, int *j)
 
 	tmp = str;
 	str = add_to_1d(tmp, s[*idx]);
-	//free(tmp);
 	*j += 1;
 	*idx += 1;
 	return (str);
@@ -86,10 +80,10 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str)
 		if (c == '\\' && ft_strchr("$\\\"", s[*idx + 1]) != 0)
 			*idx += 1;
 		if (c == '$' && (s[*idx - 1] != '\\'))
-			return (join_env(idx, s, glob, str));
+			str = join_env(idx, s, glob, str);
 		else if (c == '"' && (s[*idx - 1] != '\\'))
 		{
-			*idx = *idx+1;
+			*idx = *idx + 1;
 			return (str);
 		}
 		else

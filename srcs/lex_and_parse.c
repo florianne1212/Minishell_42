@@ -87,9 +87,6 @@ void		arg_in_tab(int i, int cmd_index, t_shell *glob)
 		glob->cmd[i].exec);
 		i++;
 	}
-	//glob->cmd_index = cmd_index;
-	//ft_run_commands(glob);
-	fflush(stdout);
 }
 
 /*
@@ -137,7 +134,6 @@ int			lex_and_parse(char *line, t_shell *glob)
 		glob->tmp_cmd_index = cmd_index;
 		lexe_s_colon(line, glob, &index);
 		cmd_index = parser(glob, cmd_index);
-		fflush(stdout);
 		clean_lexer(glob);
 		arg_in_tab(glob->tmp_cmd_index, cmd_index, glob);
 		run_commands(glob->tmp_cmd_index, glob);

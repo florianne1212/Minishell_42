@@ -28,10 +28,8 @@ void			put_pipe(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_PIPE;
 		ttok->str = ft_strdup("pipe");
-		//glob->lex->tokens[glob->lex->count] = ttok;
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
-		fflush(stdout);
 		*index += 1;
 	}
 }
@@ -53,9 +51,7 @@ void			put_input(int *index, char *s, t_shell *glob)
 		ttok->type = TT_IN;
 		ttok->str = ft_strdup("input");
 		add_to_2d((void***)&glob->lex->tokens, ttok);
-		//glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
-		fflush(stdout);
 		*index += 1;
 	}
 }
@@ -77,9 +73,7 @@ void			put_output(int *index, char *s, t_shell *glob)
 		ttok->type = TT_OUT;
 		ttok->str = ft_strdup("output");
 		add_to_2d((void***)&glob->lex->tokens, ttok);
-		//glob->lex->tokens[glob->lex->count] = ttok;
 		glob->lex->count++;
-		fflush(stdout);
 		*index += 1;
 	}
 }
@@ -100,10 +94,8 @@ void			put_semicolon(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_SEMICOLOM;
 		ttok->str = ft_strdup("semicolon");
-		//glob->lex->tokens[glob->lex->count] = ttok;
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
-		fflush(stdout);
 		*index += 1;
 	}
 }
@@ -124,10 +116,8 @@ void			put_append(int *index, char *s, t_shell *glob)
 			return ;
 		ttok->type = TT_APPEND;
 		ttok->str = ft_strdup("append");
-		//glob->lex->tokens[glob->lex->count] = ttok;
 		add_to_2d((void***)&glob->lex->tokens, ttok);
 		glob->lex->count++;
-		fflush(stdout);
 		*index += 2;
 	}
 }

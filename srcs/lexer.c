@@ -57,16 +57,16 @@ void		clean_lexer(t_shell *glob)
 	index = 0;
 	while (index < glob->lex->count)
 	{
-	 	if (glob->lex->tokens[index]->type)
+		if (glob->lex->tokens[index]->type)
 			free(glob->lex->tokens[index]->str);
-	 	index++;
+		index++;
 	}
 	index = 0;
 	while (index <= glob->lex->count)
 	{
-	 	free(glob->lex->tokens[index]);
-	 	glob->lex->tokens[index] = NULL;
-	 	index++;
+		free(glob->lex->tokens[index]);
+		glob->lex->tokens[index] = NULL;
+		index++;
 	}
 	free(glob->lex->tokens);
 	free(glob->lex);
@@ -89,7 +89,6 @@ void		put_end(t_shell *glob)
 	ttok->str = ft_strdup("end");
 	add_to_2d((void***)&glob->lex->tokens, ttok);
 	glob->lex->count++;
-	fflush(stdout);
 }
 
 void		assign_token(int *index, char *line, t_shell *glob, int size)
@@ -140,7 +139,7 @@ int			lexe_line(char *line, t_shell *glob)
 	 		printf("\n ___%u\n", glob->lex->tokens[i]->str);
 	 		i++;
 		}
-	}*/
-	fflush(stdout);
+	}
+	fflush(stdout);*/
 	return (1);
 }

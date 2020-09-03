@@ -297,26 +297,30 @@ void	put_append(int *index, char *s, t_shell *glob);
 ** lexer_s_quote.c
 */
 void	put_string(int *idx, char *s, t_shell *glob);
+void	**add_to_2d(void ***of, void *ptr);
+char 	*add_to_1d(char *of, char ptr);
 
 /*
 ** funct_normal.c
 */
-void	put_normal(int *idx, char *s, t_shell *glob);
+char	*manage_normal(char *s, int *idx, t_shell *glob, char *str);
 char	*env_finder(char *s, int *i, t_shell *glob);
 
 /*
 ** lexer_d_quote.c
 */
-void	put_d_quote(int *idx, char *s, t_shell *glob, char c);
+
+char	*manage_d_quote(char *s, int *idx, t_shell *glob, char *str);
 char	*join_env(int *idx, char *s, t_shell *glob, char *str);
 char	*manage_end(char *str, int *idx, char *s, int *j);
 
 /*
 ** manage_array.c
 */
-int			ft_strlen_array(void **s);
+int		ft_strlen_array(void **s);
 char	**add_to_array(char **s1, char *s2);
 char	**add_front_to_array(char **s1, char *s2);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 /*
 ** parsing.c
@@ -339,11 +343,7 @@ int			lex_and_parse(char *line, t_shell *glob);
 int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env);
 void		clean_cmd(t_shell *glob, int cmd_count);
 
-char		*ft_strjoin_free(char *s1, char *s2);
 
-void	**add_to_2d(void ***of, void *ptr);
-char 	*add_to_1d(char *of, char ptr);
-char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str);
-char		*manage_normal(char *s, int *idx, t_shell *glob, char *str);
+
 
 #endif

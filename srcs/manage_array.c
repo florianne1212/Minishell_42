@@ -22,13 +22,12 @@ int			ft_strlen_array(void **s)
 	int i;
 
 	i = 0;
-	if(s == NULL)
-		return(0);
+	if (s == NULL)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
 }
-
 
 /*
 ** add_to_array permet d'ajouter un char * a la suite
@@ -53,7 +52,6 @@ char		**add_to_array(char **s1, char *s2)
 			ss3[i] = s1[i];
 			i++;
 		}
-		
 		ss3[i] = ft_strdup(s2);
 		i++;
 		ss3[i] = NULL;

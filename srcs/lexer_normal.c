@@ -60,27 +60,24 @@ char		*env_finder(char *s, int *i, t_shell *glob)
 	if (ft_isalpha(s[*i + h]) != 1)
 	{
 		*i += 2;
-		return ft_strdup("");
+		return (ft_strdup(""));
 	}
-	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1  || s[*i + h] == '_'))
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 || s[*i + h] == '_'))
 		h++;
 	if (!(str = malloc(sizeof(char) * (h + 1))))
 		return (NULL);
-	
 	glob->lex->e = h;
 	h = 0;
-	*i = *i+1;
-	//h++;
-	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1  || s[*i + h] == '_'))
+	*i = *i + 1;
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 || s[*i + h] == '_'))
 	{
 		str[h] = s[*i + h];
 		h++;
 	}
 	str[h] = '\0';
-	//ft_putstr(str);
 	s1 = ft_getenv(glob->list_env, str);
 	free(str);
-	*i = *i-1;
+	*i = *i - 1;
 	return (s1);
 }
 

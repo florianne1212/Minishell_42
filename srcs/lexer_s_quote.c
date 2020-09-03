@@ -28,9 +28,8 @@ char		*manage_quote(char *s, int *idx, char *str)
 		tmp = str;
 		str = add_to_1d(tmp, s[*idx]);
 		*idx += 1;
-
 	}
-	*idx = *idx +1;
+	*idx = *idx + 1;
 	return (str);
 }
 
@@ -43,66 +42,59 @@ char		*manage_quote(char *s, int *idx, char *str)
 void		put_string(int *idx, char *s, t_shell *glob)
 {
 	t_token	*ttok;
-	//char *tmp;
-	
+
 	if (!(ttok = malloc(sizeof(t_token))))
 		return ;
 	ttok->type = TT_STRING;
 	ttok->str = ft_strdup("");
 	while (ft_isspace(s[*idx]) == 1)
 		*idx += 1;
-	
 	while (1)
 	{
 		if (s[*idx] == '\'')
-			ttok->str = manage_quote(s,idx, ttok->str);
+			ttok->str = manage_quote(s, idx, ttok->str);
 		else if (s[*idx] == '\"')
-		{
 			ttok->str = manage_d_quote(s, idx, glob, ttok->str);
-			if (s[*idx] == '\"')
-				 *idx += 1;
-		}
 		else
 			ttok->str = manage_normal(s, idx, glob, ttok->str);
 		if (ft_isspace(s[*idx]) == 1 || s[*idx] == '\0')
 			break ;
 	}
 	add_to_2d((void***)&glob->lex->tokens, ttok);
-	glob->lex->count++;	
-
+	glob->lex->count++;
 }
 
-void        **add_to_2d(void ***of, void *ptr)
+void		**add_to_2d(void ***of, void *ptr)
 {
-    size_t  length;
-    size_t  size;
-    void    **nw;
+	size_t	length;
+	size_t	size;
+	void	**nw;
 
-    length = ft_strlen_array(*of);
-    size = sizeof(void*) * (length + 1 + 1);
-    if (!(nw = malloc(size)))
-        return (NULL);
+	length = ft_strlen_array(*of);
+	size = sizeof(void*) * (length + 1 + 1);
+	if (!(nw = malloc(size)))
+		return (NULL);
 	if (*of)
-    	ft_memcpy(nw, *of, size - sizeof(void*));
-    nw[length] = ptr;
-    nw[length + 1] = NULL;
-    free(*of);
-    return (*of = nw);
+		ft_memcpy(nw, *of, size - sizeof(void*));
+	nw[length] = ptr;
+	nw[length + 1] = NULL;
+	free(*of);
+	return (*of = nw);
 }
 
-char        *add_to_1d(char *of, char ptr)
+char		*add_to_1d(char *of, char ptr)
 {
-    size_t  length;
-    size_t  size;
-    char    *nw;
+	size_t	length;
+	size_t	size;
+	char	*nw;
 
-    length = ft_strlen(of);
-    size = sizeof(char) * (length + 1 + 1);
-    if (!(nw = malloc(size)))
-        return (NULL);
-    ft_memcpy(nw, of, size - sizeof(char));
-    nw[length] = ptr;
-    nw[length + 1] = '\0';
-    free(of);
-    return (nw);
+	length = ft_strlen(of);
+	size = sizeof(char) * (length + 1 + 1);
+	if (!(nw = malloc(size)))
+		return (NULL);
+	ft_memcpy(nw, of, size - sizeof(char));
+	nw[length] = ptr;
+	nw[length + 1] = '\0';
+	free(of);
+	return (nw);
 }

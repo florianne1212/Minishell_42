@@ -41,11 +41,8 @@ void			init_cmd(t_shell *glob, int cmd_count)
 void			init_lex(t_shell *glob, char *line)
 {
 	int			i;
-	//t_token		*ttok;
 
 	i = 0;
-	//if (!(ttok = malloc(sizeof(t_token))))
-	//	return ;
 	if (!(glob->lex = malloc(sizeof(t_lex))))
 		return ;
 	glob->lex->nb_words = 0;
@@ -53,8 +50,5 @@ void			init_lex(t_shell *glob, char *line)
 	glob->lex->count = 0;
 	glob->lex->j = 0;
 	glob->lex->e = 0;
-
 	(void)line;
-	fflush(stdout);
 }
-
