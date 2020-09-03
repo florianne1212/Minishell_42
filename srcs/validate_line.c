@@ -81,6 +81,7 @@ void			validate_cond(int idx, t_shell *glob, int *expect, int *cmd_c)
 			*expect = 0;
 		else
 		{
+			global_retour = 2;
 			print_error(tok, *expect);
 			return ;
 		}
