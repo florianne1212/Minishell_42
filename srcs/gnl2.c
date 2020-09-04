@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 10:28:53 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/31 12:28:28 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/02 00:56:13 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,62 @@
 char	*recurs(int depth, int *ret, int fd)
 {
 	char	buff[1];
-	char	*out;
+	char	*line;
 	int		test;
 
-	test = read(fd, buff, 1);
+	if ((test = read(fd, buff, 1)) < 0)
+		return (NULL);
 	if (test == 0)
 		buff[0] = 0;
 	if (buff[0] == '\n' || buff[0] == 0)
 	{
-		if (!(out = malloc(sizeof(char) * depth + 1)))
-			return (0);
-		out[depth] = 0;
+		if (!(line = malloc(sizeof(char) * depth + 1)))
+			return (NULL);
+		line[depth] = 0;
 		*ret = 1;
 		if (buff[0] == 0)
 			*ret = 0;
-		return (out);
+		return (line);
 	}
 	else
 	{
-		if (!(out = recurs(depth + 1, ret, fd)))
-			return (0);
-		out[depth] = buff[0];
+		if (!(line = recurs(depth + 1, ret, fd)))
+			return (NULL);
+		line[depth] = buff[0];
 	}
-	return (out);
+	return (line);
 }
 
-int		gnl2(int fd, char **out)
+int		gnl2(int fd, char **line) //leaks a checker ++
 {
-	int ret;
-	char *ligne;
-	char *temp;
+	int		ret;
+	char	*before_eof;
+	char	*temp;
 
-	ligne = ft_strdup("");
+	before_eof = ft_strdup("");
 	ret = 2;
 	while (ret == 2)
 	{
-		*out = recurs(0, &ret, fd);
-		temp = *out;
-		*out = ft_strjoin(ligne, temp);
+		if (!(*line = recurs(0, &ret, fd)))
+			return (-1);
+		temp = *line;
+		*line = ft_strjoin(before_eof, temp);
 		free(temp);
+		free(before_eof);
 		if (ret == 0)
 		{
 			ft_putstr_fd("  \b\b", 2);
-			ligne = *out;
-			if (!ft_strcmp(ligne, ""))
+			before_eof = *line;
+			if (!ft_strcmp(before_eof, ""))
 			{
-				ft_putstr_fd("exit", 2);
-				free(ligne);
-				exit(EXIT_SUCCESS);
+				ft_putstr_fd("exit\n", 2);
+				free(before_eof);
+				*line = ft_strdup("exit");
+				ret = 1;
 			}
-			ret = 2;
+			else
+				ret = 2;
 		}
 	}
-	free(ligne);
 	return (ret);
 }
