@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/06 21:17:46 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/06 21:22:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void		run_commands(int i, t_shell *glob)
 	int		ret;
 	char	*env_path;
 
-	//glob->exit_code = (unsigned char)global_retour; //a mettre plus en haut du programme
+	//glob->return_code = (unsigned char)global_retour; //a mettre plus en haut du programme
 	//avant debut nouvelle ligne
 	//des que c'est fait et que florianne a recupere $?, mettre global_retour a 0
 	//if (global_retour != 2 && global_retour != 130)//donc si pas de faute de syntaxe ou ^C
@@ -249,7 +249,7 @@ void		run_commands(int i, t_shell *glob)
 		glob->envirron = env_create_array(glob->list_env, glob->envirron);
 		glob->piping_index = 0;
 		ret = pipe_and_run(glob, i, env_path);
-		glob->exit_code = ret;
+		glob->return_code = ret;
 		if (global_retour < 128)
 			global_retour = 0;
 		env_destroy_array(glob->envirron);

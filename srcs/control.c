@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/05 01:11:38 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/06 21:21:54 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	manage_control(t_shell *glob)
 {
-	glob->exit_code = global_retour;
+	glob->return_code = global_retour;
 	global_retour = 0;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, control_back);

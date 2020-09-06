@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/05 01:43:41 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/06 21:22:10 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 			s2 = ft_itoa(global_retour);
 		else
 		{
-			s2 = ft_itoa(glob->exit_code);
+			s2 = ft_itoa(glob->return_code);
 		}
 		*idx += 2;
 	}

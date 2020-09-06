@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/05 02:05:38 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/06 21:22:04 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,6 @@ int			lex_and_parse(char *line, t_shell *glob)//variable i inutile  ?
 	if (glob->cmd)
 		clean_cmd(glob, cmd_count);
 	if (global_retour == 0)
-		global_retour = glob->exit_code;
+		global_retour = glob->return_code;
 	return (0);
 }

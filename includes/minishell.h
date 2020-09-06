@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/31 10:32:00 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/06 21:20:21 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct	s_shell
 	int piping_index;
 	int running;
 	unsigned char exit_code;
+	int	return_code;
 	int	forked;
 	//fin changement pour tester
 
