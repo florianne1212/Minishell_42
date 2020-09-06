@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 18:13:59 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 11:31:37 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/05 02:23:21 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int		builtin_exit(t_shell *glob, int fd, char **arg)
 		return (0);
 	}
 	glob->running = 0;
+	//mettre exit code = return code si exit code est a 0
 	return (0);
 }

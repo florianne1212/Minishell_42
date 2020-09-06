@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/08/30 16:59:17 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/05 02:05:38 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int			lex_and_validate(char *line, t_shell *glob)
 ** si elles sont separee par un point virgule
 */
 
-int			lex_and_parse(char *line, t_shell *glob)
+int			lex_and_parse(char *line, t_shell *glob)//variable i inutile  ?
 {
 	int		cmd_count;
 	int		i;
@@ -142,6 +142,7 @@ int			lex_and_parse(char *line, t_shell *glob)
 	}
 	if (glob->cmd)
 		clean_cmd(glob, cmd_count);
-	glob->signal = 0;
+	if (global_retour == 0)
+		global_retour = glob->exit_code;
 	return (0);
 }

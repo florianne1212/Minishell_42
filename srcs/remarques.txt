@@ -1,4 +1,24 @@
 
+le 7 septembre
+ changements pour le retour $?
+
+ control.c
+ lignes 18 - 19 (manage comntrol)
+
+ lex_and_parse.c
+lignes  145 -146(lex_and_parse)
+
+lexer_d_quote.c
+lignes 35-40(join_env)
+attention n'est plus a la norme
+
+run_commands.c
+lignes 252-254 (run_commands)
+ligne 242, 245, 247, 258, 259 retiree
+
+
+
+
 qd on tape echo lolo > loulou tata, loulou est aussi pris en argument de echo
 
 control C : on doit reafficher le prompt

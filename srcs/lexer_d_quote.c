@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_quotation.c                                  :+:      :+:    :+:   */
+/*   lexer_d_quote.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/07/18 13:41:44 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/05 01:43:41 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 	j = glob->lex->j;
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
 	{
-		s2 = ft_itoa(global_retour);
+		if (global_retour)
+			s2 = ft_itoa(global_retour);
+		else
+		{
+			s2 = ft_itoa(glob->exit_code);
+		}
 		*idx += 2;
 	}
 	else
