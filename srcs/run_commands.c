@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 14:02:22 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 16:46:04 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,20 @@ int			tube_output_init(t_shell *glob)
 //les pipes sont a gerer en premier, puis les autres infiles et outfiles
 //du moins je crois
 
-int			redir_one_piped_cmd(t_shell *glob, int j)
+int			redir_one_piped_cmd(t_shell *glob, int j, int i)
 {
 	int fdpipe[2];
 
 	if (dup2(glob->fdin, 0) < 0)
 		return (1);
 	close(glob->fdin);
+	if (glob->cmd[i + j].in.path && j > 0)
+	{
+		glob->fdin = glob->cmd[i + j].in.fd;
+		if (dup2(glob->fdin, 0) < 0)
+			return (1);
+		close(glob->fdin);
+	}
 	if (j == glob->piping_index - 1)
 	{
 		if (tube_output_init(glob))
@@ -123,6 +130,13 @@ int			redir_one_piped_cmd(t_shell *glob, int j)
 	if (dup2(glob->fdout, 1) < 0)
 		return (1);
 	close(glob->fdout);
+	// if (glob->cmd[i + j].out.path)
+	// {
+	// 	glob->fdout = glob->cmd[i + j].out.fd;
+	// 	if (dup2(glob->fdout, 1) < 0)
+	// 		return (1);
+	// 	close(glob->fdout);
+	// }
 	return (0);
 }
 
@@ -218,7 +232,7 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 	{
 		path = NULL;
 		// back = 0;// a voir
-		if (redir_one_piped_cmd(glob, j))
+		if (redir_one_piped_cmd(glob, j, i))
 			return (restore_in_out_wait_and_return(glob, 0, 1, i));
 		ret = prepare_cmd(glob, glob->cmd[i + j].cmd_arg, env_path, &path);
 		if (ret < 0)

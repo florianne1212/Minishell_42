@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/07 11:13:32 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 15:47:53 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ int			piped_child_process(char *path, char **arg, char **env);
 void		control_c_parent_piped(int n);
 void		control_back_parent_piped(int n);
 void		control_child_piped(int n);
-int			redir_one_piped_cmd(t_shell *glob, int j);
+int			redir_one_piped_cmd(t_shell *glob, int j, int i);
 int			tube_output_init(t_shell *glob);
 int			restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i);
 void		get_piping_index_and_initialize_redirection_in(t_shell *glob, int i);
