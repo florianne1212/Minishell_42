@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 13:47:03 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/21 10:32:32 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:36:58 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ void	check_stdin_simple(t_shell *glob, int i)
 	}
 }
 
-//alternative, avec open
-// void	check_stdin_simple(t_shell *glob, int i)
-// {
-// 	glob->tmpin = dup(STDIN_FILENO);
-// 	if (glob->cmd[i].in.path)
-// 	{
-// 		glob->fdin = open(glob->cmd[i].in.path, O_RDONLY);
-// 	}
-// 	else
-// 	{
-// 		glob->fdin = dup(glob->tmpin);
-// 	}
-// }
-
 /*
 ** ---------check_stdout_simple-----------
 ** check output file and create filedescriptor
@@ -63,23 +49,6 @@ void	check_stdout_simple(t_shell *glob, int i)
 		glob->fdout = dup(glob->tmpout);
 	}
 }
-
-//alternate with open
-// void	check_stdout_simple(t_shell *glob, int i)
-// {
-// 	glob->tmpout = dup(STDOUT_FILENO);
-// 	if (glob->cmd[i].out.path)
-// 	{
-// 		if (glob->cmd[i].append)
-// 			glob->fdout = open(glob->cmd[i].out.path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 		else if (!glob->cmd[i].append)
-// 			glob->fdout = open(glob->cmd[i].out.path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	}
-// 	else
-// 	{
-// 		glob->fdout = dup(glob->tmpout);
-// 	}
-// }
 
 /*
 ** ---------restore_in_out_simple-----------

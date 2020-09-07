@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:54:29 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/17 14:18:20 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:55:48 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	env_destroy_array(char **envirron)
 		return ;
 	while (envirron[i])
 	{
-	 	free(envirron[i]);
-	 	envirron[i] = NULL;
-	 	i++;
+		free(envirron[i]);
+		envirron[i] = NULL;
+		i++;
 	}
 	free(envirron);
 	envirron = NULL;
@@ -83,7 +83,7 @@ char	*create_str_env(char *name, char *value)
 	char	*str;
 	char	*temp;
 
-	if(value != NULL)
+	if (value != NULL)
 	{
 		if (!(temp = ft_strjoin(name, "=")))
 			return (NULL);
@@ -95,7 +95,7 @@ char	*create_str_env(char *name, char *value)
 		free(temp);
 		return (str);
 	}
-	return(ft_strdup(name));
+	return (ft_strdup(name));
 }
 
 /*
@@ -112,7 +112,6 @@ char	**env_create_array(t_list_env *env, char **envirron)
 	int		i;
 
 	i = 0;
-	//env_destroy_array(envirron);
 	size = ft_list_env_size(env);
 	if (!(envirron = (char**)malloc(sizeof(char *) * (size + 1))))
 		return (destroy_and_errno_ret(NULL, envirron, ENOMEM));

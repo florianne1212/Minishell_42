@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:30 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/23 08:56:28 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:55:23 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 static int	ft_setenv2(t_list_env *new, const char *value, int overwrite)
 {
 	char *tmp;
+
 	if (overwrite == 1)
 	{
 		free(new->value);
@@ -35,14 +36,14 @@ static int	ft_setenv2(t_list_env *new, const char *value, int overwrite)
 	}
 	if (overwrite == 2)
 	{
-		if(new->value != NULL)
+		if (new->value != NULL)
 		{
 			tmp = ft_strdup(new->value);
 			free(new->value);
 			new->value = ft_strjoin(tmp, (char *)value);
 			free(tmp);
 		}
-		else 
+		else
 			new->value = ft_strdup(value);
 	}
 	return (0);

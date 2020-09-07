@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 23:45:02 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/22 21:42:13 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:34:19 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	builtin_env(t_shell *glob, int fd, char **arg)
 	list = glob->list_env;
 	while (list != NULL)
 	{
-		if(list->value != NULL)
+		if (list->value != NULL)
 		{
 			ft_putstr_fd(list->name, fd);
 			ft_putstr_fd("=", fd);

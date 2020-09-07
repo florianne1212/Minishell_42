@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/28 12:09:22 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:42:54 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,44 +134,3 @@ int		path_for_execve(char *file, char **path, char *env_path)
 		return (not_a_command(file, ": est un dossier", 126));
 	return (not_a_command(file, ": Aucun fichier ou dossier de ce type", 127));
 }
-
-/*
-** --------ft run simple command -----------
-** checks if builtin, and if so runs it
-** transforms instruction into a valid absolute path for execve
-** command_arg is an array of command and arguments
-** 		first elt in array is the command
-**		other elts are the arguments
-**		last elt of the array is NULL
-** Needs the environnement variable chained list to be initialized (sort_envp)
-** return 0 if success, 1 if failure
-**
-**-pour l'instant sortie dans glob->fd, a revoir ++++++
-** REMARQUE IMPORTANTE  :  Path est a free !!!!
-*/
-
-// int		ft_run_simple_command(t_shell *glob, int i, char *env_path)
-// {
-// 	int		ret;
-// 	char	*path;
-
-// 	path = NULL;
-// 	ret = 0;
-// 	ft_change_case_instruction(glob->cmd[i].cmd_arg[0]);
-// 	simple_redirection(glob, i);
-// 	if ((ret = check_and_run_builtin(glob, glob->cmd[i].cmd_arg)) >= 0)
-// 	{
-// 		restore_in_out_simple(glob);
-// 		return (ret);
-// 	}
-// 	if ((ret = path_for_execve(glob->cmd[i].cmd_arg[0], &path, env_path)))
-// 	{
-// 		if (path)
-// 			free(path);
-// 		return (ret);
-// 	}
-// 	ret = fork_and_run_cmd(glob, path, i, glob->envirron);
-// 	free(path);
-// 	restore_in_out_simple(glob);
-// 	return (ret);
-// }
