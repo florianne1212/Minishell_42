@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 16:46:04 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 17:02:37 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int			redir_one_piped_cmd(t_shell *glob, int j, int i)
 	if (dup2(glob->fdin, 0) < 0)
 		return (1);
 	close(glob->fdin);
-	if (glob->cmd[i + j].in.path && j > 0)
+	if (glob->cmd[i + j].in.path && (j > 0))
 	{
 		glob->fdin = glob->cmd[i + j].in.fd;
 		if (dup2(glob->fdin, 0) < 0)
@@ -130,13 +130,13 @@ int			redir_one_piped_cmd(t_shell *glob, int j, int i)
 	if (dup2(glob->fdout, 1) < 0)
 		return (1);
 	close(glob->fdout);
-	// if (glob->cmd[i + j].out.path)
-	// {
-	// 	glob->fdout = glob->cmd[i + j].out.fd;
-	// 	if (dup2(glob->fdout, 1) < 0)
-	// 		return (1);
-	// 	close(glob->fdout);
-	// }
+	if (glob->cmd[i + j].out.path && (j != glob->piping_index - 1))
+	{
+		glob->fdout = glob->cmd[i + j].out.fd;
+		if (dup2(glob->fdout, 1) < 0)
+			return (1);
+		close(glob->fdout);
+	}
 	return (0);
 }
 
