@@ -200,7 +200,7 @@ int			builtin_cd(t_shell *glob, int fd, char **arg);
 int			cd_error(char *str, int ret, char *oldpath, char *newpath);
 int			cd_home(t_list_env *env);
 int			cd_back(t_list_env *env, int fd);
-int			cd_abs_path(t_list_env *env, char *newpath, char *arg_path);
+int			cd_abs_path(t_list_env **env, char *newpath, char *arg_path);
 
 /*
 // builtin_exit.c
