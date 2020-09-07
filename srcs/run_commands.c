@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 17:02:37 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 17:09:37 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,6 @@ int			tube_output_init(t_shell *glob)
 ** puis lie sortie et fdout
 ** renvoie 0 si pas d'erreur
 */
-// c'est dans cette partie la qu'on peut gerer plus finement les pipes
-//les pipes sont a gerer en premier, puis les autres infiles et outfiles
-//du moins je crois
 
 int			redir_one_piped_cmd(t_shell *glob, int j, int i)
 {
