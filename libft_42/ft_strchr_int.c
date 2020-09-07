@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_strchr_int.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 09:38:25 by fcoudert          #+#    #+#             */
-/*   Updated: 2019/11/26 16:20:10 by fcoudert         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:26:46 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strchr_int(const char *s, int c)
+int	ft_strchr_int(const char *s, int c)
 {
 	int i;
 

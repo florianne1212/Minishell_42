@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcoudert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 12:56:44 by fcoudert          #+#    #+#             */
-/*   Updated: 2019/11/27 11:08:28 by fcoudert         ###   ########.fr       */
+/*   Updated: 2020/09/07 18:27:52 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static int	isinset(char c, char const *set)
 {
