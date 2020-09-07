@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/06 22:13:41 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 14:02:22 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,25 @@ void		get_piping_index_and_initialize_redirection_in(t_shell *glob, int i)
 ** renvoie le retour 0 en cas de reussite, > 0 en cas de pb
 */
 
-int			restore_in_out_wait_and_return(t_shell *glob, int back, int ret)
+int			restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i)
 {
 	int	status;
+	int	j;
 
+	j = 0;
 	dup2(glob->tmpin, 0);
 	dup2(glob->tmpout, 1);
 	close(glob->tmpin);
 	close(glob->tmpout);
 	if (back > 0)
-		waitpid(back, &status, 0);
+	{
+		while ((j < glob->piping_index))
+		{
+			waitpid(glob->cmd[i + j].pid, &status, 0);
+			j++;
+		}
+
+	}
 	return (ret);
 }
 
@@ -210,7 +219,7 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 		path = NULL;
 		// back = 0;// a voir
 		if (redir_one_piped_cmd(glob, j))
-			return (restore_in_out_wait_and_return(glob, 0, 1));
+			return (restore_in_out_wait_and_return(glob, 0, 1, i));
 		ret = prepare_cmd(glob, glob->cmd[i + j].cmd_arg, env_path, &path);
 		if (ret < 0)
 		{
@@ -222,7 +231,7 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 			free(path);
 		j++;
 	}
-	return (restore_in_out_wait_and_return(glob, back, ret));
+	return (restore_in_out_wait_and_return(glob, back, ret, i));
 }
 
 /*
