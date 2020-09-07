@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/06 21:22:04 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/07 13:57:49 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,13 @@ int			lex_and_parse(char *line, t_shell *glob)//variable i inutile  ?
 	clean_lexer(glob);
 	while (index < (int)ft_strlen(line))
 	{
-		glob->signal = 1;
 		glob->tmp_cmd_index = cmd_index;
 		lexe_s_colon(line, glob, &index);
 		cmd_index = parser(glob, cmd_index);
 		clean_lexer(glob);
 		arg_in_tab(glob->tmp_cmd_index, cmd_index, glob);
-		run_commands(glob->tmp_cmd_index, glob);
+		//git puif (glob->return_code != 130)
+			run_commands(glob->tmp_cmd_index, glob);
 		index++;
 		cmd_index++;
 	}
