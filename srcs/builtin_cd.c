@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/30 17:59:22 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/09 19:42:36 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ int			builtin_cd(t_shell *glob, int fd, char **arg)
 	char	*absolute;
 	int		ret;
 
+	if (arg[2])
+	{
+		ft_putendl_fd("minishell: cd: trop d'arguments", 2);
+		return (1);
+	}
 	if (!arg[1] || (!ft_strcmp(arg[1], "~")))
 		return (cd_home(&glob->list_env));
 	else if (!(ft_strcmp(arg[1], "-")))

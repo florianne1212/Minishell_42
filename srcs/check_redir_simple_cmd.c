@@ -6,13 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 13:47:03 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 18:36:58 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/08 08:12:29 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../includes/minishell.h"
-
-//voir pour les protections de dup
 
 /*
 ** ---------check_stdin_simple-----------

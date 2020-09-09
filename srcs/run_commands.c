@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 17:09:37 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/09 13:18:24 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,8 +263,9 @@ void		run_commands(int i, t_shell *glob)
 	//avant debut nouvelle ligne
 	//des que c'est fait et que florianne a recupere $?, mettre global_retour a 0
 	//if (global_retour != 2 && global_retour != 130)//donc si pas de faute de syntaxe ou ^C
-	{
 		//global_retour = 0;//est la pour mes tests
+		if (!glob->running)
+			return;
 		env_path = ft_getenv(glob->list_env, "PATH");
 		glob->envirron = env_create_array(glob->list_env, glob->envirron);
 		glob->piping_index = 0;
@@ -274,7 +275,6 @@ void		run_commands(int i, t_shell *glob)
 			global_retour = 0;
 		env_destroy_array(glob->envirron);
 		free(env_path);
-	}
 	//printf("global_retour = %d\n", global_retour);
 	//global_retour = 0; //a mettre autre part, c'est pour pas etre gene par ^C
 

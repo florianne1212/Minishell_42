@@ -6,12 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/07 18:38:33 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/08 08:13:08 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 void	manage_control(t_shell *glob)
 {
