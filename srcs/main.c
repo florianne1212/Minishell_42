@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/05 01:28:51 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:20:35 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		clean_exit(t_shell *glob)
 
 }
 
-int	empty_line(char *line)
+int	empty_line(char *line, t_shell *glob)
 {
 	char *tmp;
 	int i;
@@ -48,6 +48,8 @@ int	empty_line(char *line)
 	if (ft_strlen(tmp) != 0)
 		i = 1;
 	free(tmp);
+	if (!i)
+		global_retour = glob->return_code;
 	return(i);
 }
 
@@ -75,7 +77,7 @@ int			main(int argc, char **argv, char **envp)
 		//get_next_line(0, &line);
 		gnl2(0, &line);
 		//line = ft_strdup("ls");
-		if (empty_line(line) != 0)
+		if (empty_line(line, &glob) != 0)
 			lex_and_parse(line, &glob);
 		// printf("line = %s\n", line);
 		free(line);
