@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/10 09:41:35 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/10 12:09:06 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int			cd_pipe(char **arg)
 	char	*absolute;
 	char	*initial_dir;
 
+	if (arg[1] && arg [2])
+	{
+		ft_putendl_fd("minishell: cd: trop d'arguments", 2);
+		return (1);
+	}
 	if (!arg[1] || (!ft_strcmp(arg[1], "~")))
 		return (0);
 	else if (!(ft_strcmp(arg[1], "-")))
