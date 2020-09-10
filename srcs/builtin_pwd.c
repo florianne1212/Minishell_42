@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:12:11 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/08/16 16:18:42 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/09 21:44:59 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int	builtin_pwd(t_shell *glob, int fd, char **arg)
 
 	(void)arg;
 	(void)glob;
-	if (!(pwd = getcwd(NULL, 0)))
-		return (1);
+	// pwd = ft_getenv(glob->list_env, "PWD");
+	// if (!pwd)
+		if (!(pwd = getcwd(NULL, 0)))
+			return (1);
 	ft_putendl_fd(pwd, fd);
 	free(pwd);
 	return (0);
