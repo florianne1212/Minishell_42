@@ -105,6 +105,7 @@ typedef struct	s_shell
 	int fdout; //a mettre dans global
 	int infile;
 	int outfile;
+	int back;
 	//pour altenative avec open pour les redirections
 	// char *infile; //le dernier infile du pipe
 	// char *outfile; //le dernier outfile du pipe
@@ -344,7 +345,7 @@ int			lex_and_parse(char *line, t_shell *glob);
 int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env);
 void		clean_cmd(t_shell *glob, int cmd_count);
 
-
+char 		*do_back(char *s, int *idx, t_shell *glob, char *str);
 
 
 #endif

@@ -81,12 +81,15 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str)
 	*idx = *idx + 1;
 	while ((c = s[*idx]))
 	{
+		glob->back=0;
 		glob->lex->j = j;
-		if (c == '\\' && ft_strchr("$\\\"", s[*idx + 1]) != 0)
-			*idx += 1;
-		if (c == '$' && (s[*idx - 1] != '\\'))
+		if (c == '\\')
+			str = do_back(s, idx,glob, str);
+		//printf("\n__ %i\n", glob->back);
+		//fflush(stdout);
+		if ( s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) && s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
 			str = join_env(idx, s, glob, str);
-		else if (c == '"' && (s[*idx - 1] != '\\'))
+		else if (s[*idx] == '"' && (s[*idx - 1] != '\\' || glob->back == 0))
 		{
 			*idx = *idx + 1;
 			return (str);

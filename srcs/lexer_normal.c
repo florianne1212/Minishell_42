@@ -87,21 +87,56 @@ char		*env_finder(char *s, int *i, t_shell *glob)
 ** doit etre reduite pour passer la norme si ce n'est pas fait
 */
 
+char 		*do_back(char *s, int *idx, t_shell *glob, char *str)
+{
+	char c;
+	int i;
+	int e;
+	char *tmp;
+
+	e = 0;
+	i = 0;
+	glob->back=0;
+	if(s[*idx] == '\\')
+	{
+		while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0 &&
+		c != '\'' && c != '\"' && c == '\\')
+		{
+			i++;
+			*idx+=1;
+		}
+		while(e < (i/2))
+		{
+			tmp = str;
+			str = add_to_1d(tmp, '\\');
+			e++;
+		}
+	}
+	//*idx +=i ;
+	//(void)glob;
+	glob->back = i%2;
+	//printf("\n test %i and %i \n", glob->back, i);
+	//fflush(stdout);
+	return(str);
+}
+
 char		*manage_normal(char *s, int *idx, t_shell *glob, char *str)
 {
 	char	c;
 	int		j;
 
 	c = '\0';
-	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0 &&
-	c != '\'' && c != '\"')
+	glob->back=0;
+	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0)
 	{
+		glob->back=0;
 		glob->lex->j = j;
 		if (c == '\\')
-			*idx += 1;
-		if (c == '$' && (s[*idx + 1] != '\\'))
+			str = do_back(s, idx,glob, str);
+		fflush(stdout);
+		if ( s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) && s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
 			return (join_env(idx, s, glob, str));
-		else if (ft_strchr_int("|;><", s[*idx]) == 1)
+		else if (ft_strchr_int("|;><\'\"", s[*idx]) == 1 && (s[*idx - 1] != '\\' || glob->back == 0))
 			return (str);
 		else
 			str = manage_end(str, idx, s, &j);
