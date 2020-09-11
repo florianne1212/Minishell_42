@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 01:34:28 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/07/22 22:11:44 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/11 12:14:29 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	builtin_unset(t_shell *glob, int fd, char **arg)
 	{
 		if ((ft_unsetenv(&glob->list_env, arg[i]) == -1))
 		{
-			ft_putstr_fd("minishell: unset : `", 2);
+			ft_putstr_fd("unset : `", 2);
 			ft_putstr_fd(arg[i], 2);
-			ft_putendl_fd("': not a valid identifier", 2);
+			ft_putendl_fd("': invalid parameter name", 2);
 			ret = 1;
 		}
 		i++;

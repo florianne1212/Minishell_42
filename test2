@@ -1,20 +1,2 @@
-total 344
-drwxr-xr-x   19 laurentcoiffier  staff    608  7 sep 16:43 .
-drwx------@  19 laurentcoiffier  staff    608  5 sep 01:07 ..
--rwxr-xr-x    1 laurentcoiffier  staff   6148  5 sep 01:09 .DS_Store
-drwxr-xr-x   15 laurentcoiffier  staff    480  7 sep 14:02 .git
--rwxr-xr-x    1 laurentcoiffier  staff   1838  5 sep 01:09 Makefile
--rw-r--r--    1 laurentcoiffier  staff   5010  5 sep 01:09 correction en cours.odt
-drwxr-xr-x    3 laurentcoiffier  staff     96  7 sep 14:00 includes
--rwxr-xr-x    1 laurentcoiffier  staff  71440  7 sep 16:42 libft.a
-drwxr-xr-x  148 laurentcoiffier  staff   4736  5 sep 01:41 libft_42
--rw-r--r--    1 laurentcoiffier  staff      2  5 sep 01:09 loulou
--rwxr-xr-x    1 laurentcoiffier  staff  68476  7 sep 16:42 minishell
-drwxr-xr-x   33 laurentcoiffier  staff   1056  7 sep 16:42 objs
-drwxr-xr-x   35 laurentcoiffier  staff   1120  7 sep 14:00 srcs
--rw-r--r--    1 laurentcoiffier  staff      0  7 sep 16:43 test
--rw-r--r--    1 laurentcoiffier  staff    120  7 sep 16:43 test1
--rw-r--r--    1 laurentcoiffier  staff      0  7 sep 16:43 test2
--rw-r--r--    1 laurentcoiffier  staff      0  7 sep 16:36 test3
--rw-r--r--    1 laurentcoiffier  staff      0  7 sep 16:36 test4
--rw-r--r--    1 laurentcoiffier  staff     14  5 sep 01:09 test_file
+echo coucou
+echo coucou
