@@ -59,10 +59,11 @@ char		*env_finder(char *s, int *i, t_shell *glob)
 	h++;
 	if (ft_isalpha(s[*i + h]) != 1)
 	{
-		*i += 2;
+		*i += 1;
+		glob->lex->e = h;
 		return (ft_strdup(""));
 	}
-	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 || s[*i + h] == '_'))
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 || s[*i + h] == '_') && (s[*i + h] != '\\'))
 		h++;
 	if (!(str = malloc(sizeof(char) * (h + 1))))
 		return (NULL);
@@ -101,7 +102,7 @@ char 		*do_back(char *s, int *idx, t_shell *glob, char *str)
 	{
 		while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0 &&
 		c != '\'' && c != '\"' && c == '\\')
-		{
+		{	
 			i++;
 			*idx+=1;
 		}
@@ -112,11 +113,7 @@ char 		*do_back(char *s, int *idx, t_shell *glob, char *str)
 			e++;
 		}
 	}
-	//*idx +=i ;
-	//(void)glob;
 	glob->back = i%2;
-	//printf("\n test %i and %i \n", glob->back, i);
-	//fflush(stdout);
 	return(str);
 }
 
@@ -133,7 +130,6 @@ char		*manage_normal(char *s, int *idx, t_shell *glob, char *str)
 		glob->lex->j = j;
 		if (c == '\\')
 			str = do_back(s, idx,glob, str);
-		fflush(stdout);
 		if ( s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) && s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
 			return (join_env(idx, s, glob, str));
 		else if (ft_strchr_int("|;><\'\"", s[*idx]) == 1 && (s[*idx - 1] != '\\' || glob->back == 0))
