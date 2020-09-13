@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/13 16:24:15 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/13 23:53:55 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ typedef struct	s_shell
 	int running;
 	unsigned char exit_code;
 	int	return_code;
-	int	forked;
 	//fin changement pour tester
 
 	char		**envirron; //tableau similaire a "environ", a mettre a null++
@@ -248,6 +247,13 @@ int			create_path_list(t_list **abs, char **rel);
 char		*create_abs_str(t_list *absolute);
 
 /*
+**control2.c
+*/
+void		control_c_parent_piped(int n);
+void		control_back_parent_piped(int n);
+void		control_child_piped(int n);
+
+/*
 **run_commands.c
 */
 void		run_commands(int i, t_shell *glob);
@@ -255,14 +261,15 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path);
 int			prepare_cmd(t_shell *glob, char **arg, char *env_path, char **path);
 int			fork_exec_piped_cmd(t_shell *glob, char *path, int i);
 int			piped_child_process(char *path, char **arg, char **env);
-void		control_c_parent_piped(int n);
-void		control_back_parent_piped(int n);
-void		control_child_piped(int n);
 int			redir_one_piped_cmd(t_shell *glob, int j, int i);
 int			tube_output_init(t_shell *glob);
 int			restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i);
-void		get_piping_index_and_initialize_redirection_in(t_shell *glob, int i);
-int		gnl2(int fd, char **out);
+int			get_piping_index_and_initialize_redirection_in(t_shell *glob, int i);
+
+/*
+**redirectionss.c
+*/
+
 
 /*
 ** ft_run_simple_command.c
@@ -287,6 +294,13 @@ void	check_stdout_simple(t_shell *glob, int i);
 void 	check_stdin_simple(t_shell *glob, int i);
 void	simple_redirection(t_shell *glob, int i);
 void	restore_in_out_simple(t_shell *glob);
+
+/*
+**gnl2.c
+*/
+int			gnl2(int fd, char **out);
+void		gnl_case_zero(char **line, char **before_eof, int *ret);
+char		*recurs(int depth, int *ret, int fd);
 
 /*
 **var_env.c

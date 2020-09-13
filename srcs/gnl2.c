@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/31 10:28:53 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/02 00:56:13 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/13 22:38:57 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,22 @@ char	*recurs(int depth, int *ret, int fd)
 	return (line);
 }
 
-int		gnl2(int fd, char **line) //leaks a checker ++
+void	gnl_case_zero(char **line, char **before_eof, int *ret)
+{
+	ft_putstr_fd("  \b\b", 2);
+	*before_eof = *line;
+	if (!ft_strcmp(*before_eof, ""))
+	{
+		ft_putstr_fd("exit\n", 2);
+		free(*before_eof);
+		*line = ft_strdup("exit");
+		*ret = 1;
+	}
+	else
+		*ret = 2;
+}
+
+int		gnl2(int fd, char **line)
 {
 	int		ret;
 	char	*before_eof;
@@ -58,19 +73,7 @@ int		gnl2(int fd, char **line) //leaks a checker ++
 		free(temp);
 		free(before_eof);
 		if (ret == 0)
-		{
-			ft_putstr_fd("  \b\b", 2);
-			before_eof = *line;
-			if (!ft_strcmp(before_eof, ""))
-			{
-				ft_putstr_fd("exit\n", 2);
-				free(before_eof);
-				*line = ft_strdup("exit");
-				ret = 1;
-			}
-			else
-				ret = 2;
-		}
+			gnl_case_zero(line, &before_eof, &ret);
 	}
 	return (ret);
 }
