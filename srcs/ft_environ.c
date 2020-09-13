@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:16:30 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/11 12:20:17 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/13 16:33:27 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,32 +23,6 @@
 ** retourne 0 si succes, -1 si erreur
 ** si erreur, documentee dans errno
 */
-
-
-int	ft_isalnumunderscore(int c)
-{
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57) ||
-			c == 95)
-		return (1);
-	return (0);
-}
-
-int	ft_isabashname(char *name)
-{
-	int i;
-
-	if (!(ft_isalpha(name[0])) && (name[0] != 95))
-		return (0);
-	i = 1;
-	while(name[i])
-	{
-		if (!(ft_isalnumunderscore(name[i])))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 
 static int	ft_setenv2(t_list_env *new, const char *value, int overwrite)
 {
@@ -80,7 +54,7 @@ int			ft_setenv(t_list_env **env, const char *name, const char *value,
 {
 	t_list_env	*new;
 
-	if (!name || !ft_strcmp(name, "") || ft_isinstring('=', (char*)name))
+	if (!name || !ft_strcmp(name, "") || !ft_isabashname((char *)name))
 		return (errno_return_int(EINVAL, -1));
 	new = ft_list_find_env(*env, (char *)name, ft_strcmp);
 	if (new)
@@ -133,7 +107,7 @@ char		*ft_getenv(t_list_env *env, const char *name)
 
 	if (!env)
 		return (NULL);
-	if (!name || !ft_strcmp(name, "") || ft_isinstring('=', (char*)name))
+	if (!name || !ft_strcmp(name, "") || !ft_isabashname((char*)name))
 		return (errno_return_str(EINVAL, NULL));
 	while (env)
 	{

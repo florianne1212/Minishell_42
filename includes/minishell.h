@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 13:47:52 by fcoudert          #+#    #+#             */
-/*   Updated: 2020/09/07 15:47:53 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/13 16:24:15 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int		global_retour;
 //t_shell	glob;
 
 /*
-** cotrol.c
+** control.c
 */
 void			manage_control();
 void			control_c(int i);
@@ -145,6 +145,15 @@ void			control_back(int i);
 t_list_env		*add_link(t_list_env *list, char *str);
 void			print_list(t_list_env *list);
 
+/*
+// ft_environ_utils.c.c
+*/
+int		ft_isalnumunderscore(int c);
+int		ft_isabashname(char *name);
+
+/*
+// ft_environ.c.c
+*/
 char 	*ft_getenv(t_list_env *env, const char *name);
 int		ft_putenv(t_list_env **env, char *string);
 int		ft_unsetenv(t_list_env **env, const char *name);
@@ -202,6 +211,13 @@ int			cd_error(char *str, int ret, char *oldpath, char *newpath);
 int			cd_home(t_list_env **env);
 int			cd_back(t_list_env **env, int fd);
 int			cd_abs_path(t_list_env **env, char *newpath, char *arg_path);
+
+
+/*
+// builtin_cd2.c
+*/
+int			cd_pipe(char **arg);
+
 
 /*
 // builtin_exit.c

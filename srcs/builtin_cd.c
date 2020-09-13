@@ -6,43 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/12 16:45:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/10 12:09:06 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/13 15:48:33 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*
-**--------cd pipe---------
-**renvoie erreurs  mais ne change pas de repertoire si cd est dans un pipe
-*/
-int			cd_pipe(char **arg)
-{
-	char	*absolute;
-	char	*initial_dir;
-
-	if (arg[1] && arg [2])
-	{
-		ft_putendl_fd("minishell: cd: trop d'arguments", 2);
-		return (1);
-	}
-	if (!arg[1] || (!ft_strcmp(arg[1], "~")))
-		return (0);
-	else if (!(ft_strcmp(arg[1], "-")))
-		return (0);
-	else if (arg[1][0] == '/')
-		absolute = ft_strdup(arg[1]);
-	else
-		absolute = change_rel_to_abs(arg[1]);
-	initial_dir = getcwd(NULL, 0);
-	if (chdir(absolute))
-		return (cd_error(arg[1], 1, initial_dir, absolute));
-	else
-		chdir(initial_dir);
-	free(initial_dir);
-	free(absolute);
-	return (0);
-}
 
 /*
 **--------cd error---------
@@ -161,8 +129,8 @@ int			builtin_cd(t_shell *glob, int fd, char **arg)
 	int		ret;
 
 	if (glob->piping_index > 1)
-		return(cd_pipe(arg));
-	if (arg[1] && arg [2])
+		return (cd_pipe(arg));
+	if (arg[1] && arg[2])
 	{
 		ft_putendl_fd("minishell: cd: trop d'arguments", 2);
 		return (1);

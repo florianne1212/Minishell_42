@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 18:42:54 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/13 16:53:35 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Return -1 if not a built in, 1 if error in builtin, 0 if success
 */
 
-int		check_and_run_builtin(t_shell *glob, char **arg)
+int			check_and_run_builtin(t_shell *glob, char **arg)
 {
 	int	ret;
 
@@ -46,7 +46,7 @@ int		check_and_run_builtin(t_shell *glob, char **arg)
 ** returns NULL if error
 */
 
-char	*create_command_path(char *env_path, char *command)
+char		*create_command_path(char *env_path, char *command)
 {
 	char	*temp;
 	char	*path;
@@ -69,7 +69,7 @@ char	*create_command_path(char *env_path, char *command)
 ** returns NULL if no path found with this instruction
 */
 
-char	*ft_search_env_path(char *env_paths, char *command)
+char		*ft_search_env_path(char *env_paths, char *command)
 {
 	char		*path;
 	char		**paths;
@@ -99,24 +99,33 @@ char	*ft_search_env_path(char *env_paths, char *command)
 }
 
 /*
+**---------create the path---------
+** create path for the command
+*/
+
+static void	create_the_path(char *file, char **path)
+{
+	if (file[0] == '/')
+		*path = ft_strdup(file);
+	else if (file[0] == '.')
+		*path = change_rel_to_abs(file);
+}
+
+/*
 ** --------path for execve--------
 ** create a valid absolute path for execve
 ** return 0 for success, 1 if error
 */
 
-int		path_for_execve(char *file, char **path, char *env_path)
+int			path_for_execve(char *file, char **path, char *env_path)
 {
 	struct stat	s_bufstat;
 
 	ft_memset(&s_bufstat, 0, sizeof(stat));
-	if (file[0] == '/')
+	if ((file[0] == '/') || (file[0] == '.'))
 	{
-		if (!(*path = ft_strdup(file)))
-			return (errno_return_int(ENOMEM, 1));
-	}
-	else if (file[0] == '.')
-	{
-		if (!(*path = change_rel_to_abs(file)))
+		create_the_path(file, path);
+		if (!(*path))
 			return (errno_return_int(ENOMEM, 1));
 	}
 	else
