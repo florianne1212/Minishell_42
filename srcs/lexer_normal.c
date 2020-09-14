@@ -63,14 +63,16 @@ char		*env_finder(char *s, int *i, t_shell *glob)
 		glob->lex->e = h;
 		return (ft_strdup(""));
 	}
-	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 || s[*i + h] == '_') && (s[*i + h] != '\\'))
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 ||
+	s[*i + h] == '_') && (s[*i + h] != '\\'))
 		h++;
 	if (!(str = malloc(sizeof(char) * (h + 1))))
 		return (NULL);
 	glob->lex->e = h;
 	h = 0;
 	*i = *i + 1;
-	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 || s[*i + h] == '_'))
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 ||
+	s[*i + h] == '_'))
 	{
 		str[h] = s[*i + h];
 		h++;
@@ -88,33 +90,33 @@ char		*env_finder(char *s, int *i, t_shell *glob)
 ** doit etre reduite pour passer la norme si ce n'est pas fait
 */
 
-char 		*do_back(char *s, int *idx, t_shell *glob, char *str)
+char		*do_back(char *s, int *idx, t_shell *glob, char *str)
 {
-	char c;
-	int i;
-	int e;
-	char *tmp;
+	char	c;
+	int		i;
+	int		e;
+	char	*tmp;
 
 	e = 0;
 	i = 0;
-	glob->back=0;
-	if(s[*idx] == '\\')
+	glob->back = 0;
+	if (s[*idx] == '\\')
 	{
 		while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0 &&
 		c != '\'' && c != '\"' && c == '\\')
-		{	
+		{
 			i++;
-			*idx+=1;
+			*idx += 1;
 		}
-		while(e < (i/2))
+		while (e < (i / 2))
 		{
 			tmp = str;
 			str = add_to_1d(tmp, '\\');
 			e++;
 		}
 	}
-	glob->back = i%2;
-	return(str);
+	glob->back = i % 2;
+	return (str);
 }
 
 char		*manage_normal(char *s, int *idx, t_shell *glob, char *str)
@@ -123,16 +125,18 @@ char		*manage_normal(char *s, int *idx, t_shell *glob, char *str)
 	int		j;
 
 	c = '\0';
-	glob->back=0;
+	glob->back = 0;
 	while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0)
 	{
-		glob->back=0;
+		glob->back = 0;
 		glob->lex->j = j;
 		if (c == '\\')
-			str = do_back(s, idx,glob, str);
-		if ( s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) && s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
+			str = do_back(s, idx, glob, str);
+		if (s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) &&
+		s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
 			return (join_env(idx, s, glob, str));
-		else if (ft_strchr_int("|;><\'\"", s[*idx]) == 1 && (s[*idx - 1] != '\\' || glob->back == 0))
+		else if (ft_strchr_int("|;><\'\"", s[*idx]) == 1 && (s[*idx - 1] != '\\' ||
+		glob->back == 0))
 			return (str);
 		else
 			str = manage_end(str, idx, s, &j);

@@ -57,7 +57,8 @@ void		put_string(int *idx, char *s, t_shell *glob)
 			ttok->str = manage_d_quote(s, idx, glob, ttok->str);
 		else
 			ttok->str = manage_normal(s, idx, glob, ttok->str);
-		if (ft_isspace(s[*idx]) == 1 || s[*idx] == '\0'|| ft_strchr_int("|;><", s[*idx]) == 1)
+		if (ft_isspace(s[*idx]) == 1 || s[*idx] == '\0' ||
+		ft_strchr_int("|;><", s[*idx]) == 1)
 			break ;
 	}
 	add_to_2d((void***)&glob->lex->tokens, ttok);

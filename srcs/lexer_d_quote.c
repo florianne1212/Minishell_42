@@ -72,38 +72,38 @@ char		*manage_end(char *str, int *idx, char *s, int *j)
 ** doit etre reduite pour passer la norme si ce n'est pas fait
 */
 
-char 		*do_back_double(char *s, int *idx, t_shell *glob, char *str)
+char		*do_back_double(char *s, int *idx, t_shell *glob, char *str)
 {
-	char c;
-	int i;
-	int e;
-	char *tmp;
+	char	c;
+	int		i;
+	int		e;
+	char	*tmp;
 
 	e = 0;
 	i = 0;
-	glob->back=0;
-	if(s[*idx] == '\\')
+	glob->back = 0;
+	if (s[*idx] == '\\')
 	{
 		while ((c = s[*idx]) && ft_isspace(s[*idx]) == 0 &&
 		c != '\'' && c != '\"' && c == '\\')
 		{
 			i++;
-			*idx+=1;
+			*idx += 1;
 		}
-		while(e < (i/2))
+		while (e < (i / 2))
 		{
 			tmp = str;
 			str = add_to_1d(tmp, '\\');
 			e++;
 		}
 	}
-	if (i%2 == 1 && s[*idx] != '\0' && s[*idx] != '$' && s[*idx] != '\"' )
+	if (i % 2 == 1 && s[*idx] != '\0' && s[*idx] != '$' && s[*idx] != '\"')
 	{
 		tmp = str;
 		str = add_to_1d(tmp, '\\');
 	}
-	glob->back = i%2;
-	return(str);
+	glob->back = i % 2;
+	return (str);
 }
 
 char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str)
@@ -115,11 +115,12 @@ char		*manage_d_quote(char *s, int *idx, t_shell *glob, char *str)
 	*idx = *idx + 1;
 	while ((c = s[*idx]))
 	{
-		glob->back=0;
+		glob->back = 0;
 		glob->lex->j = j;
 		if (c == '\\')
-			str = do_back_double(s, idx,glob, str);
-		if ( s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) && s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
+			str = do_back_double(s, idx, glob, str);
+		if (s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) &&
+		s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
 			str = join_env(idx, s, glob, str);
 		else if (s[*idx] == '"' && (s[*idx - 1] != '\\' || glob->back == 0))
 		{
