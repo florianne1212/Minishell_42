@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/13 22:53:24 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/13 22:54:47 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/14 15:21:12 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int		restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i)
 	{
 		while ((j < glob->piping_index))
 		{
+			status = 0;
 			waitpid(glob->cmd[i + j].pid, &status, 0);
+			if (WIFEXITED(status))
+				if (status && (j == glob->piping_index - 1))
+					ret = 1;
 			j++;
 		}
 	}
