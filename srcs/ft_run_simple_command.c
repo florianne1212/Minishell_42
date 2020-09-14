@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/13 16:53:35 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/14 17:07:31 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char		*create_command_path(char *env_path, char *command)
 ** returns NULL if no path found with this instruction
 */
 
-char		*ft_search_env_path(char *env_paths, char *command)
+char		*ft_search_env_path2(char *env_paths, char *command)
 {
 	char		*path;
 	char		**paths;
@@ -95,6 +95,29 @@ char		*ft_search_env_path(char *env_paths, char *command)
 	split_destructor(paths);
 	if (!(!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode)))
 		return (free_path_null(&path));
+	return (path);
+}
+
+
+char		*ft_search_env_path(char *env_paths, char *command)
+{
+	char *path;
+	char *temp;
+	struct stat	s_bufstat;
+
+	if (env_paths)
+		return (ft_search_env_path2(env_paths, command));
+	else
+	{
+		path = getcwd(NULL, 0);
+		temp = ft_strjoin(path, "/");
+		free (path);
+		path = ft_strjoin(temp, command);
+		free (temp);
+		if (!(!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode)))
+			return (free_path_null(&path));
+		return (path);
+	}
 	return (path);
 }
 

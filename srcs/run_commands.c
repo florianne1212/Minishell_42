@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 14:49:42 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/13 23:53:36 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/14 15:39:45 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 	int		back;
 
 	j = 0;
-	back = 0;
 	if (get_piping_index_and_initialize_redirection_in(glob, i))
 		return (1);
 	while (j < glob->piping_index)
