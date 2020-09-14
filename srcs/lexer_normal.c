@@ -49,10 +49,30 @@ char		*size_to_mal(char *s, int *idx)
 ** pour ensuite aller la chercher avec la fonciton getenv
 */
 
-char		*env_finder(char *s, int *i, t_shell *glob)
+char		*put_env_in(char *s, int *i, t_shell *glob)
 {
 	int		h;
 	char	*str;
+	char	*s1;
+
+	h = 0;
+	if (!(str = malloc(sizeof(char) * (h + 1))))
+		return (NULL);
+	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 ||
+	s[*i + h] == '_'))
+	{
+		str[h] = s[*i + h];
+		h++;
+	}
+	str[h] = '\0';
+	s1 = ft_getenv(glob->list_env, str);
+	free(str);
+	return (s1);
+}
+
+char		*env_finder(char *s, int *i, t_shell *glob)
+{
+	int		h;
 	char	*s1;
 
 	h = 0;
@@ -66,20 +86,9 @@ char		*env_finder(char *s, int *i, t_shell *glob)
 	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 ||
 	s[*i + h] == '_') && (s[*i + h] != '\\'))
 		h++;
-	if (!(str = malloc(sizeof(char) * (h + 1))))
-		return (NULL);
 	glob->lex->e = h;
-	h = 0;
 	*i = *i + 1;
-	while (s[*i + h] != '\0' && (ft_isalnum(s[*i + h]) == 1 ||
-	s[*i + h] == '_'))
-	{
-		str[h] = s[*i + h];
-		h++;
-	}
-	str[h] = '\0';
-	s1 = ft_getenv(glob->list_env, str);
-	free(str);
+	s1 = put_env_in(s, i, glob);
 	*i = *i - 1;
 	return (s1);
 }
@@ -135,8 +144,8 @@ char		*manage_normal(char *s, int *idx, t_shell *glob, char *str)
 		if (s[*idx] == '$' && (s[*idx - 1] != '\\' || glob->back == 0) &&
 		s[*idx + 1] != '\0' && ft_isspace(s[*idx + 1]) == 0)
 			return (join_env(idx, s, glob, str));
-		else if (ft_strchr_int("|;><\'\"", s[*idx]) == 1 && (s[*idx - 1] != '\\' ||
-		glob->back == 0))
+		else if (ft_strchr_int("|;><\'\"", s[*idx]) == 1 &&
+		(s[*idx - 1] != '\\' || glob->back == 0))
 			return (str);
 		else
 			str = manage_end(str, idx, s, &j);

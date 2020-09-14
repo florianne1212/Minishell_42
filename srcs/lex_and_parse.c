@@ -114,16 +114,14 @@ int			lex_and_validate(char *line, t_shell *glob)
 ** si elles sont separee par un point virgule
 */
 
-int			lex_and_parse(char *line, t_shell *glob)//variable i inutile  ?
+int			lex_and_parse(char *line, t_shell *glob)
 {
 	int		cmd_count;
-	int		i;
 	int		index;
 	int		cmd_index;
 
 	index = 0;
 	cmd_index = 0;
-	i = 0;
 	if ((cmd_count = lex_and_validate(line, glob)) <= 0)
 		return (0);
 	init_cmd(glob, cmd_count);
@@ -135,8 +133,7 @@ int			lex_and_parse(char *line, t_shell *glob)//variable i inutile  ?
 		cmd_index = parser(glob, cmd_index);
 		clean_lexer(glob);
 		arg_in_tab(glob->tmp_cmd_index, cmd_index, glob);
-		//git puif (glob->return_code != 130)
-			run_commands(glob->tmp_cmd_index, glob);
+		run_commands(glob->tmp_cmd_index, glob);
 		index++;
 		cmd_index++;
 	}

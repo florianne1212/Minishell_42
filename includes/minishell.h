@@ -198,6 +198,22 @@ int			builtin_echo(t_shell *glob, int fd, char **arg);
 int			builtin_export(t_shell *glob, int fd, char **arg);
 
 /*
+// builtin_export_2.c
+*/
+
+int				check_argi(char *str);
+int				check_argi_bis(char *str);
+int				ft_putenv_append(t_list_env **env, char *string);
+char			*find_name_bis(char *str);
+
+/*
+// builtin_export_3.c
+*/
+
+void		ft_swap(char **s1, char **s2);
+void		ft_list_sort_env(t_list_env **begin_list, int (*cmp)());
+
+/*
 // builtin_unset.c
 */
 int			builtin_unset(t_shell *glob, int fd, char **arg);
@@ -375,7 +391,6 @@ int			lex_and_parse(char *line, t_shell *glob);
 int		fork_and_run_cmd(t_shell *glob, char *path, int i, char **env);
 void		clean_cmd(t_shell *glob, int cmd_count);
 
-char 		*do_back(char *s, int *idx, t_shell *glob, char *str);
 
 
 #endif

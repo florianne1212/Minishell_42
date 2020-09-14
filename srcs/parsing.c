@@ -38,10 +38,6 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 	}
 	file->path = path;
 	file->fd = open(path, mode, 0644);
-	// if (errno != 0)
-	// 	file->error = errno;
-	// errno = 0;
-	//return (file->error == 0);
 	return (file->fd != -1);
 }
 
@@ -107,10 +103,6 @@ int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 	glob->lex->tokens[idx + 1]->str))
 	{
 		printf("error invalid fd");
-		// printf("IN : failed to open file: %s\n",
-		// strerror(glob->cmd[cmd_index].in.error));
-		// printf("OUT: failed to open file: %s\n",
-		// strerror(glob->cmd[cmd_index].out.error));
 		return (0);
 	}
 	return (1);

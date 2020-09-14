@@ -119,5 +119,4 @@ void			sort_envp(char **envp, t_shell *glob)
 		glob->list_env = add_link(glob->list_env, envp[i]);
 		i++;
 	}
-	//print_list(glob->list_env);
 }

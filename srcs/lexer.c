@@ -131,15 +131,5 @@ int			lexe_line(char *line, t_shell *glob)
 		assign_token(&index, line, glob, size);
 	}
 	put_end(glob);
-	/*int i = 0;
-	if(glob->lex->tokens != NULL)
-	{
-		while (i < glob->lex->count)
-		{
-	 		printf("\n ___%u\n", glob->lex->tokens[i]->str);
-	 		i++;
-		}
-	}
-	fflush(stdout);*/
 	return (1);
 }

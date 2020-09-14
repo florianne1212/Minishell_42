@@ -23,6 +23,20 @@
 ** du la passer dans la structure car sinon ca passait pas la norme
 */
 
+char		*join_retour(int *idx, t_shell *glob)
+{
+	char	*s2;
+
+	if (global_retour)
+		s2 = ft_itoa(global_retour);
+	else
+	{
+		s2 = ft_itoa(glob->return_code);
+	}
+	*idx += 2;
+	return (s2);
+}
+
 char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 {
 	char	*s2;
@@ -31,15 +45,7 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 
 	j = glob->lex->j;
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
-	{
-		if (global_retour)
-			s2 = ft_itoa(global_retour);
-		else
-		{
-			s2 = ft_itoa(glob->return_code);
-		}
-		*idx += 2;
-	}
+		s2 = join_retour(idx, glob);
 	else
 	{
 		s2 = env_finder(s, idx, glob);
@@ -72,6 +78,19 @@ char		*manage_end(char *str, int *idx, char *s, int *j)
 ** doit etre reduite pour passer la norme si ce n'est pas fait
 */
 
+char		*add_back(int i, char c, char *str, t_shell *glob)
+{
+	char	*tmp;
+
+	if (i % 2 == 1 && c != '\0' && c != '$' && c != '\"')
+	{
+		tmp = str;
+		str = add_to_1d(tmp, '\\');
+	}
+	glob->back = i % 2;
+	return (str);
+}
+
 char		*do_back_double(char *s, int *idx, t_shell *glob, char *str)
 {
 	char	c;
@@ -97,12 +116,7 @@ char		*do_back_double(char *s, int *idx, t_shell *glob, char *str)
 			e++;
 		}
 	}
-	if (i % 2 == 1 && s[*idx] != '\0' && s[*idx] != '$' && s[*idx] != '\"')
-	{
-		tmp = str;
-		str = add_to_1d(tmp, '\\');
-	}
-	glob->back = i % 2;
+	str = add_back(i, s[*idx], str, glob);
 	return (str);
 }
 
