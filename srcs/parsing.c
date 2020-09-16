@@ -42,40 +42,6 @@ static int		open_file(t_token_type type, t_command *cmd, char *path)
 }
 
 /*
-** la fonction print_parser permet d'afficher
-** les elements parser
-*/
-
-void			print_parser(t_shell *glob, int cmd_index)
-{
-	int			index;
-	int			i;
-
-	index = 0;
-	i = 0;
-	while (index <= cmd_index)
-	{
-		i = 0;
-		printf("cmd {\n");
-		printf("    INDEX CMD : %i\n", index);
-		printf("	exec	: %s\n", glob->cmd[index].exec);
-		while (glob->cmd[index].argv[i] != NULL)
-		{
-			printf("	argv	: %s\n", glob->cmd[index].argv[i]);
-			i++;
-		}
-		printf("	pipe	: %s\n", glob->cmd[index].pipe ? "true" : "false");
-		printf("	in		: %s\n", glob->cmd[index].in.path);
-		printf("	out		: %s\n", glob->cmd[index].out.path);
-		printf("	append	: %s\n",
-		glob->cmd[index].append ? "true" : "false");
-		printf("}\n");
-		index++;
-		fflush(stdout);
-	}
-}
-
-/*
 ** la donction parser_string permet de parser
 ** les string et de les mettres dans au bon endroit
 ** dans la structure cmd en fonction si c'est l'executable
@@ -102,7 +68,7 @@ int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 	if (!open_file(t->type, &(glob->cmd[cmd_index]),
 	glob->lex->tokens[idx + 1]->str))
 	{
-		printf("error invalid fd");
+		ft_putstr_fd("error invalid fd", 2);
 		return (0);
 	}
 	return (1);
@@ -117,9 +83,7 @@ int				parser(t_shell *glob, int cmd_index)
 {
 	int			index;
 	t_token		*t;
-	int			i;
 
-	i = 0;
 	index = 0;
 	while (index < glob->lex->count)
 	{
@@ -140,6 +104,5 @@ int				parser(t_shell *glob, int cmd_index)
 			break ;
 		index++;
 	}
-	//print_parser(glob, cmd_index);
 	return (cmd_index);
 }

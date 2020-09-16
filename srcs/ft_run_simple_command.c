@@ -69,7 +69,7 @@ char		*create_command_path(char *env_path, char *command)
 ** returns NULL if no path found with this instruction
 */
 
-char		*ft_search_env_path2(char *env_paths, char *command)
+char			*ft_search_env_path2(char *env_paths, char *command)
 {
 	char		*path;
 	char		**paths;
@@ -98,11 +98,10 @@ char		*ft_search_env_path2(char *env_paths, char *command)
 	return (path);
 }
 
-
 char		*ft_search_env_path(char *env_paths, char *command)
 {
-	char *path;
-	char *temp;
+	char		*path;
+	char		*temp;
 	struct stat	s_bufstat;
 
 	if (env_paths)
@@ -111,9 +110,9 @@ char		*ft_search_env_path(char *env_paths, char *command)
 	{
 		path = getcwd(NULL, 0);
 		temp = ft_strjoin(path, "/");
-		free (path);
+		free(path);
 		path = ft_strjoin(temp, command);
-		free (temp);
+		free(temp);
 		if (!(!(stat(path, &s_bufstat)) && S_ISREG(s_bufstat.st_mode)))
 			return (free_path_null(&path));
 		return (path);

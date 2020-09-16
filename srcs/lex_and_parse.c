@@ -139,7 +139,7 @@ int			lex_and_parse(char *line, t_shell *glob)
 	}
 	if (glob->cmd)
 		clean_cmd(glob, cmd_count);
-	if (global_retour == 0)
-		global_retour = glob->return_code;
+	if (g_retour == 0)
+		g_retour = glob->return_code;
 	return (0);
 }

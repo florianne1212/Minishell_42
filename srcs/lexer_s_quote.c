@@ -33,6 +33,17 @@ char		*manage_quote(char *s, int *idx, char *str)
 	return (str);
 }
 
+char		*manage_end(char *str, int *idx, char *s, int *j)
+{
+	char *tmp;
+
+	tmp = str;
+	str = add_to_1d(tmp, s[*idx]);
+	*j += 1;
+	*idx += 1;
+	return (str);
+}
+
 /*
 ** la fonction put_string permet de renvoyer
 ** a la fonction qui va gerer correctement si la chaine
