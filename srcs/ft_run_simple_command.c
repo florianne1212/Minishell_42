@@ -6,39 +6,11 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 09:19:16 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/14 17:16:42 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:48:00 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*
-** ------Check and run builtin--------
-** Check if the instruction is one of the builtin and run it
-** Return -1 if not a built in, 1 if error in builtin, 0 if success
-*/
-
-int			check_and_run_builtin(t_shell *glob, char **arg)
-{
-	int	ret;
-
-	ret = -1;
-	if (!(ft_strcmp(arg[0], "cd")))
-		ret = builtin_cd(glob, 1, arg);
-	else if (!(ft_strcmp(arg[0], "echo")))
-		ret = builtin_echo(glob, 1, arg);
-	else if (!(ft_strcmp(arg[0], "env")))
-		ret = builtin_env(glob, 1, arg);
-	else if (!(ft_strcmp(arg[0], "export")))
-		ret = builtin_export(glob, 1, arg);
-	else if (!(ft_strcmp(arg[0], "pwd")))
-		ret = builtin_pwd(glob, 1, arg);
-	else if (!(ft_strcmp(arg[0], "unset")))
-		ret = builtin_unset(glob, 1, arg);
-	else if (!(ft_strcmp(arg[0], "exit")))
-		ret = builtin_exit(glob, 1, arg);
-	return (ret);
-}
 
 /*
 ** --- create command path ------
@@ -69,7 +41,7 @@ char		*create_command_path(char *env_path, char *command)
 ** returns NULL if no path found with this instruction
 */
 
-char			*ft_search_env_path2(char *env_paths, char *command)
+char		*ft_search_env_path2(char *env_paths, char *command)
 {
 	char		*path;
 	char		**paths;

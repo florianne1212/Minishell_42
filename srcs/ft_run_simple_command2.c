@@ -6,11 +6,39 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 15:57:14 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/09/07 18:46:43 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:47:38 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+** ------Check and run builtin--------
+** Check if the instruction is one of the builtin and run it
+** Return -1 if not a built in, 1 if error in builtin, 0 if success
+*/
+
+int		check_and_run_builtin(t_shell *glob, char **arg)
+{
+	int	ret;
+
+	ret = -1;
+	if (!(ft_strcmp(arg[0], "cd")))
+		ret = builtin_cd(glob, 1, arg);
+	else if (!(ft_strcmp(arg[0], "echo")))
+		ret = builtin_echo(glob, 1, arg);
+	else if (!(ft_strcmp(arg[0], "env")))
+		ret = builtin_env(glob, 1, arg);
+	else if (!(ft_strcmp(arg[0], "export")))
+		ret = builtin_export(glob, 1, arg);
+	else if (!(ft_strcmp(arg[0], "pwd")))
+		ret = builtin_pwd(glob, 1, arg);
+	else if (!(ft_strcmp(arg[0], "unset")))
+		ret = builtin_unset(glob, 1, arg);
+	else if (!(ft_strcmp(arg[0], "exit")))
+		ret = builtin_exit(glob, 1, arg);
+	return (ret);
+}
 
 /*
 ** ------not a command-------

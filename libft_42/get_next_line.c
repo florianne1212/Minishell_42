@@ -6,7 +6,7 @@
 /*   By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:25:26 by lcoiffie          #+#    #+#             */
-/*   Updated: 2020/02/07 10:16:13 by lcoiffie         ###   ########.fr       */
+/*   Updated: 2020/09/16 15:53:58 by lcoiffie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int		gnl_read_file(char *temp, char **rest, char **line, int fd)
 	}
 	if (i > 0)
 		i = 1;
-	if (i == 0)
-		exit(EXIT_SUCCESS);
 	return (i);
 }
 
