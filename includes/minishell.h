@@ -372,6 +372,7 @@ int						validate(t_shell *glob, int *cmd_count);
 */
 void					init_lex(t_shell *glob, char *line);
 void					init_cmd(t_shell *glob, int cmd_count);
+void					init_and_clean(t_shell *glob, int cmd_count);
 
 int						lex_and_parse(char *line, t_shell *glob);
 

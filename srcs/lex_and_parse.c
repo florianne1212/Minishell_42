@@ -123,8 +123,7 @@ int			lex_and_parse(char *line, t_shell *glob)
 	cmd_index = 0;
 	if ((cmd_count = lex_and_validate(line, glob)) <= 0)
 		return (0);
-	init_cmd(glob, cmd_count);
-	clean_lexer(glob);
+	init_and_clean(glob, cmd_count);
 	while (index < (int)ft_strlen(line))
 	{
 		glob->tmp_cmd_index = cmd_index;
