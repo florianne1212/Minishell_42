@@ -102,7 +102,6 @@ int			lex_and_validate(char *line, t_shell *glob)
 	lexe_line(line, glob);
 	if (!(validate(glob, &cmd_count)))
 	{
-		printf("syntax error\n");
 		clean_lexer(glob);
 		return (0);
 	}
@@ -124,8 +123,7 @@ int			lex_and_parse(char *line, t_shell *glob)
 	cmd_index = 0;
 	if ((cmd_count = lex_and_validate(line, glob)) <= 0)
 		return (0);
-	init_cmd(glob, cmd_count);
-	clean_lexer(glob);
+	init_and_clean(glob, cmd_count);
 	while (index < (int)ft_strlen(line))
 	{
 		glob->tmp_cmd_index = cmd_index;
@@ -139,7 +137,7 @@ int			lex_and_parse(char *line, t_shell *glob)
 	}
 	if (glob->cmd)
 		clean_cmd(glob, cmd_count);
-	if (global_retour == 0)
-		global_retour = glob->return_code;
+	if (g_retour == 0)
+		g_retour = glob->return_code;
 	return (0);
 }

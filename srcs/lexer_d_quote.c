@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+#include "../includes/minishell.h"
+
 /*
 ** join_env permet de faire un strjoin de :
 ** 	- la variable d'environnement
@@ -27,8 +29,8 @@ char		*join_retour(int *idx, t_shell *glob)
 {
 	char	*s2;
 
-	if (global_retour)
-		s2 = ft_itoa(global_retour);
+	if (g_retour)
+		s2 = ft_itoa(g_retour);
 	else
 	{
 		s2 = ft_itoa(glob->return_code);
@@ -58,17 +60,6 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 		free(tmp);
 		free(s2);
 	}
-	return (str);
-}
-
-char		*manage_end(char *str, int *idx, char *s, int *j)
-{
-	char *tmp;
-
-	tmp = str;
-	str = add_to_1d(tmp, s[*idx]);
-	*j += 1;
-	*idx += 1;
 	return (str);
 }
 

@@ -134,8 +134,8 @@ void		run_commands(int i, t_shell *glob)
 	glob->piping_index = 0;
 	ret = pipe_and_run(glob, i, env_path);
 	glob->return_code = ret;
-	if (global_retour < 128)
-		global_retour = 0;
+	if (g_retour < 128)
+		g_retour = 0;
 	env_destroy_array(glob->envirron);
 	free(env_path);
 }

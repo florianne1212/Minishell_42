@@ -69,7 +69,7 @@ char		*create_command_path(char *env_path, char *command)
 ** returns NULL if no path found with this instruction
 */
 
-char		*ft_search_env_path2(char *env_paths, char *command)
+char			*ft_search_env_path2(char *env_paths, char *command)
 {
 	char		*path;
 	char		**paths;

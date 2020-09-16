@@ -52,3 +52,9 @@ void			init_lex(t_shell *glob, char *line)
 	glob->lex->e = 0;
 	(void)line;
 }
+
+void			init_and_clean(t_shell *glob, int cmd_count)
+{
+	init_cmd(glob, cmd_count);
+	clean_lexer(glob);
+}

@@ -20,11 +20,11 @@ void		control_child_piped(int n)
 void		control_back_parent_piped(int n)
 {
 	ft_putstr_fd("Quitter (core dumped)\n", 2);
-	global_retour = 128 + n;
+	g_retour = 128 + n;
 }
 
 void		control_c_parent_piped(int n)
 {
 	ft_putstr_fd("\n", 2);
-	global_retour = 128 + n;
+	g_retour = 128 + n;
 }

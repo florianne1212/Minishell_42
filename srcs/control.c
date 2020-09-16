@@ -14,8 +14,8 @@
 
 void	manage_control(t_shell *glob)
 {
-	glob->return_code = global_retour;
-	global_retour = 0;
+	glob->return_code = g_retour;
+	g_retour = 0;
 	signal(SIGINT, control_c);
 	signal(SIGQUIT, control_back);
 }
@@ -28,7 +28,7 @@ void	manage_control(t_shell *glob)
 void	control_c(int i)
 {
 	ft_putstr_fd("\n$>", 2);
-	global_retour = 128 + i;
+	g_retour = 128 + i;
 }
 
 /*
