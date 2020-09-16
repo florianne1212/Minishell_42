@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    makefile2                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: lcoiffie <lcoiffie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/06 18:25:10 by lcoiffie          #+#    #+#              #
-#    Updated: 2020/09/16 15:19:33 by lcoiffie         ###   ########.fr        #
+#    Updated: 2020/09/16 17:54:29 by lcoiffie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =		minishell
 
 LIBFT_A =	libft.a
 
-COMP =		gcc $(FLAGS) $(MSHELL_H) $(LIBFT_H) -c -o
+COMP =		clang $(FLAGS) $(MSHELL_H) $(LIBFT_H) -c -o
 
 FLAGS =		-Wall -Werror -Wextra
 
@@ -83,7 +83,7 @@ $(NAME): $(OBJ)
 		@echo LIBFT START
 		@make -C $(LIB_DIR)
 		@echo $(LIBFT_A) CREATED
-		@gcc  -o $(NAME) $(FLAGS)  $(addprefix $(LIB_DIR), $(LIBFT_A)) $(addprefix $(OBJ_DIR), $(OFILE))
+		@clang  -o $(NAME) $(addprefix $(OBJ_DIR), $(OFILE)) $(addprefix $(LIB_DIR), $(LIBFT_A)) $(FLAGS)
 		@echo MINISHELL COMPLETE
 
 $(OBJ): $(CFIND)
