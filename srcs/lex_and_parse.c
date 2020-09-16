@@ -102,7 +102,6 @@ int			lex_and_validate(char *line, t_shell *glob)
 	lexe_line(line, glob);
 	if (!(validate(glob, &cmd_count)))
 	{
-		printf("syntax error\n");
 		clean_lexer(glob);
 		return (0);
 	}
