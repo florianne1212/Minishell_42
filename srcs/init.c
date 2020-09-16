@@ -50,6 +50,7 @@ void			init_lex(t_shell *glob, char *line)
 	glob->lex->count = 0;
 	glob->lex->j = 0;
 	glob->lex->e = 0;
+	glob->parser_error = 0;
 	(void)line;
 }
 

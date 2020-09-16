@@ -110,6 +110,7 @@ typedef struct			s_shell
 	t_command			*cmd;
 	int					fd;
 	int					signal;
+	int					parser_error;
 }						t_shell;
 
 int						g_retour;

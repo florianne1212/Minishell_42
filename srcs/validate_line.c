@@ -54,7 +54,7 @@ void			validate_cond(int idx, t_shell *glob, int *expect, int *cmd_c)
 		meet(*expect, tok, TT_IN))
 			*expect = TT_STRING;
 		else if (meet(*expect, tok, TT_SEMICOLOM))
-			*expect = TT_STRING | TT_END;
+			*expect = TT_STRING | TT_IN | TT_OUT | TT_APPEND | TT_END;
 		else if (meet(*expect, tok, TT_END))
 			*expect = 0;
 		else

@@ -66,9 +66,12 @@ void			parser_string(t_shell *glob, int cmd_index, t_token *t)
 int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 {
 	if (!open_file(t->type, &(glob->cmd[cmd_index]),
-	glob->lex->tokens[idx + 1]->str))
+	glob->lex->tokens[idx + 1]->str) && glob->parser_error == 0)
 	{
-		ft_putstr_fd("error invalid fd", 2);
+		ft_putstr_fd("minishell :", 2);
+		ft_putstr_fd(glob->lex->tokens[idx + 1]->str, 2);
+		ft_putstr_fd(": Aucun fichier ou dossier de ce type\n", 2);
+		glob->parser_error = 1;
 		return (0);
 	}
 	return (1);
