@@ -77,7 +77,7 @@ int				validate(t_shell *glob, int *cmd_count)
 	int			index;
 
 	index = 0;
-	expect = TT_STRING;
+	expect = TT_STRING | TT_APPEND | TT_IN | TT_OUT;
 	validate_cond(index, glob, &expect, cmd_count);
 	if (expect != 0)
 	{
