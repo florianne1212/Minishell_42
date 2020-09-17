@@ -40,9 +40,6 @@ void			init_cmd(t_shell *glob, int cmd_count)
 
 void			init_lex(t_shell *glob, char *line)
 {
-	int			i;
-
-	i = 0;
 	if (!(glob->lex = malloc(sizeof(t_lex))))
 		return ;
 	glob->lex->nb_words = 0;

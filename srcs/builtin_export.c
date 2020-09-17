@@ -71,7 +71,7 @@ int				ft_putenv_null(t_list_env **export, char *string)
 	int			ret;
 
 	if (!(name = find_name(string)))
-		return (errno_return_int(ENOMEM, -1));
+		return (errno_return_int(ENOMEM, 1));
 	ret = ft_setenv(export, name, NULL, 1);
 	free(name);
 	return (ret);
@@ -99,20 +99,24 @@ int				builtin_export(t_shell *glob, int fd, char **arg)
 {
 	int			i;
 	int			ret;
+	int			a;
 
 	ret = 0;
+	a = 0;
 	if (ft_strlen_array((void **)arg) == 1)
 		env_sorted(glob, fd);
 	i = 1;
 	while (arg[i])
 	{
-		if (check_argi(arg[i]) == 2)
-			ft_putenv_append(&glob->list_env, arg[i]);
+		if ((a = check_argi(arg[i])) == 2)
+			ret = ft_putenv_append(&glob->list_env, arg[i]);
+		else if (a == 0)
+			return (1);
 		else if (ft_isinstring('=', arg[i]) == 0)
-			ft_putenv_null(&glob->list_env, arg[i]);
+			ret = ft_putenv_null(&glob->list_env, arg[i]);
 		else if ((ft_putenv_export(&glob->list_env, arg[i]) == -1))
 		{
-			ft_putstr_fd("bash: export : '", 2);
+			ft_putstr_fd("minishell: export : '", 2);
 			ft_putstr_fd(arg[i], 2);
 			ft_putstr_fd("': ", 2);
 			ft_putendl_fd(strerror(errno), 2);
@@ -120,5 +124,5 @@ int				builtin_export(t_shell *glob, int fd, char **arg)
 		}
 		i++;
 	}
-	return (1);
+	return (ret);
 }

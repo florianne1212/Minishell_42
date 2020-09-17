@@ -37,9 +37,7 @@ int				ft_putenv_append(t_list_env **env, char *string)
 	char		*name;
 	char		*value;
 	int			ret;
-	int			i;
 
-	i = 0;
 	if (!(name = find_name_bis(string)))
 		return (errno_return_int(ENOMEM, -1));
 	if (!(value = find_value(string)))
@@ -62,7 +60,7 @@ int				check_argi_bis(char *str)
 			break ;
 		if (c != '_' && ft_isalnum(str[i]) == 0)
 		{
-			ft_putstr_fd("\nbash: export: ", 2);
+			ft_putstr_fd("minishell: export: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd(" not a valid identifier \n", 2);
 			return (0);
@@ -79,12 +77,13 @@ int				check_argi(char *str)
 	i = 0;
 	if (ft_isdigit(str[0]) == 1)
 	{
-		ft_putstr_fd("\nbash: export: ", 2);
+		ft_putstr_fd("minishell: export: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(" not a valid identifier \n", 2);
 		return (0);
 	}
-	check_argi_bis(str);
+	if (check_argi_bis(str) == 0)
+		return (0);
 	while (str[i] != '\0')
 	{
 		if (str[i + 1] == '=' && str[i] == '+')

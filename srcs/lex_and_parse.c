@@ -74,14 +74,8 @@ int			lexe_s_colon(char *line, t_shell *glob, int *index)
 
 void		arg_in_tab(int i, int cmd_index, t_shell *glob)
 {
-	char	**test;
-	int		e;
-
-	e = 0;
 	while (i <= cmd_index)
 	{
-		e = 0;
-		test = glob->cmd[i].argv;
 		free(glob->cmd[i].cmd_arg);
 		glob->cmd[i].cmd_arg = add_front_to_array(glob->cmd[i].argv,
 		glob->cmd[i].exec);

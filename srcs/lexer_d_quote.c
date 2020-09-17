@@ -43,9 +43,7 @@ char		*join_env(int *idx, char *s, t_shell *glob, char *str)
 {
 	char	*s2;
 	char	*tmp;
-	int		j;
 
-	j = glob->lex->j;
 	if (s[*idx] == '$' && s[*idx + 1] == '?')
 		s2 = join_retour(idx, glob);
 	else

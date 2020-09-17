@@ -15,9 +15,7 @@
 void			clean_exit(t_shell *glob)
 {
 	t_list_env	*ptr;
-	int			i;
 
-	i = 0;
 	while (glob->list_env != NULL)
 	{
 		ptr = glob->list_env->next;
