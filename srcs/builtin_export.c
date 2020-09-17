@@ -32,33 +32,6 @@ void			print_value(char *str, int fd)
 }
 
 /*
-** --------env sorted -----------
-** lorsque export utilise sans argument
-** fait "env" avec liste triee
-*/
-
-static void		env_sorted(t_shell *glob, int fd)
-{
-	t_list_env *list;
-
-	list = glob->list_env;
-	ft_list_sort_env(&list, ft_strcmp);
-	while (list != NULL)
-	{
-		ft_putstr_fd("declare -x ", fd);
-		ft_putstr_fd(list->name, fd);
-		if (list->value != NULL)
-		{
-			ft_putstr_fd("=\"", fd);
-			print_value(list->value, fd);
-			ft_putstr_fd("\"", fd);
-		}
-		ft_putstr_fd("\n", fd);
-		list = list->next;
-	}
-}
-
-/*
 ** -----------builtin export-----------
 ** cree nouvelles variables d'environnement
 ** doivent etre presentees sous la forme
@@ -95,6 +68,14 @@ int				ft_putenv_export(t_list_env **env, char *string)
 	return (ret);
 }
 
+void			builtin_export_message(char *str)
+{
+	ft_putstr_fd("minishell: export : '", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("': ", 2);
+	ft_putendl_fd(strerror(errno), 2);
+}
+
 int				builtin_export(t_shell *glob, int fd, char **arg)
 {
 	int			i;
@@ -116,10 +97,7 @@ int				builtin_export(t_shell *glob, int fd, char **arg)
 			ret = ft_putenv_null(&glob->list_env, arg[i]);
 		else if ((ft_putenv_export(&glob->list_env, arg[i]) == -1))
 		{
-			ft_putstr_fd("minishell: export : '", 2);
-			ft_putstr_fd(arg[i], 2);
-			ft_putstr_fd("': ", 2);
-			ft_putendl_fd(strerror(errno), 2);
+			builtin_export_message(arg[i]);
 			ret = 1;
 		}
 		i++;

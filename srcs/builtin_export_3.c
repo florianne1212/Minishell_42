@@ -17,7 +17,7 @@
 ** echange 2 strings
 */
 
-void		ft_swap(char **s1, char **s2)
+void			ft_swap(char **s1, char **s2)
 {
 	char		*temp;
 
@@ -31,7 +31,7 @@ void		ft_swap(char **s1, char **s2)
 ** permet d'ordonner liste chainee dans ordre alphabetiaue
 */
 
-void		ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
+void			ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
 {
 	t_list_env	*list1;
 	t_list_env	*list2;
@@ -52,5 +52,32 @@ void		ft_list_sort_env(t_list_env **begin_list, int (*cmp)())
 			list2 = list2->next;
 		}
 		list1 = list1->next;
+	}
+}
+
+/*
+** --------env sorted -----------
+** lorsque export utilise sans argument
+** fait "env" avec liste triee
+*/
+
+void			env_sorted(t_shell *glob, int fd)
+{
+	t_list_env	*list;
+
+	list = glob->list_env;
+	ft_list_sort_env(&list, ft_strcmp);
+	while (list != NULL)
+	{
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd(list->name, fd);
+		if (list->value != NULL)
+		{
+			ft_putstr_fd("=\"", fd);
+			print_value(list->value, fd);
+			ft_putstr_fd("\"", fd);
+		}
+		ft_putstr_fd("\n", fd);
+		list = list->next;
 	}
 }

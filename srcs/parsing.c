@@ -65,8 +65,8 @@ void			parser_string(t_shell *glob, int cmd_index, t_token *t)
 
 int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 {
-	if (!open_file(t->type, &(glob->cmd[cmd_index]),
-	glob->lex->tokens[idx + 1]->str) && glob->parser_error == 0)
+	if (glob->parser_error == 0 && !open_file(t->type, &(glob->cmd[cmd_index]),
+	glob->lex->tokens[idx + 1]->str))
 	{
 		ft_putstr_fd("minishell :", 2);
 		ft_putstr_fd(glob->lex->tokens[idx + 1]->str, 2);

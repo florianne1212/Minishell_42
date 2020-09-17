@@ -182,6 +182,7 @@ int						builtin_echo(t_shell *glob, int fd, char **arg);
 ** builtin_export.c
 */
 int						builtin_export(t_shell *glob, int fd, char **arg);
+void					print_value(char *str, int fd);
 
 /*
 ** builtin_export_2.c
@@ -196,6 +197,7 @@ char					*find_name_bis(char *str);
 */
 void					ft_swap(char **s1, char **s2);
 void					ft_list_sort_env(t_list_env **begin_list, int (*cmp)());
+void					env_sorted(t_shell *glob, int fd);
 
 /*
 ** builtin_unset.c
