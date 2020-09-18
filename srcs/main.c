@@ -55,6 +55,7 @@ int				main(int argc, char **argv, char **envp)
 	ft_memset(&glob, 0, sizeof(t_shell));
 	glob.running = 1;
 	sort_envp(envp, &glob);
+	manage_shlvl(&glob);
 	while (glob.running)
 	{
 		manage_control(&glob);

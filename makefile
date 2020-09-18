@@ -66,6 +66,7 @@ CFILE =		builtin_cd.c \
 			run_commands2.c \
 			validate_line.c \
 			var_env.c \
+			shell_level.c \
 
 CFIND =		$(CFILE:%=$(SRC_DIR)%)
 
