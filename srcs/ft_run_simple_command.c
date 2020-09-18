@@ -132,7 +132,7 @@ int			path_for_execve(char *file, char **path, char *env_path)
 	{
 		if (s_bufstat.st_mode & S_IXUSR)
 			return (0);
-		return (not_a_command(file, "Permission non accordee", 126));
+		return (not_a_command(file, ": Permission non accordee", 126));
 	}
 	if (S_ISDIR(s_bufstat.st_mode))
 		return (not_a_command(file, ": est un dossier", 126));
