@@ -31,14 +31,12 @@ int		restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i)
 	close(glob->tmpout);
 	if (back > 0)
 	{
-		while ((j < glob->piping_index))
+		while ((j < glob->piping_index) && (glob->cmd[i + j].pid != -1))
 		{
-			status = 0;
 			waitpid(glob->cmd[i + j].pid, &status, 0);
 			if (WIFEXITED(status))
 			{
-				if (status && (j == glob->piping_index - 1))
-					ret = 1;
+				ret = WEXITSTATUS(status);
 			}
 			j++;
 		}
