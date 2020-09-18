@@ -91,10 +91,11 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 	char	*path;
 	int		back;
 
-	j = 0;
+	j = -1;
+	back = 0;
 	if (get_piping_index_and_initialize_redirection_in(glob, i))
 		return (1);
-	while (j < glob->piping_index)
+	while (++j < glob->piping_index)
 	{
 		path = NULL;
 		if (redir_one_piped_cmd(glob, j, i))
@@ -108,7 +109,6 @@ int			pipe_and_run(t_shell *glob, int i, char *env_path)
 		}
 		if (path)
 			free(path);
-		j++;
 	}
 	return (restore_in_out_wait_and_return(glob, back, ret, i));
 }
