@@ -47,7 +47,7 @@ int	builtin_echo(t_shell *glob, int fd, char **arg)
 
 	i = 1;
 	n_opt = 0;
-	while (is_a_n_opt(arg[i], &n_opt))
+	while (arg[i] && is_a_n_opt(arg[i], &n_opt))
 		i++;
 	while (arg[i])
 	{
