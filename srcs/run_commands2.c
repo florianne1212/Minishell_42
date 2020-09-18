@@ -36,8 +36,10 @@ int		restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i)
 			status = 0;
 			waitpid(glob->cmd[i + j].pid, &status, 0);
 			if (WIFEXITED(status))
+			{
 				if (status && (j == glob->piping_index - 1))
 					ret = 1;
+			}
 			j++;
 		}
 	}

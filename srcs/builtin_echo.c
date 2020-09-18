@@ -13,6 +13,29 @@
 #include "../includes/minishell.h"
 
 /*
+** --------------is_a_n_opt---------------
+** verifie si option -n
+*/
+
+int	is_a_n_opt(char *arg, int *opt)
+{
+	int	j;
+
+	j = 0;
+	if (arg[0] != '-')
+		return (0);
+	j++;
+	while (arg[j])
+	{
+		if (arg[j] != 'n')
+			return (0);
+		j++;
+	}
+	*opt = 1;
+	return (1);
+}
+
+/*
 **--------builtin echo ------------
 ** echo +/- option -n
 */
@@ -24,12 +47,7 @@ int	builtin_echo(t_shell *glob, int fd, char **arg)
 
 	i = 1;
 	n_opt = 0;
-	if (!(ft_strcmp(arg[1], "-n")))
-	{
-		n_opt = 1;
-		i++;
-	}
-	while (arg[i] && (ft_strcmp(arg[i], "-n") == 0))
+	while (is_a_n_opt(arg[i], &n_opt))
 		i++;
 	while (arg[i])
 	{

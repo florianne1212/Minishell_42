@@ -1,15 +1,2 @@
-total 360
--rwxr-xr-x    1 laurentcoiffier  staff   1838 11 sep 09:04 Makefile
--rw-r--r--    1 laurentcoiffier  staff   5010 11 sep 09:04 correction en cours.odt
-drwxr-xr-x    3 laurentcoiffier  staff     96 11 sep 09:04 includes
--rwxr-xr-x    1 laurentcoiffier  staff  71496 14 sep 00:00 libft.a
-drwxr-xr-x  148 laurentcoiffier  staff   4736 13 sep 16:11 libft_42
--rw-r--r--    1 laurentcoiffier  staff      2 11 sep 09:04 loulou
--rwxr-xr-x    1 laurentcoiffier  staff  74668 14 sep 00:00 minishell
-drwxr-xr-x   38 laurentcoiffier  staff   1216 14 sep 00:00 objs
-drwxr-xr-x   40 laurentcoiffier  staff   1280 13 sep 23:33 srcs
--rw-r--r--    1 laurentcoiffier  staff      0 14 sep 00:01 test1
--rw-r--r--    1 laurentcoiffier  staff     23 11 sep 09:06 test2
--rw-r--r--    1 laurentcoiffier  staff    449 11 sep 09:04 test3
--rw-r--r--    1 laurentcoiffier  staff    120 11 sep 09:04 test4
--rw-r--r--    1 laurentcoiffier  staff     14 11 sep 09:04 test_file
+coucou c'est moi
+ah ben non ; c'est toi
