@@ -127,15 +127,21 @@ void		run_commands(int i, t_shell *glob)
 	int		ret;
 	char	*env_path;
 
-	if (!glob->running)
-		return ;
-	env_path = ft_getenv(glob->list_env, "PATH");
-	glob->envirron = env_create_array(glob->list_env, glob->envirron);
-	glob->piping_index = 0;
-	ret = pipe_and_run(glob, i, env_path);
-	glob->return_code = ret;
-	if (g_retour < 128)
-		g_retour = 0;
-	env_destroy_array(glob->envirron);
-	free(env_path);
+	if (glob->cmd[i].exec && ft_strlen(glob->cmd[i].exec) != 0)
+	{
+		env_path = ft_getenv(glob->list_env, "PATH");
+		glob->envirron = env_create_array(glob->list_env, glob->envirron);
+		glob->piping_index = 0;
+		ret = pipe_and_run(glob, i, env_path);
+		glob->return_code = ret;
+		if (g_retour < 128)
+			g_retour = 0;
+		env_destroy_array(glob->envirron);
+		free(env_path);
+	}
+	else
+	{
+		if (glob->cmd[i].error == 1)
+			g_retour = 1;
+	}
 }

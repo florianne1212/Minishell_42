@@ -34,6 +34,7 @@ void			init_cmd(t_shell *glob, int cmd_count)
 		if (!(glob->cmd[i].argv = (char **)malloc(sizeof(char *))))
 			return ;
 		glob->cmd[i].argv[0] = NULL;
+		glob->cmd[i].error = 0;
 		i++;
 	}
 }

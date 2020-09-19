@@ -71,6 +71,7 @@ int				parser_redir(t_shell *glob, int cmd_index, t_token *t, int idx)
 		ft_putstr_fd("minishell :", 2);
 		ft_putstr_fd(glob->lex->tokens[idx + 1]->str, 2);
 		ft_putstr_fd(": Aucun fichier ou dossier de ce type\n", 2);
+		glob->cmd[cmd_index].error = 1;
 		glob->parser_error = 1;
 		return (0);
 	}

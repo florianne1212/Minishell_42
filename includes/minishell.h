@@ -84,6 +84,7 @@ typedef struct			s_command
 	t_file				in;
 	t_file				out;
 	t_bool				append;
+	int					error;
 }						t_command;
 
 typedef struct			s_shell
