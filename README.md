@@ -1,4 +1,4 @@
-# Minishell_under_construction
+# Minishell_42
 
 Minishell of 42 Cursus
 
