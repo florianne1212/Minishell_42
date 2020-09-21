@@ -274,6 +274,7 @@ int						restore_in_out_wait_and_return(t_shell *glob, int back,
 						int ret, int i);
 int						get_piping_index_and_initialize_redirection_in(
 						t_shell *glob, int i);
+void					initialise_pid(t_shell *glob, int i);
 
 /*
 ** ft_run_simple_command.c

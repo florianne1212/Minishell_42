@@ -31,15 +31,30 @@ int		restore_in_out_wait_and_return(t_shell *glob, int back, int ret, int i)
 	close(glob->tmpout);
 	if (back > 0)
 	{
-		while ((j < glob->piping_index) && (glob->cmd[i + j].pid != -1))
+		while ((j < glob->piping_index))
 		{
-			waitpid(glob->cmd[i + j].pid, &status, 0);
-			if (WIFEXITED(status))
+			if (glob->cmd[i + j].pid > 0)
 			{
-				ret = WEXITSTATUS(status);
+				waitpid(glob->cmd[i + j].pid, &status, 0);
+				if (WIFEXITED(status) && (j == glob->piping_index - 1))
+				{
+					ret = WEXITSTATUS(status);
+				}
 			}
 			j++;
 		}
 	}
 	return (ret);
+}
+
+void	initialise_pid(t_shell *glob, int i)
+{
+	int j;
+
+	j = 0;
+	while (j < glob->piping_index)
+	{
+		glob->cmd[i + j].pid = 0;
+		j++;
+	}
 }

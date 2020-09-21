@@ -45,6 +45,7 @@ int			get_piping_index_and_initialize_redirection_in(t_shell *glob, int i)
 		if ((glob->fdin = dup(glob->tmpin)) < 0)
 			return (1);
 	}
+	initialise_pid(glob, i);
 	return (0);
 }
 
